@@ -18,6 +18,8 @@ simulazione_esame/<AAAA-MM-GG>_<ID>/orologio.pdf      colonna stretta, per l'oro
 ```
 
 Compilazione (entrambi i formati): `bash simulazione_esame/compila.sh <AAAA-MM-GG>_<ID>`.
+Per risolvere una prova intera con un thread per esercizio (dalle foto della traccia fino
+alla pubblicazione sull'orologio) c'è il prompt pronto in `PROMPT_ORCHESTRATORE.md`.
 I numeri vengono dal `calcoli.py` dello svolgimento di riferimento e le figure dalla sua
 cartella `figure/` (con `\graphicspath`): non si ricalcola e non si duplica nulla.
 

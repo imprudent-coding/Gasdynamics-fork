@@ -8,6 +8,10 @@ name: esami-orologio
 # Repository di destinazione: variabile GARMIN_REPO (default imprudent-coding/garmin-latex).
 on:
   push:
+    # solo main: l'orologio legge le simulazioni da main, e un push sul branch prima del
+    # merge mandava un secondo avviso inutile (due build di fila)
+    branches:
+      - main
     paths:
       - "simulazione_esame/**/orologio.pdf"
   workflow_dispatch:
