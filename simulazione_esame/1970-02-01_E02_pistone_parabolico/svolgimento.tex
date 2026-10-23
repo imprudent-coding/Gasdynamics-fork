@@ -1,0 +1,343 @@
+% Simulazione d'esame: prova del 01/02/1970, esercizio 2 -- pistone con legge parabolica e poi lineare.
+% Stessi numeri e figure dello svolgimento di riferimento:
+% svolgimenti/1970-02-01_E02_pistone_parabolico (calcoli.py e figure/).
+% Compilare con: bash ../compila.sh 1970-02-01_E02_pistone_parabolico  (A4 + orologio)
+
+\input{../preambolo}
+\graphicspath{{../../svolgimenti/1970-02-01_E02_pistone_parabolico/figure/}}
+
+\newcommand{\uma}{u-a}
+\newcommand{\upa}{u+a}
+
+\esercizio{Prova del 01/02/1970 -- Esercizio 2}{Pistone con legge parabolica e poi lineare}
+
+\begin{document}
+\maketitle
+
+\emph{Traccia.} Un pistone all'estremo sinistro di un condotto molto lungo si muove verso destra con legge $x=t^2$
+fino a $t=1$ e poi con legge $x=2t-1$. Il gas è in quiete con $p=1$ e $\rho=\gamma$. Determinare l'evoluzione del
+campo e la sua dipendenza dal peso molecolare del gas ($\gamma$ e $R$); descrivere il campo nei piani $x$--$t$ e
+$p$--$u$. (La traccia coincide con B69-E02 del 25/01/2023; dello stesso tipo B49-E01 e B20-E01.)
+
+\section*{Che cosa dicono i dati}
+Dalla legge del pistone ricavo
+\begin{gather*}
+x_p=t^2 \ee u_p=2t \ee \ddot x_p=2\quad(0\le t\le1),\\
+x_p=2t-1 \ee u_p=2 \ee \ddot x_p=0\quad(t>1).
+\end{gather*}
+Posizione e velocità sono continue in $t=1$, salta solo l'accelerazione; anche in $t=0$ la velocità è continua
+($u_p(0)=0$) e l'accelerazione passa da 0 a 2.
+
+Il dato $\rho=\gamma$ con $p=1$ fissa $a_0=\sqrt{\gamma p_0/\rho_0}=1$ \textbf{per qualunque gas}: le velocità sono
+riferite ad $a_0$ e il pistone arriva a $u_p=2a_0$. La temperatura iniziale invece dipende dal gas,
+$T_0=p_0/(\rho_0R)=1/(\gamma R)$. La traccia non fissa il gas: lavoro in forma letterale in $\gamma$, do i numeri per
+l'aria ($\gamma=1{,}4$) e alla fine confronto elio ($\gamma=5/3$) e SF$_6$ ($\gamma\approx1{,}1$).
+
+\section*{Modello}
+Uso Eulero 1D instazionario, gas perfetto non viscoso e adiabatico: il condotto è a sezione costante e molto lungo,
+quindi onde piane e nessuna riflessione dall'estremo destro. Finché non si forma l'urto il campo è un'onda semplice
+omoentropica, perché lo stato iniziale è uniforme e il pistone, partendo da fermo, genera onde di una sola famiglia.
+Dopo la formazione il flusso non è più omoentropico: per gli stati dopo che l'urto ha inglobato tutta la
+compressione uso un pseudo-problema di Riemann fra gli stati esterni, che dà gli stati medi ma non la struttura
+interna delle zone d'interazione; il regime asintotico lo ricavo dal pistone a velocità costante. Gli istanti
+d'incontro dopo la formazione li stimo con caratteristiche rettilinee anche nelle zone d'interazione.
+
+\section*{Che cosa mi aspetto}
+Il pistone è a sinistra del gas e avanza: genera una \textbf{compressione $\upa$}, che spinge il gas verso destra,
+nel verso in cui si propaga. Poiché $u_p(0)=0$ non c'è singolarità in $(0,0)$: la testa è la caratteristica $x=a_0t$,
+su cui è discontinuo solo il gradiente, e la compressione è \textbf{non centrata}. Ogni caratteristica è una retta che
+porta lo stato del pistone all'istante di emissione; quelle emesse più tardi hanno $u$ e $a$ maggiori, sono più
+veloci e raggiungono le precedenti: la compressione si irripidisce e degenera in un urto per \textbf{coalescenza}.
+L'urto nasce di intensità nulla e si rinforza assorbendo le caratteristiche che lo raggiungono da sinistra.
+
+Dopo $t=1$ il pistone ha velocità costante: l'ultima caratteristica di compressione (la coda) parte da $(1,1)$ e fra
+essa e il pistone c'è un plateau uniforme, lo stato 1. Il gas è stato compresso isentropicamente, mentre a parità di
+velocità del gas un urto sostiene una pressione minore (la Hugoniot sta sotto l'isentropica). Quando l'urto avrà
+inglobato tutta la compressione, mi aspetto quindi, come al centro di una compressione centrata, un \textbf{urto
+$\upa$, un contatto e un'espansione $\uma$} (RCS). L'espansione torna sul pistone, si riflette con la stessa natura,
+insegue l'urto e lo indebolisce; a tempi lunghi resta il campo del pistone impulsivo a velocità 2, con la memoria del
+transitorio, uno strato entropico.
+
+Gli stati che userò sono: 0 gas in quiete; 1 plateau sul pistone ($u=2$); 2 e 3 dietro l'espansione $\uma$ e dietro
+l'urto dopo il pseudo-Riemann 1|0; 4 sul pistone dopo la riflessione; 5 (gas mai urtato sul pistone) e 6 (dietro
+l'urto) nel regime asintotico. Nel piano $x$--$t$ avrò una zona a 0 famiglie (0, poi i plateau 1 e 4), una zona a una
+famiglia (l'onda semplice, con le $\upa$ semirette, delimitata dalle semirette testa e coda finché l'urto non le
+raggiunge) e, dopo l'urto, zone d'interazione a due famiglie vicino al pistone e dove l'espansione riflessa attraversa
+il contatto e raggiunge l'urto.
+
+\section*{L'onda semplice di compressione}
+In tutta l'onda semplice $\upa$ l'invariante dell'altra famiglia è quello del gas in quiete, $a-\delta u=a_0=1$:
+questa è la scorciatoia che mi dà ogni caratteristica in forma chiusa. Quella emessa all'istante $t_p\le1$ porta
+\begin{gather*}
+u=2t_p \ee a=1+2\delta t_p \ee \lambda=u+a=1+(\gamma+1)t_p,
+\end{gather*}
+quindi è la retta
+\[
+x=t_p^2+\left[1+(\gamma+1)t_p\right](t-t_p),
+\]
+con $p/p_0=(a/a_0)^{2\gamma/(\gamma-1)}$ e $\rho/\rho_0=(a/a_0)^{2/(\gamma-1)}$. La testa ($t_p=0$) è $x=t$; la coda
+($t_p=1$) parte da $(1,1)$ con pendenza $2+\gamma$ (aria: $3{,}4$).
+
+\section*{Dove si forma l'urto}
+Due caratteristiche vicine si incontrano dove $\partial x/\partial t_p=0$ a $t$ fissato:
+\[
+2t_p+(\gamma+1)(t-t_p)-\left[1+(\gamma+1)t_p\right]=0
+\]
+\[
+\Rightarrow\ t_{env}(t_p)=\frac{1+2\gamma t_p}{\gamma+1}.
+\]
+È l'inviluppo, la frontiera della soluzione a più valori. Cresce con $t_p$ (controllo: il primo punto di coalescenza
+è sulla testa, $t_p=0$), quindi
+\[
+t_{BU}=x_{BU}=\frac{1}{\gamma+1}=\frac{a_0}{(1+\delta)\,\ddot x_p(0)}
+\]
+\[
+\text{aria: } t_{BU}=x_{BU}=0{,}417.
+\]
+Controllo subito che l'urto nasca durante la fase parabolica e davanti al pistone: $t_{BU}=0{,}417<1$ e
+$x_{BU}=0{,}417>x_p(t_{BU})=0{,}174$. Il pistone raggiungerebbe la testa $x=t$ solo in $t=1$, ma lì c'è già l'urto,
+più veloce della testa.
+
+\figura[0.78]{xt_formazione.pdf}{Piano $x$--$t$ fino a $t=1{,}8$ (aria): caratteristiche $\upa$ (tratto fisico
+continuo, prolungamento a più valori punteggiato fino all'inviluppo), urto stimato da BU ad A, contatto ed
+espansione $\uma$ del pseudo-Riemann; ombreggiato il gas urtato durante la crescita dell'urto.\label{fig:xtf}}
+
+Nella fig.~\ref{fig:xtf} le caratteristiche si infittiscono vicino alla testa, dove l'inviluppo (tratteggio grigio)
+ha il primo punto in BU. Senza l'urto la soluzione sarebbe a più valori fra testa e inviluppo: l'urto taglia questa
+regione e assorbe una dopo l'altra le caratteristiche, fino alla coda, che raggiunge in A. La particella che l'urto
+investe in BU (punteggiata) separa il gas mai urtato, una striscia sottile vicino al pistone, dal gas urtato da un
+urto via via più forte.
+
+\section*{Il plateau 1}
+Dalla coda ($t_p=1$, $u_1=u_p=2$):
+\begin{gather*}
+a_1=a_0+\delta u_p=1+(\gamma-1)=\gamma \ee p_1=\gamma^{\frac{2\gamma}{\gamma-1}},\\
+\frac{\rho_1}{\rho_0}=\gamma^{\frac{2}{\gamma-1}} \ee \frac{T_1}{T_0}=\gamma^2 \ee M_1=\frac{2}{\gamma}.
+\end{gather*}
+Aria: $a_1=1{,}4$, $p_1=10{,}5$, $\rho_1/\rho_0=5{,}38$, $T_1/T_0=1{,}96$, $M_1=1{,}43$. Il plateau è supersonico:
+le $\uma$ al suo interno hanno pendenza $u_1-a_1=2-\gamma=0{,}6>0$, vanno verso destra nel laboratorio ma più
+lentamente del pistone, che quindi le raggiunge.
+
+Prima di proseguire controllo se potrei trattare l'urto come un'onda isentropica: con $M_s\approx2{,}8$, ben oltre
+$\approx1{,}2$, no. Lo stato 1 sovrastima del 20\,\% la pressione che un urto sostiene alla stessa velocità, quindi
+serve Rankine--Hugoniot.
+
+\section*{L'urto cresce fino ad A}
+Fra BU e A l'urto assorbe le caratteristiche a partire dalla testa. Ne stimo la traiettoria per punti: quando
+raggiunge la caratteristica emessa in $t_p$, gli assegno la velocità dell'urto del problema di Riemann fra lo stato
+portato da quella caratteristica e il gas in quiete, trascurando le onde che l'urto stesso riflette. La velocità
+cresce da $w=a_0=1$ in BU al valore del pseudo-Riemann qui sotto. Controllo che lungo tutta la traiettoria la velocità
+stia fra quella delle caratteristiche davanti ($1$) e dietro ($1+(\gamma+1)t_p$) e che l'urto resti prima
+dell'inviluppo: è così. L'urto raggiunge la coda in
+\begin{gather*}
+\text{A}:\quad t_A\approx1{,}34 \ee x_A\approx2{,}16\quad(\text{aria}),
+\end{gather*}
+con il pistone in $x_p\approx1{,}68$: lì ha inglobato tutta la compressione.
+
+\section*{In A: pseudo-Riemann fra 1 e 0}
+Metto a contatto lo stato 1 (sinistra) e lo stato 0 (destra). Le curve nel piano $p$--$u$ sono
+\[
+u_L(p)=u_1-(p-p_1)\sqrt{\frac{A_1}{p+B_1}}\quad(p>p_1),
+\]
+\[
+u_L(p)=u_1+\frac{a_1}{\delta}\left[1-\left(\frac{p}{p_1}\right)^{\frac{\gamma-1}{2\gamma}}\right]\quad(p\le p_1),
+\]
+\[
+u_R(p)=u_0+(p-p_0)\sqrt{\frac{A_0}{p+B_0}}\quad(p>p_0),
+\]
+con $A_i=2/[(\gamma+1)\rho_i]$ e $B_i=(\gamma-1)p_i/(\gamma+1)$.
+
+\textbf{Primo tentativo isentropico.}
+\[
+z=\frac{a_0}{a_1}\left(\frac{p_1}{p_0}\right)^{\frac{\gamma-1}{2\gamma}}=1,
+\]
+\[
+u^{(0)}=\frac{z(a_1+\delta u_1)-(a_0-\delta u_0)}{\delta(1+z)}=2.
+\]
+Il tentativo isentropico mi restituisce lo stato 1, perché 1 e 0 stanno sulla stessa isentropica $\upa$: è la
+seconda scorciatoia, il residuo misura direttamente la differenza fra isentropica e Hugoniot. Con $u^{(0)}=2$ l'onda
+sinistra è nulla, $p_2^{(0)}=p_1=10{,}5$, mentre l'urto destro dà $p_3^{(0)}=8{,}73$. A parità di $u$ l'urto sostiene
+meno pressione, quindi $p^*$ deve scendere sotto $p_1$ e $u^*$ salire sopra 2: a sinistra c'è un'espansione.
+Aggiorno $u$ finché $|p_2-p_3|$ è trascurabile:
+\begin{gather*}
+u^*=u_2=u_3=2{,}11 \ee p^*=p_2=p_3=9{,}48\quad(\text{RCS}).
+\end{gather*}
+Controllo la natura delle onde: $u^*>u_1=2$, espansione a sinistra; $u^*>u_0=0$, urto a destra. Verificata.
+
+Ricostruisco gli stati, con l'isentropica a sinistra e Rankine--Hugoniot a destra:
+\begin{gather*}
+a_2=a_1-\delta(u^*-u_1)=1{,}38 \ee \frac{\rho_2}{\rho_0}=4{,}98 \ee \frac{T_2}{T_0}=1{,}90,
+\end{gather*}
+\[
+\frac{\rho_3}{\rho_0}=\frac{(\gamma+1)p^*+(\gamma-1)p_0}{(\gamma-1)p^*+(\gamma+1)p_0}=3{,}74,
+\]
+\begin{gather*}
+a_3=1{,}59 \ee \frac{T_3}{T_0}=2{,}53.
+\end{gather*}
+Velocità dell'urto:
+\[
+M_{rel,0}=\frac{\gamma+1}{4}\frac{u^*}{a_0}+\sqrt{1+\left(\frac{\gamma+1}{4}\frac{u^*}{a_0}\right)^2},
+\]
+\[
+w=u_0+a_0M_{rel,0}\ \Rightarrow\ w=M_s=2{,}87.
+\]
+Controllo l'urto: $M_s=2{,}87>1$ e $s_3/s_0=1{,}50>1$ ($\Delta s/R=1{,}01$). Verificato. L'espansione $\uma$ ha testa
+$u_1-a_1=0{,}60$ e coda $u^*-a_2=0{,}73$; il contatto va a $u^*=2{,}11$.
+
+\section*{L'espansione torna sul pistone: stato 4}
+Con caratteristiche rettilinee la testa dell'espansione raggiunge il pistone in P ($t\approx1{,}69$, $x\approx2{,}37$),
+la coda in $t\approx1{,}72$. Sul pistone c'è una sola caratteristica entrante (la $\upa$), quindi impongo una sola
+condizione, $u=u_p=2$; lungo la $\uma$ arriva l'invariante $a-\delta u$ dello stato 2:
+\begin{gather*}
+a_4-\delta u_p=a_2-\delta u^* \ \Rightarrow\ a_4=a_2-\delta(u^*-u_p)=1{,}36,
+\end{gather*}
+\[
+p_4=p_2\left(\frac{a_4}{a_2}\right)^{\frac{2\gamma}{\gamma-1}}=8{,}50.
+\]
+Controllo: $a_4<a_2$, la riflessa è un'espansione $\upa$, come deve essere sulla parete mobile (stessa natura); e
+$a>0$, $p>0$ ovunque. La sua testa, con pendenza $u^*+a_2=3{,}48$, attraversa il contatto in C ($t\approx2{,}06$,
+$x\approx3{,}67$) e, con pendenza $u^*+a_3=3{,}70$, raggiunge l'urto in S ($t\approx2{,}73$, $x\approx6{,}1$): da lì
+l'urto rallenta.
+
+Al contatto l'espansione passa dal gas 2 ($\rho_2a_2=9{,}62$) al gas 3 ($\rho_3a_3=8{,}33$), verso impedenza minore:
+oltre all'espansione trasmessa nasce una debole compressione riflessa, che torna sul pistone e riporta la pressione
+da $p_4=8{,}50$ verso il valore asintotico.
+
+\figura[0.8]{xt_campo.pdf}{Piano $x$--$t$ dopo A (aria), con caratteristiche rettilinee: espansione $\uma$ da A al
+pistone (P), testa dell'espansione riflessa $\upa$ attraverso il contatto (C) fino all'urto (S); dopo S l'urto
+rallenta verso $w_\infty$ (raccordo qualitativo).\label{fig:xtc}}
+
+Nella fig.~\ref{fig:xtc} pistone (2), contatto (2,11) e urto (2,87) hanno pendenze vicine: i gas 1 e 2 occupano zone
+sottili fra pistone e contatto, e l'espansione $\uma$, pur andando verso destra, è raggiunta dal pistone in P. Dopo S
+la traiettoria dell'urto si incurva verso la pendenza asintotica 2,76, mentre fra pistone e urto si stabiliscono gli
+stati 5 e 6.
+
+\section*{A tempi lunghi: stati 5 e 6}
+Quando tutte le onde del transitorio hanno raggiunto l'urto, il gas dietro l'urto ha la velocità del pistone,
+$u_6=u_p=2$: è la terza scorciatoia, l'urto è quello del pistone impulsivo. Da massa e quantità di moto nel
+riferimento dell'urto
+\begin{gather*}
+\rho_0w=\rho_6(w-u_p) \ee p_0+\rho_0w^2=p_6+\rho_6(w-u_p)^2,
+\end{gather*}
+\[
+\Rightarrow\ p_6=p_0+\rho_0\,w\,u_p,
+\]
+e con l'energia ottengo
+\[
+w^2-(1+\delta)u_pw-a_0^2=0,
+\]
+\[
+w_\infty=\frac{(1+\delta)u_p+\sqrt{(1+\delta)^2u_p^2+4a_0^2}}{2}=2{,}76,
+\]
+\begin{gather*}
+p_6=p_5=8{,}73 \ee \frac{\rho_6}{\rho_0}=\frac{w_\infty}{w_\infty-u_p}=3{,}62 \ee \frac{T_6}{T_0}=2{,}41.
+\end{gather*}
+Il gas a contatto con il pistone (5) non è mai stato urtato: ha l'entropia iniziale, $u_5=2$ e $p_5=p_6$:
+\[
+a_5=a_0\left(\frac{p_5}{p_0}\right)^{\frac{\gamma-1}{2\gamma}}=1{,}36,
+\]
+\begin{gather*}
+\frac{\rho_5}{\rho_0}=4{,}70 \ee \frac{T_5}{T_0}=1{,}86.
+\end{gather*}
+Controllo: $p_5=p_6$, $u_5=u_6=u_p$, $p_6-p_0=\rho_0w_\infty u_p$; urto con $M_s=2{,}76>1$ e $s_6/s_0=1{,}44>1$
+($\Delta s/R=0{,}91$, meno dell'urto in A). Verificato. Fra 5 e 6 c'è lo strato entropico: $p$ e $u$ uniformi,
+densità e temperatura variabili.
+
+\section*{Il piano $p$--$u$}
+\figura[1.0]{pu.pdf}{Piano $p$--$u$ (aria), scala lineare e logaritmica: isentropica $\upa$ e Hugoniot $\upa$ da 0,
+espansione $\uma$ da 1, espansione $\upa$ da 2 (riflessione sul pistone), retta $u=u_p=2$.\label{fig:pu}}
+
+\figura[0.62]{pu_zoom.pdf}{Piano $p$--$u$ vicino a $u=2$ (aria): residuo del primo tentativo isentropico e stati del
+transitorio.\label{fig:puz}}
+
+Nella fig.~\ref{fig:pu} la compressione porta da 0 a 1 lungo l'isentropica $\upa$; la Hugoniot da 0 ha la stessa
+tangente in 0 e sta sotto l'isentropica per $u>0$: le due coincidono finché la compressione è debole e si separano
+sopra $u\approx1$. In scala lineare leggo le distanze in pressione vicino a $u=2$; in scala logaritmica la curvatura
+è attenuata e si vede che le curve partono tangenti da 0. Nello zoom (fig.~\ref{fig:puz}) il segmento verticale fra 1
+e la Hugoniot in $u=2$ è il residuo del primo tentativo; 2=3 è l'intersezione dell'espansione $\uma$ da 1 con la
+Hugoniot; 4 sta sulla retta $u=2$, sotto la Hugoniot; il regime asintotico 5=6 sta sulla Hugoniot in $u=2$. Gli stati
+5 e 6 coincidono in $p$--$u$ ma hanno impedenze diverse ($\rho_5a_5=8{,}97$, $\rho_6a_6=7{,}88$): il contatto non si
+vede in questo piano.
+
+\section*{Dipendenza dal gas}
+In forma letterale $t_{BU}=1/(\gamma+1)$, $a_1=\gamma$, $p_1=\gamma^{2\gamma/(\gamma-1)}$ e $w_\infty$ (con
+$1+\delta=(\gamma+1)/2$) dipendono solo da $\gamma$. Per $\gamma\to1$: $t_{BU}\to1/2$, $p_1\to e^2\approx7{,}39$,
+$w_\infty\to1+\sqrt2\approx2{,}41$. Ripetendo il calcolo:
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+ & He & aria & SF$_6$ \\
+\midrule
+$\gamma$ & 5/3 & 1,4 & 1,1 \\
+$t_{BU}$ & 0,375 & 0,417 & 0,476 \\
+$p_1$ & 12,9 & 10,5 & 8,14 \\
+$M_1$ & 1,20 & 1,43 & 1,82 \\
+$p^*$ & 11,8 & 9,48 & 7,14 \\
+$u^*$ & 2,09 & 2,11 & 2,13 \\
+$w$ (A) & 3,10 & 2,87 & 2,62 \\
+$w_\infty$ & 3,00 & 2,76 & 2,50 \\
+$p_6$ & 11,0 & 8,73 & 6,50 \\
+$\rho_6/\rho_0$ & 3,00 & 3,62 & 5,00 \\
+$T_6/T_0$ & 3,67 & 2,41 & 1,30 \\
+$T_5/T_0$ & 2,61 & 1,86 & 1,19 \\
+\bottomrule
+\end{tabular}
+\caption{Dipendenza dal gas ($p^*$, $u^*$, $w$ in A stime del modello; valori asintotici esatti).}
+\end{table}
+
+\figura[1.0]{gas.pdf}{Dipendenza da $\gamma$: istante di formazione, velocità dell'urto (pseudo-Riemann e
+asintotica), pressioni dei plateau; le rette punteggiate indicano SF$_6$, aria ed elio.\label{fig:gas}}
+
+Al crescere di $\gamma$ il blow-up è più precoce, l'urto più veloce e le pressioni più alte
+(fig.~\ref{fig:gas}); la differenza fra la velocità del pseudo-Riemann e quella asintotica resta di circa
+$0{,}1$--$0{,}12\,a_0$ per tutti i gas.
+
+$R$ non compare: con i dati assegnati le equazioni di Eulero contengono solo $\gamma$, e $R$ entra solo nella
+temperatura, $T=p/(\rho R)$. I rapporti $T/T_0$ sono indipendenti da $R$; cambia la temperatura assoluta,
+$T_0=1/(\gamma R)$: a pari $p_0$ e $\rho_0$ un gas pesante (piccolo $R$) è più caldo.
+
+\section*{Risposta}
+Il pistone genera una compressione $\upa$ non centrata che degenera in un urto sulla testa in
+$t_{BU}=x_{BU}=1/(\gamma+1)$ (aria $0{,}417$). Dietro la compressione c'è il plateau isentropico 1 ($u=2$,
+$a=\gamma$, $p=\gamma^{2\gamma/(\gamma-1)}$, aria $10{,}5$). L'urto si rinforza fino ad A ($t\approx1{,}34$), dove
+il pseudo-Riemann 1|0 dà RCS con $w=2{,}87$, $p^*=9{,}48$, $u^*=2{,}11$; l'espansione $\uma$ si riflette sul pistone
+($p_4=8{,}50$), indebolisce l'urto e il campo tende al pistone impulsivo: $w_\infty=2{,}76$, $p=8{,}73$, con uno
+strato entropico fra il gas sul pistone (5) e quello urtato (6). Gli andamenti con $\gamma$ sono nella tabella.
+
+\section*{Discussione}
+\textbf{Peso molecolare.} Un gas leggero monoatomico ha $\gamma$ alto, uno pesante poliatomico $\gamma$ vicino a 1. A
+pari $a_0$, con $\gamma$ alto la velocità caratteristica $u+a=a_0+(1+\delta)u$ cresce di più con $u$: la non linearità
+è più forte, l'urto si forma prima, è più veloce e la pressione è più alta (elio: $w_\infty=3$, $p_6=11$). Con
+$\gamma\to1$ il gas è più comprimibile: urto più lento e pressione più bassa, ma densità dietro l'urto maggiore
+(SF$_6$: $\rho_6/\rho_0=5$ contro 3 per l'elio) e riscaldamento minore ($T_6/T_0=1{,}30$ contro $3{,}67$). $R$ cambia
+solo la scala delle temperature. Se si confrontassero gas reali alla stessa temperatura, il dato in unità di $a_0$
+nasconderebbe il peso molecolare: $a_0=\sqrt{\gamma RT_0}$ a 293\,K è circa 1000\,m/s per l'elio e 135\,m/s per
+SF$_6$, quindi la stessa legge del pistone in m/s sarebbe una compressione debole nell'elio e fortissima in SF$_6$.
+
+\textbf{Isentropica contro urto.} Il pistone ``comprime meglio'' di un urto: lo stato 1 ha pressione maggiore di
+quella che un urto sostiene alla stessa velocità del gas. Per questo, quando l'urto ha inglobato la compressione,
+nasce l'espansione $\uma$ e l'urto è per un tratto più forte di quello asintotico ($2{,}87$ contro $2{,}76$);
+l'espansione riflessa dal pistone lo riporta al valore del pistone impulsivo. È il meccanismo del problema di
+Friedrichs, con la differenza che qui il pistone non si ferma.
+
+\textbf{Strato entropico.} L'intensità dell'urto cresce da zero in BU fino al massimo vicino ad A e poi cala verso il
+valore asintotico. Le particelle portano l'entropia ricevuta: fra il gas mai urtato vicino al pistone ($s_0$) e il gas
+6 l'entropia prima cresce fino a $\approx s_3$ e poi scende a $s_6$. Lo strato è continuo, non c'è un vero contatto:
+quello del pseudo-Riemann lo rappresenta in modo concentrato. Nel modello il gas fra pistone e contatto (1, 2, 4) ha
+l'entropia iniziale; in realtà la maggior parte è stata urtata durante la crescita dell'urto, e il gas a $s_0$ è solo
+una striscia sottile vicino al pistone. Gli stati 2, 3, 4 sono quindi indicativi, mentre il regime asintotico (urto,
+stato 6, pressione) è esatto, perché dipende solo dalla velocità del pistone; anche gli istanti P, C, S sono stime,
+perché nelle zone d'interazione le caratteristiche sono curve.
+
+\textbf{Pressione sul pistone.} Cresce isentropicamente, $p_p=(1+2\delta t)^{2\gamma/(\gamma-1)}$, fino a
+$p_1=10{,}5$ in $t=1$; resta costante finché non arrivano le onde riflesse dall'urto (nel modello l'espansione da A,
+in $t\approx1{,}7$), scende a $\approx8{,}5$ e risale lentamente verso $8{,}73$ per le deboli compressioni riflesse
+dal contatto.
+
+\textbf{Limiti del modello.} Il modello 1D non viscoso trascura strato limite e scambio termico con le pareti; con
+$T_6/T_0\approx2{,}4$ per l'aria a temperatura ambiente si arriva a circa 700\,K, dove il gas perfetto
+caloricamente è ancora ragionevole.
+
+\end{document}
