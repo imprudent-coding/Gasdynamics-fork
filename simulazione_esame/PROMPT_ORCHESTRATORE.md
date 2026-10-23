@@ -1,76 +1,112 @@
 # Prompt per l'orchestratore: soluzione completa di una prova d'esame
 
-Da incollare in una sessione "orchestratore" che ha accesso a questa repository e a
-`imprudent-coding/garmin-latex`, allegando le foto della prova. L'orchestratore:
-1. salva le foto in `tracce/`, ritaglia un'immagine per esercizio e scrive l'indice;
-2. crea un thread per esercizio con le istruzioni complete;
-3. segue i thread e alla fine consegna in chat i PDF e una tabella riassuntiva.
+Due prompt da dare, uno dopo l'altro, alla stessa sessione "orchestratore", che deve avere
+accesso a questa repository e a `imprudent-coding/garmin-latex`.
 
-Ogni thread fa tutto il flusso di `CLAUDE.md`:
-- svolgimento di riferimento;
-- simulazione d'esame (`GUIDA.md`);
-- compilazione A4 + orologio;
-- merge su `main`;
-- verifica della pubblicazione sull'orologio.
+1. **Preparazione.** Senza foto. L'orchestratore crea un thread per esercizio. Ogni thread
+   prepara l'ambiente, carica il contesto delle repository e riceve subito tutte le istruzioni
+   di lavoro; poi aspetta la traccia.
+2. **Tracce.** Con le foto allegate. L'orchestratore salva le foto in `tracce/`, ritaglia
+   un'immagine per esercizio, la pubblica su `main` e dice a ogni thread di partire. Poi segue
+   i thread e alla fine consegna in chat i PDF e una tabella riassuntiva.
 
-**Unica riga da cambiare: `PROVA`.**
-- Può essere una data vera (`del 14/09/2026`) o una data fittizia (`del 01/02/1970`): in questo caso usane una diversa per ogni prova, così sull'orologio restano in gruppi separati.
-- Può essere anche un nome (`foto 3`), se garmin-latex supporta le prove senza data.
+Le istruzioni complete, merge compreso, stanno nel messaggio iniziale di ogni thread (prompt 1).
+I messaggi che l'orchestratore manda dopo a un thread arrivano come messaggi di un'altra
+sessione, non tuoi: per questo il prompt 2 dice solo "la traccia è pronta, procedi".
 
-Se l'orchestratore non riesce a salvare le foto come file, si ferma al punto 1a: in quel
-caso si allegano le foto direttamente nei thread.
+**In entrambi i prompt si cambiano solo le prime due righe, con gli stessi valori.**
+- `PROVA`:
+  - una data vera (`del 14/09/2026`);
+  - una data fittizia (`del 01/02/1970`), diversa per ogni prova, così sull'orologio restano
+    in gruppi separati;
+  - oppure un nome (`foto 3`), se garmin-latex supporta le prove senza data.
+- `ESERCIZI`: il numero di esercizi della prova.
+
+## Prompt 1: preparazione dei thread
 
 ```
-PROVA: del 01/02/1970        ← unica riga da cambiare (data vera, fittizia, o un nome)
-Allego le foto della prova (una o più; una foto può contenere più esercizi, e un
-esercizio può continuare su due foto).
+PROVA: del 01/02/1970        ← data vera, fittizia, o un nome
+ESERCIZI: 3                  ← numero di esercizi della prova
 
-Organizza la soluzione completa della prova "Prova PROVA" con un thread per esercizio.
-Tu non risolvi nulla: prepari, distribuisci e controlli.
+Prepara la soluzione della prova d'esame di Gasdinamica "Prova PROVA": un thread di lavoro
+per ciascuno degli ESERCIZI esercizi. Tu non risolvi nulla. Le foto delle tracce te le do
+con il prossimo messaggio: per ora non serve nessuna traccia.
+
+<P> = data di PROVA in formato AAAA-MM-GG (se PROVA è un nome: prova-<nome>).
+
+Per ogni esercizio n = 1…ESERCIZI crea una sessione sul repository
+imprudent-coding/Gasdynamics-fork (branch main), nello stesso ambiente di questa sessione,
+titolo "Prova PROVA – E0n", con questo messaggio iniziale (sostituisci PROVA, n e <P>):
+
+  "Questo thread risolve l'esercizio n della Prova PROVA. La traccia arriverà su main come
+  tracce/<P>/E0n.png: quando un messaggio ti dice che è pronta, fai git pull di main e
+  procedi. Fino ad allora fai solo la preparazione, senza modificare file.
+
+  PREPARAZIONE (subito):
+  - esegui le verifiche di inizio sessione di CLAUDE.md e, se servono, bash scripts/setup.sh;
+    controlla python (numpy, scipy, matplotlib), latexmk e pdftoppm;
+  - prova bash simulazione_esame/compila.sh 2026-09-14_E02_ugello_schlieren, poi ripristina
+    i file (git checkout -- .);
+  - leggi CLAUDE.md, simulazione_esame/GUIDA.md e, in fonti/metodo_docente.md, la checklist
+    (a) e le sezioni (c) ed (e);
+  - controlla di poter leggere imprudent-coding/garmin-latex.
+  Poi rispondi «Pronto per l'esercizio n» con eventuali problemi, e aspetta.
+
+  LAVORO (quando la traccia è pronta): segui CLAUDE.md integralmente. La traccia è
+  tracce/<P>/E0n.png; le foto originali sono nella stessa cartella e tracce/<P>/indice.md
+  dice da dove viene il ritaglio: se è tagliato o poco nitido usa la foto originale. Se la
+  traccia non è leggibile, fermati e dillo. Ricava una volta:
+  - CARTELLA = <P>_E0n_<argomento breve>;
+  - TITOLO = \esercizio{Prova PROVA -- Esercizio n}{<argomento>}.
+  1. Rileggi in fonti/metodo_docente.md la sezione (d) della tipologia. Svolgimento di
+     riferimento in svolgimenti/CARTELLA/ (11 passi, gasdyn.py, calcoli.py, figure, la
+     traccia copiata come figure/originale.*, PDF controllato pagina per pagina e contro la
+     lista (e); cita tracce simili del catalogo).
+  2. Simulazione d'esame in simulazione_esame/CARTELLA/ secondo GUIDA.md, con TITOLO
+     esattamente così: leggibile dall'inizio alla fine senza perdere nulla (confronta
+     sezione per sezione con lo svolgimento). Compila con compila.sh, guarda l'A4 e scorri
+     orologio.pdf cercando righe fuori colonna.
+  3. Commit "svolgimento: Prova PROVA E0n <argomento>", push, PR verso main e merge. Se
+     main è avanzato per gli altri esercizi, portalo nel tuo branch prima.
+  4. Verifica la pubblicazione: workflow esami-orologio della fork riuscito; ultimo
+     workflow notes su main di imprudent-coding/garmin-latex riuscito; l'ultima Release
+     notes-* contiene il gruppo della Prova PROVA con la voce En.
+  5. Chiudi con la sintesi prevista da CLAUDE.md, l'esito della verifica e i percorsi dei
+     due PDF A4 (svolgimento e simulazione)."
+
+Quando tutti hanno risposto (controlla tu lo stato delle sessioni: non possono scriverti),
+dammi una tabella: esercizio, link della sessione, stato ("pronto" o il problema).
+Ricorda gli identificativi delle sessioni: ti servono per il prossimo messaggio.
+Non creare altre sessioni e non fare commit.
+```
+
+## Prompt 2: tracce e avvio (allegando le foto)
+
+```
+PROVA: del 01/02/1970        ← gli stessi valori del prompt 1
+ESERCIZI: 3
+
+Allego le foto della Prova PROVA (una o più; una foto può contenere più esercizi, e un
+esercizio può continuare su due foto). Sono ESERCIZI esercizi, già assegnati ai thread
+che hai preparato.
 
 1. Tracce nel repository (imprudent-coding/Gasdynamics-fork). <P> = data di PROVA in formato
    AAAA-MM-GG (se PROVA è un nome: prova-<nome>).
    a. Salva le foto come file in tracce/<P>/foto1.<ext>, foto2.<ext>, … nell'ordine in cui
       le ho allegate. Se non riesci a salvarle come file, fermati e dimmelo.
-   b. Guarda le foto e individua gli esercizi, con la numerazione della prova. Per ognuno
-      salva tracce/<P>/E0n.png: un ritaglio leggibile che contenga tutto il testo e tutte
-      le figure di quell'esercizio e niente degli altri (con un po' di margine; se
-      l'esercizio è su due foto, metti i pezzi uno sotto l'altro nello stesso file).
+   b. Individua gli esercizi con la numerazione della prova. Per ognuno salva
+      tracce/<P>/E0n.png: un ritaglio leggibile che contenga tutto il testo e tutte le
+      figure di quell'esercizio e niente degli altri (con un po' di margine; se è su due
+      foto, metti i pezzi uno sotto l'altro nello stesso file).
    c. Scrivi tracce/<P>/indice.md: per ogni esercizio, il numero, la foto o le foto di
       origine e la posizione ("foto1, metà superiore"), e una riga con l'argomento.
-   d. Se qualcosa è ambiguo (numerazione poco chiara, esercizio tagliato, parti
-      illeggibili), fermati e chiedimi prima di andare avanti.
+   d. Se gli esercizi trovati non sono ESERCIZI, o qualcosa è ambiguo (numerazione poco
+      chiara, esercizio tagliato, parti illeggibili), fermati e chiedimi.
    e. Commit "tracce: Prova PROVA", PR verso main e merge. Mostrami l'indice.
 
-2. Un thread per esercizio. Dopo il merge, per ogni esercizio n crea una sessione sul
-   repository imprudent-coding/Gasdynamics-fork (branch main), nello stesso ambiente di
-   questa sessione, titolo "Prova PROVA – E0n", con questo messaggio iniziale (sostituisci
-   PROVA, n e <P>):
-
-   "Risolvi l'esercizio n della Prova PROVA. La traccia è tracce/<P>/E0n.png su main; le foto
-   originali sono nella stessa cartella e tracce/<P>/indice.md dice da dove viene il
-   ritaglio: se il ritaglio è tagliato o poco nitido, usa la foto originale.
-   Segui CLAUDE.md integralmente. Ricava una volta:
-   - CARTELLA = <P>_E0n_<argomento breve>;
-   - TITOLO = \esercizio{Prova PROVA -- Esercizio n}{<argomento>}.
-   0. Prepara l'ambiente come dice CLAUDE.md (setup.sh se serve) e leggi CLAUDE.md,
-      simulazione_esame/GUIDA.md e, in fonti/metodo_docente.md, la checklist (a), la (c),
-      la (d) della tipologia e la (e). Se la traccia non è leggibile, fermati e dillo.
-   1. Svolgimento di riferimento in svolgimenti/CARTELLA/ (11 passi, gasdyn.py,
-      calcoli.py, figure, la traccia copiata come figure/originale.*, PDF controllato
-      pagina per pagina e contro la lista (e); cita tracce simili del catalogo).
-   2. Simulazione d'esame in simulazione_esame/CARTELLA/ secondo GUIDA.md, con TITOLO
-      esattamente così: leggibile dall'inizio alla fine senza perdere nulla (confronta
-      sezione per sezione con lo svolgimento). Compila con compila.sh, guarda l'A4 e
-      scorri orologio.pdf cercando righe fuori colonna.
-   3. Commit "svolgimento: Prova PROVA E0n <argomento>", push, PR verso main e merge. Se
-      main è avanzato per gli altri esercizi, portalo nel tuo branch prima.
-   4. Verifica la pubblicazione: workflow esami-orologio della fork riuscito; ultimo
-      workflow notes su main di imprudent-coding/garmin-latex riuscito (se annullato da
-      uno più recente, segui quello); l'ultima Release notes-* contiene il gruppo della
-      Prova PROVA con la voce En.
-   5. Chiudi con la sintesi prevista da CLAUDE.md, l'esito della verifica e i percorsi dei
-      due PDF A4 (svolgimento e simulazione)."
+2. Avvio. Dopo il merge, manda a ogni thread "Prova PROVA – E0n" il messaggio: "La traccia
+   tracce/<P>/E0n.png è su main: fai git pull e procedi con il LAVORO del tuo messaggio
+   iniziale."
 
 3. Controllo e consegna. Segui i thread fino alla fine (stato della sessione ed eventi):
    non possono scriverti, quindi controlla tu periodicamente. Se uno si ferma con una
@@ -82,11 +118,15 @@ Tu non risolvi nulla: prepari, distribuisci e controlli.
    b. dammi una tabella: esercizio, argomento, link della sessione, PR unita,
       pubblicazione sull'orologio (sì/no), e per ciascuno i risultati principali in una
       riga.
-   Se un PDF manca su main (thread fallito o merge non fatto), dimmelo nella tabella
-   invece di saltarlo in silenzio.
+   Se un PDF manca su main (thread fallito o merge non fatto), dimmelo nella tabella invece
+   di saltarlo in silenzio.
 
 Non fare altre modifiche ai repository oltre a tracce/.
 ```
 
 Sull'orologio, a pubblicazione finita: menu → *Mostra* → *Simulazioni d'esame*, poi
 *Sincronizza ora*.
+
+Se l'orchestratore non riesce a salvare le foto come file (prompt 2, punto 1a), alleghi le foto
+direttamente in ciascun thread, scrivendo: "Ecco la traccia: procedi con il LAVORO del tuo
+messaggio iniziale, usando la foto allegata al posto di tracce/<P>/E0n.png".
