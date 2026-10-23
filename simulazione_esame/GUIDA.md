@@ -25,6 +25,15 @@ cartella `figure/` (con `\graphicspath`): non si ricalcola e non si duplica null
 
 Il contenuto è quello dello svolgimento di riferimento; cambiano ordine e tono.
 
+- **Nessuna perdita di dettaglio.** La simulazione non è un riassunto: deve contenere tutto ciò
+  che c'è nello svolgimento di riferimento, cioè ogni stato calcolato, formula, derivazione in una
+  o due righe, ipotesi con la sua giustificazione, misura, verifica con il suo esito, figura e
+  diagramma con il commento, e ogni punto della discussione fisica. Più leggibile non vuol dire
+  più corta: si risparmia solo sulle ripetizioni che la struttura in 11 passi impone (la stessa
+  struttura descritta in più sezioni), mai su un passaggio o un approfondimento.
+  **Prima di consegnare**, rileggi lo svolgimento di riferimento sezione per sezione e controlla
+  che ogni elemento compaia nella simulazione; se manca, aggiungilo dove serve nel ragionamento.
+
 - **Ordine del ragionamento, non delle categorie.** Si segue il campo nell'ordine in cui lo si
   affronta: cosa si vede o cosa dice il testo → modello → poi, una regione o un evento alla volta
   (nell'ordine fisico: dalla gola a valle, dall'istante iniziale in avanti), *perché* succede, la
@@ -34,10 +43,10 @@ Il contenuto è quello dello svolgimento di riferimento; cambiano ordine e tono.
   che l'urto sia sul ramo debole…"), con l'esito.
 - **I diagrammi stanno dove si usano**, commentati lì (x–t quando si descrivono le onde, p–u o
   p–θ quando si risolve l'interazione, il grafico richiesto alla fine).
-- **Tono da compito scritto**: prima persona ("misuro", "assumo", "controllo"), frasi brevi,
+- **Tono da compito scritto**: prima persona ("misuro", "assumo", "controllo"), frasi chiare,
   ogni passaggio motivato con un "perché" o un "quindi". Il lettore è il docente.
-- **Chiusura**: la risposta alla domanda (grafico o tabella dei risultati) e poche righe di
-  discussione fisica che non ripetono il calcolo.
+- **Chiusura**: la risposta alla domanda (grafico o tabella dei risultati) e la
+  discussione fisica completa dello svolgimento di riferimento, senza ripetere il calcolo.
 - Valgono tutte le regole del **registro del PDF** di `CLAUDE.md`: niente apparato numerico, niente
   valori sostituiti (formula e risultato), 2–3 cifre significative, "≈" per le stime, la
   derivazione in una o due righe delle formule che vengono da relazioni più generali, ogni cosa
