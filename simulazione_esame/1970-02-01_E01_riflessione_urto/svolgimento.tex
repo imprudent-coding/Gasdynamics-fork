@@ -1,0 +1,243 @@
+% Simulazione d'esame: prova del 01/02/1970, esercizio 1 -- riflessione di un urto obliquo su lastra a M = 1,3.
+% Stessi numeri e figure dello svolgimento di riferimento:
+% svolgimenti/1970-02-01_E01_riflessione_urto (calcoli.py e figure/).
+% Compilare con: bash ../compila.sh 1970-02-01_E01_riflessione_urto  (A4 + orologio)
+
+\input{../preambolo}
+\graphicspath{{../../svolgimenti/1970-02-01_E01_riflessione_urto/figure/}}
+
+\esercizio{Prova del 01/02/1970 -- Esercizio 1}{Riflessione di un urto obliquo su una lastra piana a $M=1{,}3$}
+
+\begin{document}
+\maketitle
+
+\emph{Traccia.} Una corrente uniforme supersonica, stazionaria e piana a $M=1{,}3$ scorre lungo una lastra piana
+su cui incide un urto obliquo. Definire la polare pressione--deviazione, determinare le diverse riflessioni possibili
+(gas ideale) e descriverle nel piano fisico $(x,y)$. (Stessa traccia di B69-E01, 25/01/2023.)
+
+\section*{Che cosa chiede e con quale modello}
+La corrente 1 è parallela alla lastra ($\theta_1=0$, $p_1=1$). Un urto obliquo generato altrove, per esempio da un
+cuneo sopra la lastra, la devia verso la lastra di un angolo $\theta_I$; la lastra impone di nuovo $\theta=0$, e il
+modo in cui ci riesce è la riflessione. L'intensità dell'urto incidente non è data: la leggo come richiesta di
+classificare le riflessioni possibili al variare di $\theta_I$ (o dell'angolo d'urto $\sigma_I$), a $M_1=1{,}3$
+fissato. Assumo aria, $\gamma=1{,}4$.
+
+Uso il modello piano, stazionario, non viscoso, con gas perfetto: trascuro lo strato limite sulla lastra e la sua
+interazione con l'urto. Gli urti sono rettilinei e fra di essi gli stati sono uniformi, quindi ogni urto è un punto
+della polare $p$--$\theta$ dello stato a monte. Il modello è iperbolico solo dove la corrente è supersonica: finché
+le regioni 2 e 3 lo sono, la riflessione si decide localmente nel punto d'impatto; una regione subsonica invece
+riceve informazioni da valle, e lì le sole polari non bastano. Il campo è esterno e nessuno impone una
+contropressione, quindi prendo il ramo debole per l'incidente e, salvo discuterlo, anche per il riflesso. Numero gli
+stati come d'uso: 1 a monte, 2 dopo l'incidente, 3 dopo il riflesso, 4 dietro il gambetto o dietro il tratto normale
+dell'urto.
+
+\section*{Che cosa mi aspetto prima dei numeri}
+L'urto incidente viene dall'alto: è un'onda $\Cm$ di compressione, che devia la corrente di $-\theta_I$ verso la
+lastra e porta lo stato 2 sul ramo debole della polare di 1. Dietro di esso la corrente punta contro la lastra, che
+impone $\theta=0$: dalla lastra deve nascere un'onda $\Cp$ che ruoti la corrente di $+\theta_I$. Su una parete
+un'onda si riflette con la stessa natura, quindi il riflesso è una compressione, cioè un urto, e la pressione sulla
+lastra sale due volte: $p_3>p_2>p_1$.
+
+Il Mach basso è il punto decisivo. Il riflesso deve dare la stessa deviazione $\theta_I$ partendo da $M_2<M_1$, cioè
+con una polare più piccola: esiste solo se $\theta_I\le\theta_{\max}(M_2)$. Crescendo $\theta_I$, $M_2$ cala e con lui
+$\theta_{\max}(M_2)$: ci sarà un angolo di distacco $\theta_D$ oltre il quale la riflessione regolare (RR) è
+impossibile. Oltre $\theta_D$ dovrò verificare se esiste una riflessione di Mach (MR) a tre urti: incidente, riflesso
+e gambetto quasi normale, con una linea di scorrimento dal punto triplo.
+
+Le configurazioni candidate nel piano fisico sono tre:
+\begin{itemize}
+\item RR: due urti rettilinei che si incontrano sulla lastra; regioni uniformi 1, 2, 3 con $\theta_1=\theta_3=0$ e
+  $\theta_2=-\theta_I$;
+\item MR: punto triplo staccato dalla lastra, gambetto quasi normale fino alla lastra con regione 4 subsonica dietro,
+  linea di scorrimento fra 3 e 4 con $p_3=p_4$, $\theta_3=\theta_4$;
+\item nessuna riflessione: un solo urto, rettilineo lontano dalla lastra, che si incurva e la raggiunge
+  perpendicolarmente, con una sacca subsonica 4 chiusa da una linea sonica.
+\end{itemize}
+
+Conto anche equazioni e incognite. Nella RR, noto 2, il riflesso ha un'incognita (il suo angolo) e una condizione,
+$\theta_3=0$: si interseca la polare $\Cp$ di 2 con l'asse $\theta=0$. Una sola onda nasce dalla parete e una sola
+condizione vi è imposta, come deve essere. Nella MR, noto 2, le incognite sono gli angoli del riflesso e del gambetto
+(cioè $p_3,\theta_3$ e $p_4,\theta_4$ sulle rispettive polari) e le condizioni sono $p_3=p_4$, $\theta_3=\theta_4$:
+si interseca la polare $\Cp$ di 2 con il ramo forte della polare di 1. Il bilancio è chiuso, ma la soluzione può
+non esistere.
+
+Tre scorciatoie mi faranno risparmiare calcoli:
+\begin{itemize}
+\item per sapere se la RR esiste basta confrontare $\theta_I$ con $\theta_{\max}(M_2)$, quindi $\theta_D$ è la radice
+  di $\theta_{\max}(M_2(\theta_I))=\theta_I$;
+\item il criterio di von Neumann (polari che si incontrano sull'asse nel punto d'urto normale di 1) richiede
+  $p_3=p_{n1}$; poiché $p_3$ cresce con $\theta_I$, basta confrontare il suo massimo, a $\theta_D$, con $p_{n1}$;
+\item per $\theta_I\to0$ le onde sono acustiche, ognuna con $\Delta p/p\simeq\gamma M^2\theta/\sqrt{M^2-1}$, e la
+  riflessione su parete raddoppia il salto: $p_3-p_1\simeq2(p_2-p_1)$. Mi servirà come controllo.
+\end{itemize}
+
+\section*{La polare di $M_1=1{,}3$}
+Attraverso un urto di angolo $\sigma$ la componente tangenziale della velocità si conserva e la normale ha il salto
+dell'urto normale con $M_{n1}=M_1\sin\sigma$. Da $V_t$ costante e dalla continuità ho
+$\tan(\sigma-\theta)/\tan\sigma=\rho_1/\rho_2=[(\gamma-1)M_{n1}^2+2]/[(\gamma+1)M_{n1}^2]$, da cui
+\begin{gather*}
+\tan\theta=2\cot\sigma\,\frac{M_1^2\sin^2\sigma-1}{M_1^2(\gamma+\cos2\sigma)+2}\ee
+\frac{p_2}{p_1}=1+\frac{2\gamma}{\gamma+1}\left(M_1^2\sin^2\sigma-1\right)\ee
+M_2=\frac{M_{n2}}{\sin(\sigma-\theta)}
+\end{gather*}
+con $M_{n2}^2=(1+\delta M_{n1}^2)/(\gamma M_{n1}^2-\delta)$. Facendo variare $\sigma$ da $\mu_1$ a \ang{90} la coppia
+$(\theta,p)$ descrive la polare, con $\pm\theta$ per le due famiglie. I punti notevoli sono:
+\begin{itemize}
+\item onda nulla: $\sigma=\mu_1=\arcsin(1/M_1)=\ang{50.3}$, $p/p_1=1$;
+\item massima deviazione ($d\theta/d\sigma=0$): $\theta_{\max}=\ang{6.66}$ a $\sigma=\ang{69.4}$, $p/p_1=1{,}56$;
+\item punto sonico ($M_2=1$): $\theta_s=\ang{6.32}$ a $\sigma=\ang{65.1}$, $p/p_1=1{,}46$;
+\item urto normale: $\theta=0$, $p_{n1}/p_1=1{,}805$, $M=0{,}786$.
+\end{itemize}
+Il ramo debole va da $\mu_1$ al punto sonico; fra punto sonico e $\theta_{\max}$ è ancora debole, ma con valle
+subsonica. Tutta la fenomenologia sta quindi in meno di \ang{7}.
+
+\section*{Riflessione regolare: un esempio a $\theta_I=\ang{2}$}
+Per lo stato 2 uso la relazione $\theta$--$\sigma$--$M$ con $M_1$ e $\theta_I$, ramo debole:
+\begin{gather*}
+\sigma_I=\ang{53.5}\ee M_{n1}=1{,}045\ee p_2/p_1=1{,}107\ee M_2=1{,}22\ee \theta_2=-\ang{2}.
+\end{gather*}
+Controllo subito: $M_{n1}>1$ e $\Delta s>0$, ramo debole con $M_2>1$ (lo è per ogni $\theta_I<\theta_s(M_1)=\ang{6.32}$).
+La polare di 2 arriva a $\theta_{\max}(M_2)=\ang{4.59}>\theta_I$: la RR esiste.
+
+Per lo stato 3 uso la stessa relazione con $M_2$ e deviazione $+\theta_I$ (onda $\Cp$, da $-\theta_I$ a 0), ramo
+debole. L'angolo $\sigma_R$ è misurato dalla direzione della corrente 2, quindi l'urto riflesso forma con la lastra
+l'angolo $\varphi_R=\sigma_R-\theta_I$:
+\begin{gather*}
+\sigma_R=\ang{58.9}\ee \varphi_R=\ang{56.9}\ee M_{n2}=1{,}048\ee p_3/p_2=1{,}115\ee p_3/p_1=1{,}23\ee M_3=1{,}14.
+\end{gather*}
+Controllo: $M_{n2}>1$, $\Delta s>0$, $\theta_3=0$ soddisfatta, e il riflesso è una compressione come l'incidente, come
+deve essere su una parete. Il riflesso è più intenso dell'incidente ($p_3/p_2=1{,}115>p_2/p_1=1{,}107$, perché
+$M_2<M_1$) e non è speculare: $\varphi_R=\ang{56.9}\ne\sigma_I=\ang{53.5}$, la legge ottica non vale. Con la
+scorciatoia acustica a $\theta_I=\ang{0.5}$: $p_2-p_1=0{,}0253$ (la teoria lineare dà $0{,}0249$) e
+$p_3-p_1=0{,}0514\simeq2(p_2-p_1)=0{,}0505$; il calcolo è coerente.
+
+La polare di 2 incontra l'asse $\theta=0$ anche sul ramo forte: $p_{3'}/p_1=1{,}73$, $M_{3'}=0{,}84$,
+$\varphi_{R'}=\ang{82.6}$. Richiederebbe una contropressione imposta a valle, assente in un campo esterno, e la
+scarto.
+
+\figura[1.0]{p_theta.pdf}{Piano $p$--$\theta$: polare di 1 (blu), polare di 2 (rosso; a tratto continuo il ramo
+$\Cp$ utile al riflesso). (a) RR: intersezioni 3 (debole) e 3$'$ (forte) con l'asse $\theta=0$. (b) Distacco: polare
+di 2 tangente all'asse. (c) Oltre il distacco: la polare di 2 non raggiunge l'asse ed è interna alla polare di 1.
+\label{fig:ptheta}}
+
+Nel pannello (a) della figura~\ref{fig:ptheta} si legge la procedura: le polari partono da $(0,1)$, non
+dall'origine; da 1 lungo il ramo debole della polare di 1 fino a 2, poi lungo la polare di 2 fino all'asse. Nel piano
+fisico (figura~\ref{fig:campo}a) le linee di corrente piegano di \ang{2} verso la lastra attraversando l'incidente e
+tornano orizzontali attraverso il riflesso, più inclinato sulla lastra dell'incidente.
+
+\section*{Fin dove esiste la RR: distacco e criterio sonico}
+Ripeto il calcolo al variare di $\theta_I$:
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{cccccccc}
+\toprule
+$\theta_I$ & $\sigma_I$ & $p_2/p_1$ & $M_2$ & $\theta_{\max}(M_2)$ & $\varphi_R$ & $p_3/p_1$ & $M_3$ \\
+\midrule
+\ang{1}    & \ang{51.8} & 1,051 & 1,263 & \ang{5.64} & \ang{53.0} & 1,107 & 1,224 \\
+\ang{2}    & \ang{53.5} & 1,107 & 1,224 & \ang{4.59} & \ang{56.9} & 1,233 & 1,140 \\
+\ang{3}    & \ang{55.3} & 1,167 & 1,184 & \ang{3.52} & \ang{63.7} & 1,415 & 1,028 \\
+$\theta_S=\ang{3.15}$ & \ang{55.6} & 1,176 & 1,178 & \ang{3.36} & \ang{65.8} & 1,462 & 1,000 \\
+$\theta_D=\ang{3.25}$ & \ang{55.8} & 1,183 & 1,173 & \ang{3.25} & \ang{69.7} & 1,537 & 0,955 \\
+\bottomrule
+\end{tabular}
+\caption{RR (riflesso debole) al variare della deviazione dell'urto incidente.}
+\end{table}
+
+$M_2$ diminuisce e la polare riflessa si restringe finché è tangente all'asse $\theta=0$: dalla radice di
+$\theta_{\max}(M_2(\theta_I))=\theta_I$ ottengo
+\begin{gather*}
+\theta_D=\ang{3.25}\ee \sigma_I=\ang{55.8}\ee M_2=1{,}17\ee p_2/p_1=1{,}18,
+\end{gather*}
+con, al distacco, $p_3/p_1=1{,}54$ e $M_3=0{,}96$ (pannello (b) della figura~\ref{fig:ptheta}). Già un po' prima la
+regione 3 diventa subsonica: $M_3=1$ per $\theta_S=\ang{3.15}$ ($p_3/p_1=1{,}46$). Qui c'è il controllo critico:
+fra $\theta_S$ e $\theta_D$ la regione 3 è subsonica ($M_3\ge0{,}96$) e il modello iperbolico vale solo vicino al
+punto di riflessione.
+
+\section*{Criterio di von Neumann}
+Il massimo di $p_3$ sulla RR è al distacco: $p_3/p_1=1{,}54<p_{n1}/p_1=1{,}805$. La pressione dell'urto normale di 1
+non è mai raggiunta, quindi le due polari non si incontrano mai sull'asse $\theta=0$ e l'angolo di von Neumann non
+esiste a $M_1=1{,}3$. Manca anche il dominio di doppia soluzione: sotto $\theta_D$ c'è solo la RR, senza isteresi.
+
+\figura[0.62]{p_parete.pdf}{Pressioni dietro l'incidente e a parete per la RR, al variare di $\theta_I$; in
+punteggiato la pressione dell'urto normale di 1.\label{fig:pparete}}
+
+La figura~\ref{fig:pparete} lo mostra: il ramo debole e quello forte della RR si congiungono a $\theta_D$, dove la RR
+finisce, e $p_3$ resta sempre sotto $1{,}805$. Le pressioni stanno fra 1 e 1,8, quindi basta la scala lineare.
+
+\section*{Oltre il distacco: la MR non esiste}
+Per $\theta_D<\theta_I<\theta_s(M_1)$ cerco l'intersezione della polare $\Cp$ di 2 con il ramo forte della polare di 1.
+Prendo $\theta_I=\ang{5}$:
+\begin{gather*}
+\sigma_I=\ang{60.0}\ee M_2=1{,}09\ee p_2/p_1=1{,}31\ee \theta_{\max}(M_2)=\ang{1.31}.
+\end{gather*}
+La polare di 2 occupa solo $-\ang{6.31}\le\theta\le-\ang{3.69}$ e arriva al massimo a $p/p_1=1{,}60$ (riflesso
+normale), mentre il ramo forte della polare di 1 a $\theta=-\ang{5}$ è a $p/p_1=1{,}73$. La polare riflessa è tutta
+interna alla polare dell'incidente (pannello (c) della figura~\ref{fig:ptheta}) e la tocca solo in 2; lo stesso
+accade per ogni $\theta_I$ dell'intervallo. La teoria dei tre urti non ha soluzione: a $M_1=1{,}3$ non c'è MR.
+Controllo la coerenza: $\theta_D=\ang{3.25}<\theta_s(M_1)=\ang{6.32}<\theta_{\max}(M_1)=\ang{6.66}$, e l'assenza di
+$\theta_N$ è coerente con l'assenza di soluzioni a tre urti.
+
+Per $\theta_s(M_1)<\theta_I<\theta_{\max}(M_1)$ la regione 2 è già subsonica e non può esistere un urto riflesso; per
+$\theta_I>\theta_{\max}(M_1)$ l'urto incidente stesso non può essere attaccato al corpo che lo genera.
+
+Che cosa succede allora oltre $\theta_D$? La polare riflessa non interseca né l'asse delle pressioni né la polare
+dell'incidente: non c'è riflessione. L'urto incidente si incurva avvicinandosi alla lastra e la raggiunge
+perpendicolarmente, così che la condizione $\theta=0$ a parete è soddisfatta dal tratto normale. Lungo l'urto curvo
+lo stato a valle percorre la polare di 1, da 2 (tratto rettilineo, lontano dalla lastra) fino all'urto normale
+($p_4/p_1=1{,}805$, $M_4=0{,}79$) al piede. Dietro il tratto quasi normale c'è una sacca subsonica, e l'urto curvo
+dà entropia diversa a ogni linea di corrente: il campo a valle è rotazionale.
+
+\figura[1.0]{campo.pdf}{Piano fisico. (a) RR a $\theta_I=\ang{2}$, angoli e linee di corrente in scala. (b) Oltre il
+distacco: urto incidente che si incurva e incide perpendicolarmente la lastra, con sacca subsonica 4
+(qualitativo).\label{fig:campo}}
+
+Nella figura~\ref{fig:campo}(b) l'urto si raccorda alla lastra con un tratto quasi normale, senza urto riflesso né
+punto triplo; a valle la corrente subsonica 4 riaccelera e si raccorda con la regione 2 attraverso la linea sonica.
+
+\section*{Risposta: le riflessioni possibili a $M_1=1{,}3$}
+\begin{table}[H]
+\centering\small
+\begin{tabular}{p{0.3\linewidth}p{0.42\linewidth}l}
+\toprule
+$\theta_I$ & Configurazione & Note \\
+\midrule
+$0<\theta_I<\theta_S=\ang{3.15}$ & RR, regioni 2 e 3 supersoniche & $p_3/p_1\le1{,}46$ \\
+$\theta_S<\theta_I\le\theta_D=\ang{3.25}$ & RR con regione 3 subsonica & $p_3/p_1\le1{,}54$ \\
+$\theta_D<\theta_I<\theta_s(M_1)=\ang{6.32}$ & nessuna riflessione, urto curvo & niente MR \\
+$\theta_s(M_1)<\theta_I<\theta_{\max}(M_1)=\ang{6.66}$ & regione 2 subsonica, idem & \\
+\bottomrule
+\end{tabular}
+\caption{Riflessioni possibili ($\gamma=1{,}4$); $\theta_N$ non esiste.}
+\end{table}
+
+Esempio di RR a $\theta_I=\ang{2}$: $\sigma_I=\ang{53.5}$, $p_2/p_1=1{,}107$, $M_2=1{,}22$; $\varphi_R=\ang{56.9}$,
+$p_3/p_1=1{,}23$, $M_3=1{,}14$.
+
+\figura[0.62]{diagramma_M_theta.pdf}{Piano $\theta_I$--$M_1$: deviazione massima e sonica di 1, criteri di distacco
+$\theta_D$ e di von Neumann $\theta_N$; tratteggiata la retta $M_1=1{,}3$.\label{fig:diagr}}
+
+La figura~\ref{fig:diagr} colloca il caso nel quadro generale: $\theta_N$ esiste solo per $M_1\gtrsim2{,}2$, dove si
+apre la regione di doppia soluzione fra $\theta_N$ e $\theta_D$; a $M_1=1{,}3$ la retta verticale incontra solo
+$\theta_D=\ang{3.25}$ e poi, a pochi gradi, $\theta_s$ e $\theta_{\max}$.
+
+\section*{Discussione}
+\begin{itemize}
+\item A Mach basso tutto sta in pochi gradi: basta un incidente debole ($p_2/p_1\approx1{,}18$) per rendere impossibile
+  la RR, perché il riflesso parte da $M_2\approx1{,}17$, la cui polare ammette meno di \ang{3.3} di deviazione.
+\item La RR esiste fino a $\theta_D$, ma da $\theta_S$ la regione 3 è subsonica: le perturbazioni di valle (per esempio
+  la spalla del cuneo che genera l'incidente) possono risalire fino al punto di riflessione, quindi la transizione
+  reale avviene fra $\theta_S$ e $\theta_D$, qui appena \ang{0.1}.
+\item La MR a tre urti richiede che la polare riflessa esca dalla polare incidente: a $M_1=1{,}3$ ne resta sempre
+  dentro, quindi oltre il distacco non c'è riflessione e l'urto si incurva fino a incidere perpendicolarmente la
+  lastra. Le misure reali in questo regime mostrano un urto che si raccorda con continuità alla parete, con una
+  debole compressione riflessa che si dissolve, invece di un punto triplo netto.
+\item Non c'è isteresi: senza $\theta_N$ la configurazione dipende solo da $\theta_I$ e non dal verso in cui lo si
+  fa variare, a differenza di quanto accade per $M_1\gtrsim2{,}2$.
+\item Il riflesso non segue la legge ottica ($\varphi_R\ne\sigma_I$): è più inclinato e più intenso perché deve dare
+  la stessa deviazione partendo da un Mach minore.
+\item Lo strato limite sulla lastra, che ho trascurato, a questi Mach interagisce fortemente con l'urto (la sua parte
+  subsonica trasmette la sovrapressione a monte) e può separare: è il limite principale del modello non viscoso.
+\end{itemize}
+
+\end{document}
