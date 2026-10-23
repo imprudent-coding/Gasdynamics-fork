@@ -75,6 +75,12 @@ Poi fai commit (messaggio: `svolgimento: <ID o argomento>`) e push, così il PDF
 
 Infine invia in chat il PDF compilato (`svolgimento.pdf`) come file allegato, così posso aprirlo subito senza passare da GitHub. Se lo svolgimento viene corretto e ricompilato, invia di nuovo il PDF aggiornato.
 
+**Simulazione d'esame.** Dopo lo svolgimento, scrivine la seconda versione in
+`simulazione_esame/<stessa cartella>/` seguendo `simulazione_esame/GUIDA.md` (stesso contenuto, scritto
+in ordine di ragionamento come al banco d'esame) e compilala con `bash simulazione_esame/compila.sh
+<cartella>`, che produce `svolgimento.pdf` (A4) e `orologio.pdf` (letto dall'app Garmin). Va nello stesso
+commit e si allega in chat anche il PDF A4 della simulazione.
+
 **2. Sintesi nella risposta**, che si legge in un paio di minuti:
 - modello scelto e ipotesi principali;
 - struttura del campo d'onda in una o due frasi;
