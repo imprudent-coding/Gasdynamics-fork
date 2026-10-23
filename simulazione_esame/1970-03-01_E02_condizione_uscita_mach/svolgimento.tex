@@ -1,0 +1,310 @@
+% Simulazione d'esame: prova del 01/03/1970, esercizio 2 -- condizione al contorno all'uscita di un condotto.
+% Stessi numeri e figure dello svolgimento di riferimento:
+% svolgimenti/1970-03-01_E02_condizione_uscita_mach (calcoli.py e figure/).
+% Compilare con: bash ../compila.sh 1970-03-01_E02_condizione_uscita_mach  (A4 + orologio)
+
+\input{../preambolo}
+\graphicspath{{../../svolgimenti/1970-03-01_E02_condizione_uscita_mach/figure/}}
+
+\newcommand{\uma}{u-a}
+\newcommand{\upa}{u+a}
+\newcommand{\Me}{M_e}
+\newcommand{\Cr}{C_r}
+
+\esercizio{Prova del 01/03/1970 -- Esercizio 2}{Condizione al contorno all'uscita di un condotto}
+
+\begin{document}
+\maketitle
+
+\emph{Traccia.} Per un flusso d'aria instazionario, omoentropico e subsonico in un condotto, la condizione nella
+sezione d'uscita è
+\[
+  \frac{\gamma+1}{2}\left(\frac{u}{a}\right)^{4/(\gamma+1)}+\left(\frac{a}{u}\right)^{2(\gamma-1)/(\gamma+1)}=K,
+\]
+con $K$ costante $>1$. Valutarne l'effetto su un'onda semplice acustica che arriva all'uscita dall'interno del
+condotto. (La traccia coincide con B70-E02 del 13/02/2023; affine B67-E02, con Mach imposto all'uscita e un'onda di
+entropia incidente.)
+
+\section*{Che cosa dice la condizione}
+Il primo membro contiene $u$ e $a$ solo attraverso il rapporto: con $M=u/a$ la condizione è
+\[
+  f(M)=\frac{\gamma+1}{2}M^{4/(\gamma+1)}+M^{-2(\gamma-1)/(\gamma+1)}=K .
+\]
+Mi aspetto quindi che fissi il \textbf{numero di Mach d'uscita}, qualunque cosa facciano $p$, $\rho$, $u$, $a$.
+
+Il resto della traccia lo leggo così. È uno \emph{scarico}, quindi il gas esce, con $u>0$ verso l'uscita, che metto
+all'estremo destro. Il flusso è subsonico, $0<M<1$, ed è aria: $\gamma=1{,}4$, $\delta=(\gamma-1)/2=0{,}2$. L'onda
+incidente è di piccola ampiezza e può essere una compressione o un'espansione. Non ci sono numeri: lavoro in forma
+letterale e uso un esempio solo per i diagrammi, con $\Me=0{,}3$, $p_0=a_0=1$ e incidenti con $p_1/p_0=1{,}1$ e
+$0{,}9$.
+
+\section*{Modello}
+Uso Eulero 1D instazionario: la sezione è costante e le onde acustiche sono lunghe rispetto al diametro, quindi
+piane. Il gas è perfetto, non viscoso e adiabatico. Il flusso è omoentropico, come dice il testo: non ci sono onde
+di entropia e gli invarianti
+\begin{gather*}
+  R_1=a-\delta u\ \text{(costante lungo le $\uma$)} \ee R_2=a+\delta u\ \text{(lungo le $\upa$)}
+\end{gather*}
+valgono ovunque. Lo stato è descritto da $a$ e $u$; $p$ e $\rho$ seguono dalle isentropiche.
+
+L'onda è acustica, quindi resta isentropica: una compressione si irripidisce, ma l'urto si formerebbe molto più
+lontano del tratto che percorre fino all'uscita. Le relazioni fra $a$ e $u$ che ricavo sono esatte per qualunque
+onda continua; quelle in pressione le linearizzo. Assumo infine che la condizione valga in ogni istante: il
+dispositivo d'uscita (per esempio un restringimento strozzato) è corto rispetto alla lunghezza d'onda e risponde in
+modo quasi stazionario.
+
+\section*{Che cosa mi aspetto}
+Prima conto le condizioni. All'uscita, con $0<u<a$, le caratteristiche $u$ e $\upa$ arrivano dall'interno e
+lasciano il dominio; entra solo la $\uma$, perché $u-a<0$. Serve quindi \textbf{una} condizione, e la traccia ne dà
+una: il problema è ben posto. Il gas è omoentropico, quindi la $u$ non porta nulla. Dall'interno arriva solo
+$R_2$, e la condizione deve fissare l'invariante entrante $R_1$.
+
+Poi l'onda. Con $u>0$ subsonico un'onda $\uma$ si allontana dall'uscita, quindi quella che ``va verso l'uscita'' è
+un'\textbf{onda semplice $\upa$}: al suo interno $R_1$ è uniforme e cambia $R_2$. Quando arriva, $R_2$ cambia nella
+sezione d'uscita. La condizione lega $R_1$ a $R_2$, quindi cambia anche $R_1$: nasce un'\textbf{onda riflessa $\uma$}
+che risale il condotto.
+
+Ne prevedo la natura. Una compressione incidente alza $a$ e $u$, con $\Delta u=\Delta a/\delta$. Se l'uscita la
+lasciasse passare così, sarebbe $\Delta u/u=(\Delta a/a)/(\delta M)$, molto più di $\Delta a/a$, perché
+$\delta M<0{,}2$. Con $M$ fissato, invece, $u$ può crescere solo quanto $a$, in proporzione: l'uscita \textbf{frena}
+il gas, come una parete parziale. Mi aspetto quindi una riflessa della \textbf{stessa natura}, più debole. Sarebbe un
+caso intermedio fra la parete ($u$ imposta, stessa natura) e l'estremo aperto ($p$ imposta, natura opposta).
+
+\section*{Il campo nel piano $x$--$t$}
+Vicino all'uscita il campo ha queste regioni (figura~\ref{fig:xt}, caratteristiche disegnate come semirette):
+\begin{itemize}
+  \item 0, il flusso iniziale, uniforme, che soddisfa già la condizione, $u_0=\Me a_0$;
+  \item l'onda incidente $\upa$, a $R_1=R_{1,0}$ uniforme, con la testa che si propaga a $u_0+a_0$;
+  \item 1, lo stato uniforme dietro l'incidente, con $R_{1,1}=R_{1,0}$;
+  \item Z, la zona d'interazione a due famiglie a ridosso dell'uscita, fra l'arrivo della testa e quello della coda
+        dell'incidente. È chiusa dalla testa della riflessa e dalla coda dell'incidente, che si incontrano in P;
+  \item l'onda riflessa $\uma$, a $R_2=R_{2,1}$ uniforme, che risale nello stato 1;
+  \item 2, lo stato all'uscita dopo la riflessione, con $R_{2,2}=R_{2,1}$, che soddisfa la condizione.
+\end{itemize}
+Z si potrebbe risolvere con le compatibilità delle due famiglie e la condizione all'uscita, ma non serve. Lungo ogni
+$\upa$, $R_2$ arriva all'uscita invariato anche attraverso Z, e la condizione dà nello stesso istante il $R_1$ che
+riparte: all'uscita la relazione fra le due onde vale istante per istante.
+
+\figura[0.68]{xt.pdf}{Piano $x$--$t$ vicino all'uscita (esempio $\Me=0{,}3$, compressione), caratteristiche
+rettilinee: stati 0, 1, 2 e zona d'interazione Z.\label{fig:xt}}
+
+Nel diagramma l'incidente (rosso) arriva all'uscita fra $t=1$ e $t=1{,}5$. Ogni sua caratteristica genera nello
+stesso istante una caratteristica della riflessa (blu). Le $\upa$ sono più veloci delle $\uma$ ($a+u>a-u$), quindi più
+vicine all'orizzontale, e la riflessa occupa nello spazio un tratto più corto. Le due onde si sovrappongono nel
+triangolo Z; oltre P la riflessa risale nello stato 1 come onda semplice.
+
+\section*{La condizione fissa il Mach d'uscita}
+Derivo la condizione nel tempo, nella sezione d'uscita:
+\begin{gather*}
+  \frac{df}{dt}=f'(M)\,M_t=0 \ee M_t=\frac{u_t-M\,a_t}{a},
+\end{gather*}
+con
+\[
+  f'(M)=2M^{-(3\gamma-1)/(\gamma+1)}\left[M^2-\frac{\gamma-1}{\gamma+1}\right].
+\]
+Per $M\neq0$ (c'è scarico, $u>0$) e $M\neq M_m=\sqrt{(\gamma-1)/(\gamma+1)}$ resta $u_t-M a_t=0$, cioè $M_t=0$:
+\textbf{il Mach d'uscita è costante}, $M=\Me$, ed è una radice di $f(M)=K$.
+
+Controllo subito che le radici esistano. $f\to\infty$ sia per $M\to0$ sia per $M\to\infty$, e $f'$ si annulla solo
+in $M_m$, dove c'è il minimo. Sostituisco $M_m^2=(\gamma-1)/(\gamma+1)$ e raccolgo $M_m^{-2(\gamma-1)/(\gamma+1)}$:
+\begin{align*}
+  f_{min}&=M_m^{-2(\gamma-1)/(\gamma+1)}\left[\frac{\gamma+1}{2}M_m^2+1\right]\\
+  &=\frac{\gamma+1}{2}\left(\frac{\gamma+1}{\gamma-1}\right)^{(\gamma-1)/(\gamma+1)},
+\end{align*}
+\begin{gather*}
+  f_{min}\approx1{,}62 \ee M_m\approx0{,}408 \ee f(1)=\frac{\gamma+3}{2}=2{,}2 .
+\end{gather*}
+
+\figura[0.72]{funzione_K.pdf}{La funzione $f(M)$ per l'aria: minimo in $M_m$, valore sonico $f(1)$, radici per due
+valori di $K$.\label{fig:f}}
+
+Leggo i casi sul grafico, dove una retta orizzontale $K$ taglia la curva in punti isolati:
+\begin{itemize}
+  \item per $1<K<f_{min}$ non esiste alcuno stato d'uscita. Il dato $K>1$ è necessario ($f_{min}>1$ per ogni
+        $\gamma$), ma non basta;
+  \item per $f_{min}<K<(\gamma+3)/2$ ci sono due radici subsoniche, una per parte rispetto a $M_m$. Per esempio, con
+        $K\approx1{,}66$ sono $\Me=0{,}3$ e $\approx0{,}54$;
+  \item per $K\ge(\gamma+3)/2$ c'è una sola radice subsonica, sotto $M_m$ (con $K=2{,}5$, $\Me\approx0{,}065$); l'altra
+        è sonica o supersonica ed è esclusa;
+  \item per $K=f_{min}$ la radice è doppia, $\Me=M_m$. La forma derivata non dice nulla, perché $f'=0$, ma $f$ ha lì
+        un minimo stretto: ogni variazione di $M$ darebbe $f>K$, quindi $M$ resta $M_m$.
+\end{itemize}
+Delle due radici vale quella del flusso iniziale: $M$ varia con continuità e la condizione gli vieta di cambiare,
+quindi non può saltare sull'altra. Escludo anche $M=1$: con uscita sonica non entra alcuna caratteristica e non si
+può imporre alcuna condizione.
+
+\section*{La condizione sugli invarianti}
+Con $u=\Me a$ all'uscita ho $R_1=a(1-\delta\Me)$ e $R_2=a(1+\delta\Me)$, quindi
+\begin{gather*}
+  R_1\big|_{uscita}=\Cr\,R_2\big|_{uscita} \ee \Cr=\frac{1-\delta\Me}{1+\delta\Me}.
+\end{gather*}
+La relazione è \textbf{esatta e lineare}: l'invariante che entra è proporzionale a quello che arriva. In ogni istante
+le incognite all'uscita sono $a$ e $u$, e le equazioni sono due: $R_2$ portato dalla $\upa$ e la condizione. Lo stato
+all'uscita si trova senza iterare.
+
+\section*{Gli stati 0, 1, 2}
+Lo stato 0 soddisfa già la condizione: $u_0=\Me a_0$, cioè $R_{1,0}=\Cr\,R_{2,0}$.
+
+Nello stato 1, dietro l'incidente $\upa$, resta $R_{1,1}=R_{1,0}$. Cambia invece $R_2$, di $\Delta R_2=R_{2,1}-R_{2,0}$,
+che misura l'intensità dell'onda. Da $a=(R_1+R_2)/2$ e $u=(R_2-R_1)/(2\delta)$:
+\begin{gather*}
+  \Delta a_i=a_1-a_0=\tfrac12\Delta R_2 \ee \Delta u_i=u_1-u_0=\frac{\Delta a_i}{\delta}.
+\end{gather*}
+
+Nello stato 2, all'uscita dopo la riflessa $\uma$, resta $R_{2,2}=R_{2,1}$, e la condizione dà $R_{1,2}=\Cr\,R_{2,1}$.
+Sottraggo la relazione dello stato 0 e uso $R_{1,1}=R_{1,0}$:
+\[
+  \Delta R_1=R_{1,2}-R_{1,1}=\Cr\,\Delta R_2 .
+\]
+Attraverso la riflessa $\Delta a_r=a_2-a_1=\tfrac12\Delta R_1$ e $\Delta u_r=u_2-u_1=-\Delta a_r/\delta$, quindi
+\begin{gather*}
+  \boxed{\frac{\Delta a_r}{\Delta a_i}=\frac{\Delta R_1}{\Delta R_2}=\Cr=\frac{1-\delta\Me}{1+\delta\Me}}
+  \ee \boxed{\frac{\Delta u_r}{\Delta u_i}=-\Cr}
+\end{gather*}
+con $0<\Cr<1$ per $0<\Me<1$. Controllo subito la natura: $\Delta a_r$ ha lo stesso segno di $\Delta a_i$, quindi la
+riflessa è una compressione se l'incidente è una compressione, un'espansione se è un'espansione, come avevo previsto.
+
+All'uscita le variazioni complessive sono
+\begin{gather*}
+  a_2-a_0=(1+\Cr)\,\Delta a_i=\frac{2\,\Delta a_i}{1+\delta\Me} \ee
+  u_2-u_0=(1-\Cr)\,\Delta u_i=\frac{2\delta\Me\,\Delta u_i}{1+\delta\Me}.
+\end{gather*}
+Controllo che lo stato 2 rispetti la condizione: $(u_2-u_0)/(a_2-a_0)=(1-\Cr)/[\delta(1+\Cr)]=\Me$, cioè
+$\Delta u/u=\Delta a/a$, e $M$ resta $\Me$. Verificato. Nel limite $\Me\to0$ trovo $\Cr\to1$ e $u_2=u_0=0$, cioè la
+riflessione su parete: verificato.
+
+Per onde acustiche $\Delta p/p=\frac{2\gamma}{\gamma-1}\Delta a/a$, con lo stesso $p/a$ di riferimento, quindi
+\begin{gather*}
+  \frac{\Delta p_r}{\Delta p_i}\approx\Cr \ee p_2-p_0\approx(1+\Cr)\,\Delta p_i .
+\end{gather*}
+Controllo la coerenza acustica. Nell'onda $\upa$ $\Delta p_i=\rho a\,\Delta u_i$, nella $\uma$ $\Delta p_r=-\rho a\,\Delta u_r$,
+e con $\Delta p_r=\Cr\Delta p_i$ e $\Delta u_r=-\Cr\Delta u_i$ le due relazioni sono compatibili. Verificato.
+
+Al variare di $\Me$ da 0 a 1, $\Cr$ scende da 1 a $(3-\gamma)/(\gamma+1)=2/3$. Per l'aria:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ccc}
+    \toprule
+    $\Me$ & $\Cr$ & $1-\Cr$ \\
+    \midrule
+    0,1 & 0,961 & 0,039 \\
+    0,2 & 0,923 & 0,077 \\
+    0,3 & 0,887 & 0,113 \\
+    0,408 ($M_m$) & 0,849 & 0,151 \\
+    0,6 & 0,786 & 0,214 \\
+    0,8 & 0,724 & 0,276 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Riflessione all'uscita per l'aria: $\Cr=\Delta p_r/\Delta p_i$, $(p_2-p_0)/\Delta p_i=1+\Cr$,
+  $(u_2-u_0)/\Delta u_i=1-\Cr$.}
+\end{table}
+
+\section*{La stessa cosa sui gradienti}
+Lo stesso risultato si legge sui gradienti, scrivendo la condizione in forma differenziale, $u_t-M a_t=0$. Le
+relazioni caratteristiche $R_{1t}+(u-a)R_{1x}=0$ e $R_{2t}+(u+a)R_{2x}=0$, con $a=(R_1+R_2)/2$ e
+$u=(R_2-R_1)/(2\delta)$, danno all'uscita
+\[
+  a_t=-\frac{u+a}{2}(a+\delta u)_x-\frac{u-a}{2}(a-\delta u)_x,
+\]
+\[
+  u_t=-\frac{u+a}{2\delta}(a+\delta u)_x+\frac{u-a}{2\delta}(a-\delta u)_x .
+\]
+Le sostituisco in $u_t-Ma_t=0$, con $u=Ma$ e $M\neq1$:
+\[
+  (a-\delta u)_x=-\frac{(1+M)(1-\delta M)}{(1-M)(1+\delta M)}\,(a+\delta u)_x .
+\]
+Nell'incidente ($R_1$ uniforme) $(a+\delta u)_x=2a_{x,i}$; nella riflessa ($R_2$ uniforme) $(a-\delta u)_x=2a_{x,r}$.
+Quindi
+\[
+  a_{x,r}=-\frac{1+\Me}{1-\Me}\,\Cr\;a_{x,i}.
+\]
+Una compressione incidente ha $a_{x,i}<0$, perché il gas compresso sta dietro, a sinistra. Allora $a_{x,r}>0$: la
+riflessa ha il gas compresso dietro di sé, a destra, ed è una \textbf{compressione}. Il segno coincide con quello
+trovato dalle ampiezze. Il fattore in più, $(1+\Me)/(1-\Me)=(a+u)/(a-u)$, è il rapporto delle velocità: all'uscita la
+riflessa dura quanto l'incidente, ma risale più lentamente, quindi è più corta e più ripida.
+
+\section*{L'esempio nel piano $p$--$u$}
+Con $\Me=0{,}3$ ho $K=f(0{,}3)\approx1{,}66$ (l'altra radice è $\approx0{,}54$) e $\Cr\approx0{,}887$. Prendo $p_0=a_0=1$,
+$u_0=0{,}3$ e un'incidente di compressione con $p_1/p_0=1{,}1$, più ampia di un'onda acustica per leggere i punti.
+Con $a_1=a_0(p_1/p_0)^{(\gamma-1)/(2\gamma)}$ e $u_1=u_0+(a_1-a_0)/\delta$:
+\begin{gather*}
+  a_1\approx1{,}014 \ee u_1\approx0{,}369 .
+\end{gather*}
+Lo stato 2 segue da $R_{2,2}=R_{2,1}$ e $u_2=\Me a_2$:
+\begin{gather*}
+  a_2=\frac{R_{2,1}}{1+\delta\Me}\approx1{,}026 \ee u_2=\Me a_2\approx0{,}308,
+\end{gather*}
+\[
+  p_2=p_0\left(\frac{a_2}{a_0}\right)^{2\gamma/(\gamma-1)}\approx1{,}20 .
+\]
+La riflessa porta la pressione da $1{,}10$ a $\approx1{,}20$. A pari incidente, un'uscita a pressione imposta
+($p=p_0$) darebbe $u\approx0{,}437$ e una riflessa di espansione; un'uscita a velocità imposta ($u=u_0$) darebbe
+$p\approx1{,}21$. Con un'incidente di espansione, $p_1/p_0=0{,}9$, trovo $p_2\approx0{,}82$: ancora la stessa natura.
+
+\figura[0.72]{pu.pdf}{Piano $p$--$u$ (esempio $\Me=0{,}3$): contorno $u=\Me a$ e confronto con pressione e velocità
+imposte, per incidenti di compressione ($p_1/p_0=1{,}1$) e di espansione ($0{,}9$).\label{fig:pu}}
+
+Nel piano $p$--$u$ lo stato 1 sta sulla curva dell'onda $\upa$ uscente da 0. Lo stato 2 è l'intersezione della curva
+della riflessa $\uma$ uscente da 1 (tratto-punto) con quella del contorno $u=\Me a$, quasi verticale: $u$ cambia poco
+e $p$ molto, come su una parete. Lo stato 2 cade dalla stessa parte di 1 rispetto a 0, sopra 1 per la compressione e
+sotto 1 per l'espansione: stessa natura. I punti colorati sono le intersezioni con $p=p_0$ (rosso, natura opposta)
+e con $u=u_0$ (blu, parete). Lo stato 2 è vicino a quello di velocità imposta: l'uscita a Mach imposto si comporta
+quasi come un'estremità chiusa. Le pressioni stanno in un intervallo stretto e basta la scala lineare.
+
+Gli ultimi controlli:
+\begin{itemize}
+  \item la riflessa entra davvero nel condotto: $M$ resta $\Me<1$, quindi $u_2-a_2=-(1-\Me)a_2<0$. Verificato;
+  \item non c'è vuoto: $a_2=R_{2,1}/(1+\delta\Me)>0$ per qualunque espansione con $R_{2,1}>0$. Verificato;
+  \item l'omoentropia regge: le onde sono acustiche e non ci sono urti. La riflessa di compressione è più ripida di
+        $(1+\Me)/(1-\Me)$, ma con piccola ampiezza l'urto resta lontano. Verificato.
+\end{itemize}
+
+\section*{Risposta}
+\begin{itemize}
+  \item La condizione impone \textbf{$M=\Me$ costante} all'uscita, con $\Me$ radice di $f(M)=K$. Esiste solo per
+        $K\ge f_{min}\approx1{,}62$, con due radici subsoniche se $K<2{,}2$; vale quella del flusso iniziale.
+  \item Sugli invarianti la condizione è $R_1=\Cr R_2$, con $\Cr=(1-\delta\Me)/(1+\delta\Me)$ (esatto).
+  \item Un'onda acustica $\upa$ che arriva dall'interno si riflette come onda $\uma$ della \textbf{stessa natura}, con
+        $\Delta a_r=\Cr\Delta a_i$ e $\Delta u_r=-\Cr\Delta u_i$ (esatti), $\Delta p_r\approx\Cr\Delta p_i$ (acustico).
+  \item All'uscita $p_2-p_0\approx(1+\Cr)\Delta p_i$ e $u_2-u_0=2\delta\Me\Delta u_i/(1+\delta\Me)$.
+  \item Gradienti: $a_{x,r}=-\Cr(1+\Me)/(1-\Me)\,a_{x,i}$. Per l'aria $\Cr$ va da 1 ($\Me\to0$) a $2/3$ ($\Me\to1$).
+\end{itemize}
+
+\figura[0.72]{coeff_riflessione.pdf}{Coefficiente di riflessione all'uscita in funzione di $\Me$ (aria), confrontato
+con velocità imposta, contorno non riflettente e pressione imposta.\label{fig:C}}
+
+Il grafico riassume la risposta. Con Mach imposto, $\Cr$ resta fra $2/3$ e 1 per ogni uscita subsonica, lontano dal
+contorno non riflettente (0) e dall'estremo aperto ($-1$).
+
+\section*{Discussione}
+\textbf{Che cosa rappresenta la condizione.} Fissare il Mach d'uscita è ciò che fa, per esempio, un restringimento o
+un ugello strozzato allo sbocco. Il rapporto fra la sezione del condotto e quella critica fissa $\Me$ con la legge
+delle aree, come nello svuotamento di un tubo da un orifizio. Il rapporto $u/a$ è bloccato, mentre $p$, $\rho$, $a$ e
+$u$ seguono le onde.
+
+\textbf{Perché la stessa natura.} Per confrontare i contorni scrivo all'uscita una relazione lineare
+$\Delta u=k\,\Delta a$. Da $\Delta R_1=\Delta a-\delta\Delta u$ e $\Delta R_2=\Delta a+\delta\Delta u$ segue
+$\Cr=(1-\delta k)/(1+\delta k)$. Con velocità imposta ($k=0$) $\Cr=1$; con pressione imposta ($k\to\infty$) $\Cr=-1$.
+Il contorno non riflettente ($\Cr=0$) vorrebbe $k=1/\delta$, cioè $R_1$ costante. Il Mach imposto ha $k=\Me$. Poiché
+$\Me<1<1/\delta$, la riflessa ha sempre la stessa natura e almeno $2/3$ dell'ampiezza dell'incidente. È un'estremità
+``quasi chiusa'', tanto più chiusa quanto più basso è $\Me$.
+
+\textbf{Che cosa esce.} La parte non riflessa esce come variazione di portata. Da
+$\dot m\propto\rho a\Me\propto a^{(\gamma+1)/(\gamma-1)}$ ho
+\[
+  \frac{\Delta\dot m}{\dot m}=\frac{\gamma+1}{\gamma-1}\frac{\Delta a_2}{a}=\frac{\gamma+1}{2\gamma}\frac{\Delta p_2}{p}:
+\]
+la portata cresce con la pressione, come in un ugello strozzato, mentre la velocità d'uscita cambia poco.
+
+\textbf{Conseguenze.} In un condotto chiuso all'altro estremo, un disturbo rimbalza fra la parete, che lo riflette
+intero, e l'uscita, che ne trattiene la frazione $\Cr$. A ogni andata e ritorno perde solo
+$1-\Cr=2\delta\Me/(1+\delta\Me)$ dell'ampiezza in $R_1$, $R_2$: a basso $\Me$ lo smorzamento è lento e il condotto può
+risuonare. Inoltre la riflessa di compressione è più ripida dell'incidente del fattore $(1+\Me)/(1-\Me)$. Per
+ampiezze non piccole degenera in urto prima dell'incidente, e da lì il modello omoentropico non vale più.
+
+\textbf{Limiti del modello.} Il risultato vale finché la condizione è verificata in ogni istante, cioè per
+lunghezze d'onda grandi rispetto al dispositivo d'uscita, e finché il flusso resta subsonico. Se un'espansione molto
+forte portasse l'uscita a $M=1$, nessuna caratteristica entrerebbe più dall'uscita e la condizione non andrebbe più
+imposta.
+
+\end{document}
