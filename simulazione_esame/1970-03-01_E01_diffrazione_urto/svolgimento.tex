@@ -1,0 +1,295 @@
+% Simulazione d'esame: prova del 01/03/1970, esercizio 1 -- diffrazione di un urto piano attorno a uno spigolo.
+% Stessi numeri e figure dello svolgimento di riferimento:
+% svolgimenti/1970-03-01_E01_diffrazione_urto (calcoli.py e figure/).
+% Compilare con: bash ../compila.sh 1970-03-01_E01_diffrazione_urto  (A4 + orologio)
+
+\input{../preambolo}
+\graphicspath{{../../svolgimenti/1970-03-01_E01_diffrazione_urto/figure/}}
+
+\esercizio{Prova del 01/03/1970 -- Esercizio 1}{Diffrazione di un urto piano attorno a uno spigolo}
+
+\begin{document}
+\maketitle
+
+\emph{Traccia.} Un urto piano con $M_s=4$ diffrange attorno allo spigolo vivo C di due pareti piane con angolo di
+$105^\circ$ (schlieren); davanti all'urto aria in quiete a $p_1=\SI{1e5}{Pa}$, $T_1=\SI{293}{K}$. Rapporto fra la
+distanza della testa A dell'urto diffratto DS dall'ascissa di C e quella del piede B da C lungo la parete inclinata:
+$2{,}5$. La linea di separazione SL da C devia prima di $\theta_1=44^\circ$, poi di $\theta_2=17^\circ$ in F. Chiede:
+stato dietro l'urto piano; velocità del piede B; intensità del ventaglio in C, perché c'è e perché la sua testa
+termina in D; intensità del ventaglio in F; intensità dell'urto di ricompressione RC, perché c'è e la sua geometria;
+perché c'è il contatto CD e perché va da E (che si muove lungo la parete come il piede) a D; linee di corrente;
+deviazione di SL in C nel campo asintotico. (Traccia identica a B70-E01 del 13/02/2023.)
+
+\section*{Che cosa mostra la figura}
+La schlieren rende visibili i gradienti di densità: gli urti sono linee chiare, nette e sottili, i ventagli zone a
+luminosità graduata, il contatto una linea più debole e sfumata. È un'istantanea di un fenomeno instazionario:
+l'urto piano, venuto da sinistra, ha superato lo spigolo C (la linea verticale sottile per C ne segna la posizione al
+passaggio, $t=0$) e corre verso destra nel gas fermo, che dietro di sé mette in moto verso destra. Il bordo nero in
+alto è la parete superiore del condotto; il blocco nero è il corpo, con la faccia inclinata che scende da C verso B,
+ruotata di $105^\circ$ rispetto alla corrente. Il gas è aria, $\gamma=1{,}4$, $R=\SI{287}{J/(kg.K)}$. Non ho una
+scala delle lunghezze, ma vedrò che non serve.
+
+\figura[0.92]{annotata.png}{Le strutture che individuo. Rosso: urto diffratto DS (da A a B); ciano: testa del
+ventaglio di C (tratto rettilineo inclinato di $\mu_2$ fino alla tangenza con il cerchio acustico dello spigolo, poi
+l'arco fino a D; quadratino ciano: D calcolato; giallo: dove la curvatura di DS diventa visibile); tratteggio ciano:
+code dei ventagli in C e in F; verde: SL con lo spigolo F; arancio: RC; magenta: CD, da D a E. I numeri indicano gli
+stati.\label{fig:ann}}
+
+Leggo le strutture nell'ordine della figura:
+\begin{itemize}
+\item \textbf{DS}, linea chiara esterna da A a B: fra A e D è ancora l'urto piano, perpendicolare alla parete
+  superiore; sotto D si incurva, si indebolisce scendendo e arriva perpendicolare alla parete inclinata nel piede B.
+  Resta sottile ovunque perché è una compressione: le caratteristiche vi convergono.
+\item \textbf{Ventaglio centrato in C}: la zona scura che parte da C verso l'alto a destra, con il bordo superiore
+  rettilineo per C (una linea di Mach) e luminosità graduata, come in un'espansione isentropica.
+\item \textbf{SL}: la corrente non segue la parete inclinata, si stacca nello spigolo vivo C; lo strato di
+  scorrimento delimita una \textbf{bolla} di gas lento fra SL e la parete. In F devia ancora e termina in un vortice
+  (macchia scura). Il \textbf{ventaglio di F}, legato alla seconda deviazione, è contiguo a quello di C e non si
+  distingue.
+\item \textbf{RC}: il bordo netto fra zona scura e zona chiara, dalla fine di SL verso l'alto; netto in basso, sfuma
+  salendo dentro il ventaglio di C.
+\item \textbf{CD}: la seconda linea chiara, fra RC e DS, più debole di DS; marcata in basso, sfuma salendo verso D e
+  in basso si chiude verso il vortice e la parete, in E.
+\item Il disco chiaro nel blocco nero e le frecce sono elementi della stampa.
+\end{itemize}
+
+Misuro con righello e goniometro, origine in C: il rapporto fra la distanza di A dall'ascissa di C e CB è
+$\approx2{,}5$, e la parete inclinata forma $\approx105^\circ$ con la corrente, come nel testo; il bordo della zona
+scura da C è a $\approx40^\circ$ sopra l'orizzontale; SL ha il primo tratto a $\approx46^\circ$ e il secondo a
+$\approx59^\circ$ sotto l'orizzontale, che entro la precisione della lettura concordano con $44^\circ$ e
+$44^\circ+17^\circ=61^\circ$ (nel calcolo uso i dati); $\mathrm{CE}/\mathrm{CB}\approx0{,}47$; la distanza di C dalla
+tangente a RC nel tratto basso è $h_{RC}\approx0{,}37\,x_A$, e lì RC è quasi perpendicolare alla corrente; la
+curvatura di DS diventa visibile a $\approx0{,}32\,x_A$ sopra C.
+
+\section*{Modello e chiave di lettura}
+Uso Eulero 2D piano instazionario, gas ideale. Le strutture nette (urti, ventagli) sono quelle di un campo non
+viscoso; SL e la bolla sono effetti viscosi, e la loro geometria la prendo dai dati $\theta_1$, $\theta_2$.
+
+La chiave è l'\textbf{autosimilarità}: spigolo vivo, pareti piane e stati uniformi non danno alcuna lunghezza, quindi
+il campo dipende solo da $x/t$, $y/t$. Ogni punto riconoscibile parte da C a $t=0$ e si muove a velocità costante,
+proporzionale alla sua distanza da C; la scala me la dà A, che è l'urto piano e corre a $W$. Per un'onda curva conta la
+velocità normale: il punto in cui la normale è $\mathbf n$ si sposta lungo $\mathbf n$ di $h=\mathbf r\cdot\mathbf n$
+(distanza di C dalla tangente) nel tempo $t$, quindi
+\begin{gather*}
+  \frac{W_B}{W}=\frac{\mathrm{CB}}{x_A} \ee W_n=W\,\frac{h}{x_A}.
+\end{gather*}
+Per la stessa ragione un punto a distanza fissa da C ha $r/t\to0$: vicino allo spigolo la corrente è
+\textbf{stazionaria}, ed è quello il campo asintotico che chiede l'ultima domanda.
+
+Assumo infine SL come contorno a pressione assegnata (pressione continua, corrente esterna uniforme su ogni tratto
+rettilineo, quindi $\theta_1$ e $\theta_2$ sono le deviazioni dei ventagli) e il piede perpendicolare alla parete,
+come si vede in B: il gas davanti è fermo, la velocità indotta è normale all'urto e deve essere tangente alla parete.
+
+\section*{Lo stato dietro l'urto piano}
+\begin{gather*}
+  a_1=\sqrt{\gamma R T_1}=\SI{343}{m/s} \ee W=M_s a_1=\SI{1373}{m/s}.
+\end{gather*}
+Nel riferimento dell'urto il gas 1 entra con Mach $M_s$, quindi uso le relazioni dell'urto normale con $M_1=M_s$; per
+tornare al laboratorio $u_2=W-v_2=W(1-\rho_1/\rho_2)$:
+\begin{gather*}
+  \frac{p_2}{p_1}=1+\frac{2\gamma}{\gamma+1}(M_s^2-1)=18{,}5 \ee
+  \frac{\rho_2}{\rho_1}=\frac{(\gamma+1)M_s^2}{(\gamma-1)M_s^2+2}=4{,}57,\\
+  u_2=\frac{2a_1}{\gamma+1}\Big(M_s-\frac{1}{M_s}\Big)=\SI{1072}{m/s}.
+\end{gather*}
+\begin{gather*}
+  p_2=\SI{18.5e5}{Pa} \ee T_2=T_1\frac{p_2}{p_1}\frac{\rho_1}{\rho_2}=\SI{1186}{K},\\
+  a_2=\SI{690}{m/s} \ee M_2=\frac{u_2}{a_2}=1{,}55 .
+\end{gather*}
+Totali della corrente 2: $p_{02}=p_2(1+\delta M_2^2)^{\gamma/(\gamma-1)}=\SI{73.4e5}{Pa}$, $T_{02}=\SI{1758}{K}$, con
+$\delta=(\gamma-1)/2$. Controllo subito il punto che decide tutto: $M_2=1{,}55>1$ (dietro un urto in gas fermo la
+corrente è supersonica per $M_s>2{,}07$), quindi in C ci sarà un'espansione supersonica stazionaria. Controllo anche
+che l'urto sia subsonico rispetto al gas che ha dietro, $|M_r|=(W-u_2)/a_2=0{,}43<1$: le perturbazioni dello spigolo lo
+raggiungono, ed è per questo che diffrange.
+
+\section*{Il piede B}
+Dall'autosimilarità, con il rapporto dato,
+\begin{gather*}
+  W_B=\frac{W}{2{,}5}=\SI{549}{m/s} \ee M_B=\frac{W_B}{a_1}=1{,}60 .
+\end{gather*}
+Il piede è un urto normale che corre lungo la parete nel gas fermo, con le stesse relazioni:
+\begin{gather*}
+  \frac{p_5}{p_1}=2{,}82 \ee \frac{\rho_5}{\rho_1}=2{,}03 \ee T_5=\SI{407}{K},\\
+  u_5=\frac{2a_1}{\gamma+1}\Big(M_B-\frac{1}{M_B}\Big)=\SI{279}{m/s} \ee a_5=\SI{404}{m/s} \ee M_5=0{,}69 .
+\end{gather*}
+Il gas 5 scorre lungo la parete verso B ed è subsonico. Controllo: $M_B>1$ e $\Delta s>0$, e il piede è molto più
+debole dell'urto piano ($p_5\ll p_2$), come deve essere per un urto che si indebolisce diffrangendo. Con il goniometro
+ritrovo anche il rapporto: A/B $\approx2{,}5$.
+
+\section*{Il ventaglio in C}
+La corrente 2 è supersonica e, vicino a C, stazionaria; lo spigolo convesso la costringe a ruotare in senso orario
+senza alcuna lunghezza di riferimento: nasce un ventaglio centrato di onde $\Cp$ (la parete è sotto la corrente, i
+fronti salgono). Attraverso le $\Cp$ si conserva $\theta+\nu$ e la corrente ruota di $\theta_1$:
+\begin{gather*}
+  \nu(M_3)=\nu(M_2)+\theta_1 \ee \nu(M_2)=\SI{13.5}{\degree},\\
+  \nu(M_3)=\SI{57.5}{\degree} \ee M_3=3{,}44 .
+\end{gather*}
+L'espansione è isentropica, $p_0$ costante:
+\begin{gather*}
+  p_3=p_2\,\frac{(1+\delta M_2^2)^{\gamma/(\gamma-1)}}{(1+\delta M_3^2)^{\gamma/(\gamma-1)}}=\SI{1.06e5}{Pa} \ee
+  \frac{p_3}{p_2}=0{,}057,\\
+  T_3=\SI{523}{K} \ee a_3=\SI{459}{m/s} \ee V_3=M_3a_3=\SI{1575}{m/s} \ee \theta_3=-44^\circ .
+\end{gather*}
+L'intensità del ventaglio è quindi una deviazione di $44^\circ$ con $p_3/p_2=0{,}057$. La testa è la linea di Mach
+della corrente 2, a $\mu_2=\arcsin(1/M_2)=\SI{40.1}{\degree}$ sopra l'orizzontale: sulla figura ho misurato
+$\approx40^\circ$, e la verifica torna. La coda è a $\theta_3+\mu_3=\SI{-27.1}{\degree}$.
+
+\textbf{Perché la testa finisce in D.} La prima perturbazione partita da C a $t=0$ viaggia con il suono nel gas 2,
+che la trasporta: al tempo $t$ è un cerchio di centro $u_2t$ sull'orizzontale di C e raggio $a_2t$. Le perturbazioni
+successive stanno dentro l'inviluppo formato dalla linea di Mach per C tangente al cerchio e dal cerchio stesso;
+quindi la testa del ventaglio è rettilinea solo fino alla tangenza, a $\sqrt{u_2^2-a_2^2}\,t=821\,t$ da C, e poi
+segue il cerchio. Il cerchio raggiunge l'urto piano perché $u_2+a_2>W$ (è lo stesso $|M_r|<1$ di prima), e lo taglia
+in D:
+\begin{gather*}
+  (W-u_2)^2+y_D^2=a_2^2 \ \Rightarrow\ \frac{y_D}{x_A}=\frac{\sqrt{a_2^2-(W-u_2)^2}}{W}=0{,}45 .
+\end{gather*}
+Sopra D l'urto non ha ricevuto alcuna informazione dello spigolo: resta piano, con lo stato 2 dietro; sotto D
+diffrange. Il fronte di testa, cioè il confine della zona perturbata dallo spigolo, termina dunque sull'urto in D.
+Sulla figura la curvatura si vede solo da $\approx0{,}32\,x_A$: è coerente, perché in D arriva una perturbazione
+infinitesima e l'urto comincia a curvarsi con pendenza continua, quindi la curvatura si nota solo più in basso.
+
+\section*{Il ventaglio in F}
+In F la linea di separazione devia ancora di $\theta_2$: vicino al vortice la pressione nella bolla è più bassa che
+vicino a C, e la corrente vi si adatta con una seconda espansione centrata di onde $\Cp$:
+\begin{gather*}
+  \nu(M_4)=\nu(M_3)+\theta_2=\SI{74.5}{\degree} \ee M_4=4{,}75,\\
+  p_4=\SI{0.187e5}{Pa} \ee \frac{p_4}{p_3}=0{,}177 \ee \frac{p_4}{p_2}=0{,}010,\\
+  T_4=\SI{319}{K} \ee a_4=\SI{358}{m/s} \ee V_4=\SI{1700}{m/s} \ee \theta_4=-61^\circ .
+\end{gather*}
+La testa è a $\theta_3+\mu_3=\SI{-27.1}{\degree}$, parallela alla coda del ventaglio di C, quindi lo stato 3 è una
+striscia fra le due; la coda è a $\theta_4+\mu_4=\SI{-48.9}{\degree}$. Controllo: $\nu(M_4)<\nu_{max}=130{,}5^\circ$, e
+la deviazione totale di SL, $61^\circ$, è minore dei $105^\circ$ della parete: SL non la tocca e la bolla esiste.
+
+\section*{L'urto di ricompressione RC}
+\textbf{Perché c'è.} Dopo le due espansioni la corrente è a $p_4\approx\SI{0.19e5}{Pa}$ (e a
+$p_3\approx\SI{1.1e5}{Pa}$ più in alto), mentre il gas messo in moto da DS sta fra $p_5=\SI{2.8e5}{Pa}$ al piede e
+$p_2=\SI{18.5e5}{Pa}$ vicino a D. Attraverso CD la pressione è continua, quindi la corrente espansa deve
+ricomprimersi; rispetto alle strutture, che si spostano molto più lentamente di essa, è supersonica e non può
+ricevere l'informazione da valle in modo graduale: lo fa con un urto.
+
+\textbf{Geometria.} I ventagli sono centrati in C e in F, quindi la corrente espansa esce quasi radialmente dallo
+spigolo, e l'urto che la ricomprime le è quasi perpendicolare: un arco concavo verso C. Parte dalla fine di SL, dove
+la corrente è nello stato 4 e il salto di pressione richiesto è massimo; salendo entra nel ventaglio di C, dove la
+corrente è sempre meno espansa ($M\to M_2$, $p\to p_2$), si indebolisce e svanisce come onda di Mach. È proprio ciò
+che vedo: RC netto in basso, sfumato in alto.
+
+\textbf{Intensità.} Per l'autosimilarità RC si allontana da C con velocità normale
+\begin{gather*}
+  W_{RC}=W\,\frac{h_{RC}}{x_A}\approx\SI{510}{m/s}\approx W_B ,
+\end{gather*}
+perché RC dista da C circa quanto B. Prendo quindi $W_{RC}\approx W_B$, con RC normale alla corrente a monte; nel suo
+riferimento la corrente arriva con Mach relativo
+\begin{gather*}
+  M_{r4}=\frac{V_4-W_B}{a_4}=3{,}22 \ee M_{r3}=\frac{V_3-W_B}{a_3}=2{,}24 ,
+\end{gather*}
+e l'urto normale dà
+\begin{gather*}
+  \frac{p_6}{p_4}=1+\frac{2\gamma}{\gamma+1}(M_{r4}^2-1)=11{,}9 \ee p_6\approx\SI{2.2e5}{Pa}\ \text{(tratto basso)},\\
+  \frac{p_6}{p_3}=1+\frac{2\gamma}{\gamma+1}(M_{r3}^2-1)=5{,}7 \ee p_6\approx\SI{6.0e5}{Pa}\ \text{(tratto centrale)},
+\end{gather*}
+con $p_6/p\to1$ in cima, dove RC svanisce. Usando il valore misurato di $W_{RC}$ invece di $W_B$, $p_6$ cambia di meno
+del 10\%: la stima è robusta. Controllo: $M_r>1$ in entrambi i tratti, quindi è un urto di compressione con
+$\Delta s>0$, e dietro la corrente è subsonica rispetto a RC (Mach relativo $\approx0{,}46$ e $0{,}55$). Le pressioni
+dietro RC, $\approx2{,}2$--$\SI{6.0e5}{Pa}$, stanno fra quelle del gas dietro DS nelle zone corrispondenti
+($p/p_1\approx2{,}8$--$8$, vedi la discussione): la continuità di pressione attraverso CD torna in ordine di grandezza.
+Lo stato 6 dietro RC non è uniforme, perché RC è attraversato da stati diversi.
+
+\section*{Il contatto CD e il punto E}
+Il gas fra CD e DS è stato messo in moto da DS dopo il passaggio in C; quello all'interno di CD era già stato
+attraversato dall'urto piano ($M_s=4$) prima della diffrazione e poi ha girato lo spigolo (ventagli, RC, bolla).
+Attraverso CD pressione e velocità normale sono continue, l'entropia no: l'urto piano ha prodotto $\Delta s/R=1{,}98$,
+mentre DS, che si indebolisce da $M\approx4$ in D a $1{,}6$ in B, produce salti di entropia che scendono fino a
+$\Delta s/R=0{,}11$ al piede. Il salto attraverso CD (e quindi di densità e di temperatura) è nullo in D, dove l'urto
+è ancora quello piano: per questo CD si ferma in D e sfuma salendo verso D. È massimo in basso, dove CD tocca la parete
+in E.
+
+E è un punto di un contatto, quindi materiale: sta sulla parete e si muove con il gas a parete, cioè con $u_5$. Come B,
+corre lungo la parete a velocità costante, e il rapporto delle distanze da C è quello delle velocità:
+\begin{gather*}
+  \frac{\mathrm{CE}}{\mathrm{CB}}=\frac{u_5}{W_B}=0{,}51 ,
+\end{gather*}
+contro $\approx0{,}47$ misurato: torna.
+
+\section*{Le linee di corrente}
+Traccio le linee di corrente istantanee (fig.~\ref{fig:lc}) seguendo la direzione della velocità zona per zona.
+\begin{itemize}
+\item Nella zona 2, fuori dalla zona perturbata dallo spigolo, sono orizzontali e arrivano così al tratto piano A--D
+  di DS, dove terminano: davanti a DS il gas è fermo.
+\item Quelle che entrano nel ventaglio di C si incurvano verso il basso. In un ventaglio centrato la portata fra due
+  raggi si conserva, $\rho a\,r=\text{cost}$: la distanza da C cresce molto e la rotazione avviene in un tratto lungo,
+  così solo le linee vicine a SL completano la rotazione di $44^\circ$ (stato 3) e poi quella di $17^\circ$ in F
+  (stato 4).
+\item Attraversano RC senza cambiare direzione (RC è quasi normale alla corrente) e rallentano; attraversano CD e
+  arrivano a DS perpendicolarmente, perché dietro un urto che entra nel gas fermo la velocità è normale all'urto.
+\item La linea di parete si separa in C lungo SL, devia in F e si avvolge nel vortice; nella bolla il gas ricircola,
+  scendendo lungo SL trascinato dallo strato di scorrimento e risalendo lungo la parete verso C.
+\item Da E verso B il gas scorre lungo la parete con velocità $u_5$, fino al piede, dove la velocità è parallela alla
+  parete e normale all'urto; vicino a DS le linee arrivano normali all'urto.
+\end{itemize}
+
+\figura[0.86]{linee_corrente.png}{Linee di corrente istantanee (blu) nel riferimento del laboratorio; verde: SL e
+vortice; giallo: ricircolo nella bolla; arancio: RC; magenta: CD. Le linee che arrivano su DS vi terminano
+perpendicolarmente.\label{fig:lc}}
+
+\section*{Il campo asintotico allo spigolo}
+Per $t\to\infty$ l'urto si allontana e allo spigolo resta la corrente stazionaria 2 che esce dal condotto e si espande
+nell'ambiente a $p_1$: la bolla, a contatto con l'ambiente, ne assume la pressione, e SL, contorno a pressione
+assegnata, devia di quanto serve a portare la corrente 2 a $p_1$ in modo isentropico:
+\begin{gather*}
+  \frac{p_{02}}{p_1}=(1+\delta M_\infty^2)^{\gamma/(\gamma-1)}=73{,}4 \ee M_\infty=3{,}47,\\
+  \nu(M_\infty)=\SI{58.1}{\degree} \ee \theta_\infty=\nu(M_\infty)-\nu(M_2)=\SI{44.6}{\degree}.
+\end{gather*}
+È la prima deviazione misurata, $\theta_1=44^\circ$, e infatti $p_3\approx\SI{1.06e5}{Pa}\approx p_1$. Non è un caso:
+come ho detto all'inizio, il campo vicino a C è già quello asintotico, e la bolla vicino allo spigolo è già alla
+pressione dell'ambiente.
+
+Riporto tutto nel piano $p$--$\theta$ (fig.~\ref{fig:pt}). La curva è l'espansione $\Cp$ isentropica da 2
+($p_0=p_{02}$), con 3 a $-44^\circ$, 4 a $-61^\circ$ e il punto asintotico $\infty$, dove taglia $p=p_1$, quasi
+sovrapposto a 3. RC è normale alla corrente e non ne cambia la direzione: è un salto verticale da 4 e da 3 ai due
+valori di $p_6$. Lo stato 5 sta alla direzione della parete, $-105^\circ$. Le pressioni coprono due ordini di
+grandezza ($\approx\SI{2e6}{Pa}$--$\SI{2e4}{Pa}$), quindi uso entrambe le scale: la logaritmica mostra tutti gli stati
+e la curva che, oltre $80^\circ$ di deviazione, scende verso il vuoto; la lineare mostra quanto la pressione crolli
+già nei primi $40^\circ$, e che dopo RC il gas torna a pressioni dell'ordine di $p_5$, molto sotto $p_2$.
+
+\figura[0.7]{p_theta_log.pdf}{Piano $p$--$\theta$ in scala logaritmica: espansione $\Cp$ da 2, stati 3, 4, punto
+asintotico $\infty$, salti di RC (frecce rosse), stato 5 alla direzione della parete.\label{fig:pt}}
+
+\figura[0.7]{p_theta_lin.pdf}{Lo stesso piano $p$--$\theta$ in scala lineare.}
+
+\section*{Risultati}
+\begin{itemize}
+\item Stato 2: $p_2=\SI{18.5e5}{Pa}$, $T_2=\SI{1186}{K}$, $u_2=\SI{1072}{m/s}$, $M_2=1{,}55$ (esatto).
+\item Piede B: $W_B=\SI{549}{m/s}$, $M_B=1{,}60$; stato 5: $p_5=\SI{2.82e5}{Pa}$, $u_5=\SI{279}{m/s}$ (esatto, dai
+  dati).
+\item Ventaglio in C: $\Delta\theta=44^\circ$, $M_3=3{,}44$, $p_3/p_2=0{,}057$, $p_3=\SI{1.06e5}{Pa}$ (esatto, dai dati).
+\item Ventaglio in F: $\Delta\theta=17^\circ$, $M_4=4{,}75$, $p_4/p_3=0{,}177$, $p_4=\SI{0.19e5}{Pa}$ (esatto, dai dati).
+\item RC: $p_6/p_4\approx12$ ($p_6\approx\SI{2.2e5}{Pa}$) in basso, $p_6/p_3\approx5{,}7$ ($p_6\approx\SI{6.0e5}{Pa}$)
+  al centro (stima).
+\item D: $y_D/x_A=0{,}45$ (esatto). Campo asintotico: $\theta_\infty=44{,}6^\circ\approx\theta_1$ (esatto).
+\end{itemize}
+
+\section*{Discussione}
+\begin{itemize}
+\item \textbf{Calcolo e immagine concordano} sulla testa del ventaglio ($40^\circ$), sul punto E e sulla geometria di
+  RC (arco quasi concentrico a C, alla distanza di B, che si indebolisce salendo). La zona scura della schlieren è il
+  ventaglio di C: lì la densità cala fortemente (da $\rho_2$ a $\approx\rho_2/8$ nello stato 3).
+\item \textbf{Intensità di DS lungo il fronte.} Con la stessa regola $W_n=W\,h/x_A$ applicata alla tangente a DS
+  ottengo il Mach locale dell'urto: $\approx4$ fino a D, $\approx3$ dove la normale è a $-40^\circ$, $\approx2{,}6$ a
+  $-55^\circ$, $\approx2$ nel punto più basso e $1{,}6$ al piede ($p/p_1$ dietro l'urto da $18{,}5$ a $2{,}8$). DS è
+  curvo e di intensità variabile: lascia salti di entropia diversi su ogni linea di corrente e un campo rotazionale
+  (Crocco), e per questo le zone fra DS, CD e RC non sono uniformi.
+\item \textbf{Separazione.} Nel modello non viscoso la corrente 2 potrebbe in teoria girare di tutti i $105^\circ$
+  ($\nu(M_2)+105^\circ<\nu_{max}$), ma arriverebbe a $M\approx24$ e $p\approx\SI{0.5}{Pa}$: la corrente reale si separa
+  nello spigolo vivo e la deviazione è fissata dalla pressione della bolla. È l'unico punto che le equazioni di Eulero
+  da sole non determinano, ed è per questo che $\theta_1$ e $\theta_2$ sono dati come misure.
+\item \textbf{Sovraespansione e ricompressione.} La seconda deviazione porta la corrente molto sotto l'ambiente
+  ($p_4\approx0{,}19\,p_1$, $T_4\approx\SI{319}{K}$ contro $T_2=\SI{1186}{K}$): la ricompressione con RC è
+  inevitabile e avviene con un urto intenso ($p_6/p_4\approx12$), con forte perdita di pressione totale.
+\item \textbf{Campo asintotico.} Il primo tratto di SL è già quello asintotico: è la regione ``più vecchia'' del campo
+  autosimile. Il ventaglio in F, RC, CD e il vortice si allontanano crescendo in proporzione al tempo; a lungo andare
+  resta lo spigolo con l'espansione stazionaria fino a $p_1$ e SL a $\approx44^\circ$.
+\item \textbf{Limiti.} Il vortice e lo strato di scorrimento sono viscosi e non si ricavano dal modello; le intensità
+  di RC dipendono dalla sua velocità, stimata con l'autosimilarità, e da quale stato lo attraversa, quindi sono stime.
+  Gli stati 2, 3, 4, 5 e il campo asintotico sono invece esatti nel modello, a partire dai dati.
+\end{itemize}
+
+\end{document}
