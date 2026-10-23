@@ -1,0 +1,193 @@
+% Simulazione d'esame: prova del 14/09/2026, esercizio 2 -- Mach in un ugello (schlieren).
+% Stessi numeri e figure dello svolgimento di riferimento:
+% svolgimenti/2026-09-14_E02_ugello_schlieren (calcoli.py e figure/).
+% Compilare con: bash ../compila.sh 2026-09-14_E02_ugello_schlieren  (A4 + orologio)
+
+\input{../preambolo}
+\graphicspath{{../../svolgimenti/2026-09-14_E02_ugello_schlieren/figure/}}
+
+\esercizio{Prova del 14/09/2026 -- Esercizio 2}{Mach nell'ugello a valle della gola}
+
+\begin{document}
+\maketitle
+
+\emph{Traccia.} Stimare la distribuzione del numero di Mach nell'ugello a valle della gola. È data una
+visualizzazione schlieren della regione di gola di un ugello (fig.~\ref{fig:ann}).
+
+\section*{Che cosa mostra la figura}
+La schlieren rende visibili i gradienti di densità: gli urti appaiono come linee nette e sottili, gli strati di
+scorrimento come linee più sfumate e irregolari. Si vede, attraverso una finestra circolare, la regione di gola di un
+ugello piano convergente--divergente: le pareti sono i blocchi neri in alto e in basso, la gola è la sezione più
+stretta, in corrispondenza dei due fori, e la corrente va da sinistra verso destra. Le strutture sono nitide, quindi
+tratto il campo come stazionario. L'uscita dell'ugello è fuori dalla figura e non ho né scale né pressioni: riferisco
+le lunghezze all'altezza di gola $h^*$ e le pressioni alla pressione totale $p_0$, e assumo aria, $\gamma=1{,}4$.
+
+\figura[0.62]{annotata.png}{Schlieren con le strutture che individuo. Ciano: gola; rosso: urti di separazione da W e
+W$'$ e loro prosecuzione oltre l'incrocio P (tratteggio); arancio: strato separato inferiore; magenta: gambetto di
+Mach T--T$'$ e urti forti. I numeri indicano gli stati.\label{fig:ann}}
+
+La struttura che dice di più è la linea sottile che parte da ciascuna parete poco a valle della gola, in W e W$'$,
+proprio dove lo strato limite si stacca e prosegue quasi parallelo all'asse. Una linea sottile che nasce dalla
+parete è un urto obliquo, e da questo deduco tre cose:
+\begin{enumerate}[label=(\alph*)]
+\item la gola è efficace (strozzata);
+\item a valle della gola la corrente è supersonica, perché solo lì può stare un urto obliquo;
+\item la pressione all'uscita, che non vedo, è abbastanza alta da far separare la corrente dentro il condotto:
+  l'ugello lavora sovraespanso.
+\end{enumerate}
+L'urto da W è della famiglia $\Cm$, quello da W$'$ della famiglia $\Cp$. Fra gli strati separati e le pareti, che
+continuano ad aprirsi, restano le zone separate B e B$'$, ad aria quasi ferma. Le due linee si incrociano in P,
+vicino all'asse, e proseguono fino al bordo destro della finestra, dove la luminosità cambia di colpo lungo un fronte
+spezzato: ci torno alla fine. La tessitura a macchie e la fascia chiara lungo le pareti sono invece la grana della
+stampa e un effetto ottico.
+
+Il campo è quasi simmetrico, quindi mi basta una metà: per la separazione uso quella inferiore, dove lo strato
+separato è netto, e per le strutture vicino all'asse la media delle due.
+
+\section*{Modello}
+Fino agli urti la corrente è adiabatica e isentropica; poiché è supersonica la studio con il modello 2D stazionario
+supersonico (urti obliqui, onde di Mach, polari). Le zone separate le tratto come regioni a pressione uniforme
+$p_B$. Il modello vale finché le regioni restano supersoniche: dietro gli urti forti alla fine della finestra non
+vale più, e lì mi limito alle relazioni d'urto.
+
+\section*{Dalla gola: il Mach non è uniforme sulla sezione}
+Prima di misurare mi chiedo se basti un solo valore di $M$ per sezione. Vicino alla gola la teoria transonica di
+Sauer--Meyer (piccole perturbazioni attorno a $M=1$, pareti con raggio di curvatura $R$) dà, con $\xi$ lungo l'asse,
+$\eta$ trasversale ($\eta=\pm1$ a parete) e $d=1/\sqrt{(\gamma+1)R}$, la linea sonica e la sezione di gola
+\begin{gather*}
+\xi_{\rm sonica}=-\frac{(\gamma+1)d}{2}\,\eta^2 \ee \xi_{\rm gola}=-\frac d6\,\eta^2 .
+\end{gather*}
+A parete la linea sonica sta prima della gola, sull'asse dopo. Quindi, a parità di ascissa, la corrente vicino alla
+parete ha già accelerato di più: $M$ è più alto a parete che sull'asse. Non serve la posizione esatta della linea
+sonica; serve questa conseguenza: il Mach va stimato separatamente a parete e sull'asse.
+
+\section*{A parete: il Mach alla separazione}
+Misuro con il goniometro sulla metà inferiore, rispetto alla tangente alla parete nel piede W$'$
+($x\approx0{,}21\,h^*$, parete inclinata di \ang{-15}):
+\begin{itemize}
+\item lo strato separato forma $\theta\approx\ang{14}$ con la tangente (è quasi parallelo all'asse);
+\item l'urto di separazione forma $\sigma\approx\ang{59}$ con la stessa tangente (lo stesso valore lo leggo anche
+  in W).
+\end{itemize}
+La tangente alla parete è la direzione della corrente subito a monte, quindi $\theta$ è la deviazione prodotta
+dall'urto e $\sigma$ il suo angolo. Dalla relazione $\theta$--$\sigma$--$M$
+\[
+\tan\theta=2\cot\sigma\,\frac{M_1^2\sin^2\sigma-1}{M_1^2(\gamma+\cos2\sigma)+2}
+\]
+isolo $M_1^2$, moltiplicando per il denominatore e raccogliendo i termini in $M_1^2$:
+\begin{gather*}
+M_1^2=\frac{2(\tan\theta+\cot\sigma)}{2\cot\sigma\sin^2\sigma-\tan\theta\,(\gamma+\cos2\sigma)}
+\ee M_1\approx1{,}62,
+\end{gather*}
+e dalla relazione isentropica $p_1/p_0=(1+\delta M_1^2)^{-\gamma/(\gamma-1)}=0{,}228$.
+
+Controllo subito che l'urto sia sul ramo debole: per $M_1=1{,}62$ la deviazione massima è $\theta_{\max}=\ang{15.1}$,
+raggiunta con $\sigma=\ang{65.7}$; ho $\theta<\theta_{\max}$ e $\sigma<\ang{65.7}$, quindi è il ramo debole, ma vicino
+al distacco. Ho anche un controllo indipendente: lungo la parete, fino alla separazione, la corrente è un'onda
+semplice partita dalla gola con $\theta=0$ e $\nu=0$, quindi $\nu(M)=|\theta_w|=\ang{14.9}$, che dà $M=1{,}60$.
+I due valori coincidono entro la precisione del goniometro.
+
+Dietro l'urto (stato 2$'$), con la componente normale $M_{n1}=M_1\sin\sigma=1{,}39$:
+\begin{gather*}
+\frac{p_2}{p_1}=1+\frac{2\gamma}{\gamma+1}\left(M_{n1}^2-1\right)=2{,}08 \ee
+M_{n2}^2=\frac{1+\delta M_{n1}^2}{\gamma M_{n1}^2-\delta} \ee M_{n2}=0{,}745,\\
+M_2=\frac{M_{n2}}{\sin(\sigma-\theta)}\approx1{,}05 \ee \frac{p_2}{p_0}\approx0{,}47 .
+\end{gather*}
+La corrente dietro l'urto è appena supersonica. Lo strato separato confina con la zona morta B, quindi
+$p_B\simeq p_2\approx0{,}47\,p_0$. Il rapporto $p_1/p_B\approx0{,}48$ è dell'ordine di quelli tipici della
+separazione negli ugelli sovraespansi (circa 0,4), quindi la lettura della figura è coerente.
+
+\section*{Verso l'asse: un'onda di Mach}
+Seguo l'urto di separazione verso l'asse. Vicino all'asse misuro un'inclinazione di circa \ang{43} prima
+dell'incrocio P e la stessa dopo, per entrambe le linee. Un urto di intensità finita, attraversando l'altro, entrerebbe
+in una corrente già deviata e cambierebbe inclinazione; una linea che passa l'incrocio senza piegarsi è invece
+un'onda di Mach. Allora l'angolo misurato è l'angolo di Mach del nucleo, e
+\begin{gather*}
+M=\frac{1}{\sin\mu}\approx1{,}47 \ee \frac{p}{p_0}=0{,}284 .
+\end{gather*}
+Questo è lo stato 1 sull'asse, da P fino alla fine della finestra ($x\approx0{,}8$--$1\,h^*$). È più basso del valore
+a parete, anche se lo leggo più a valle: è proprio ciò che prevede Sauer--Meyer.
+
+Quindi l'urto di separazione è rettilineo ma non ha intensità costante: a parete forma \ang{59} con la corrente,
+sull'asse arriva come onda di Mach. La ragione è il nucleo non uniforme: verso l'asse $M$ è più basso e la corrente
+è parallela all'asse. Per questo in P non c'è una vera interazione fra urti, e il nucleo sull'asse resta nello
+stato 1.
+
+\section*{In fondo alla finestra: gambetto di Mach e punto triplo}
+\figura[0.24]{dettaglio_T.png}{Estremo destro della finestra: incrocio P, gambetto di Mach T--T$'$, urti forti.
+\label{fig:det}}
+Al bordo destro (fig.~\ref{fig:det}) le due linee, oltre P, arrivano su un tratto di urto perpendicolare all'asse, a
+$x\approx0{,}99\,h^*$: è un \textbf{gambetto di Mach}, fra i \textbf{punti tripli} T e T$'$. Da lì il fronte piega
+verso le pareti come \textbf{urto obliquo forte}, inclinato di circa \ang{79} sull'asse (\ang{81} da T, \ang{76} da
+T$'$). Non lo considero il bordo della finestra: ha un tratto rettilineo spezzato che non segue il cerchio, e dietro
+cambia la luminosità. È la ricompressione richiesta dalla contropressione.
+
+Per semplicità assumo a monte lo stato 1 dell'asse: $M_1=1{,}47$, corrente parallela all'asse.
+
+\emph{Gambetto (urto normale, 1$\to$3):}
+\begin{gather*}
+\frac{p_3}{p_1}=1+\frac{2\gamma}{\gamma+1}\left(M_1^2-1\right)=2{,}35 \ee M_3=0{,}71 \ee \frac{p_3}{p_0}=0{,}67 .
+\end{gather*}
+
+\emph{Urto forte con $\sigma=\ang{79}$ (1$\to$4$'$):} $M_{n1}=1{,}44$; dalla relazione $\theta$--$\sigma$--$M$ la
+deviazione è $\theta\approx\ang{8}$, verso l'esterno. Poi
+\begin{gather*}
+\frac{p_4}{p_1}=2{,}26 \ee M_{n2}=0{,}722 \ee M_4=\frac{M_{n2}}{\sin(\sigma-\theta)}\approx0{,}76 \ee
+\frac{p_4}{p_0}=0{,}64 .
+\end{gather*}
+Controllo il ramo: per $M_1=1{,}47$ si ha $\theta_{\max}=\ang{11.3}$ con $\sigma=\ang{66.9}$. Il mio urto ha
+$\sigma=\ang{79}>\ang{66.9}$ e $\theta<\theta_{\max}$, quindi è sul ramo forte, e infatti $M_4<1$. Dietro tutto il fronte
+la corrente è subsonica.
+
+Il punto triplo è degenere: vi arriva un'onda di Mach, quindi gambetto e urto forte sono lo stesso fronte, quasi
+normale vicino all'asse e più inclinato verso l'esterno. Infatti le pressioni dietro i due tratti ($0{,}67$ e
+$0{,}64\,p_0$) sono quasi uguali. La piccola differenza la assorbe la curvatura del gambetto, che ho trascurato
+assumendolo normale. La deviazione è la stima più fragile: per $M_1=1{,}47$ varia di circa mezzo grado per ogni grado
+di $\sigma$, quindi $\ang{8}$ è indicativo.
+
+\section*{La distribuzione del numero di Mach}
+\figura[0.7]{mach.pdf}{Distribuzione di $M$ a valle della gola, a parete e sull'asse, con i valori dietro gli urti.
+\label{fig:mach}}
+Metto insieme i pezzi (fig.~\ref{fig:mach}):
+\begin{itemize}
+\item \textbf{a parete} $M$ vale 1 poco prima della gola e cresce rapidamente lungo la parete convessa (onda
+  semplice, $\nu=|\theta_w|$) fino a circa 1,62 alla separazione; attraverso l'urto scende a circa 1,05;
+\item \textbf{sull'asse} $M$ vale 1 poco dopo la gola e cresce più lentamente (tratto solo qualitativo) fino a
+  circa 1,47 in P; resta tale fino al gambetto di Mach, dove scende a 0,71;
+\item \textbf{dietro gli urti forti} $M\approx0{,}76$; nelle zone separate l'aria è quasi ferma.
+\end{itemize}
+
+\figura[0.62]{p_theta.pdf}{Piano $p$--$\theta$ della metà inferiore, pressione riferita a $p_0$.\label{fig:pth}}
+Sul piano $p$--$\theta$ (fig.~\ref{fig:pth}) la curva punteggiata è la corrente attaccata alla parete, che arriva in
+1$_W$ con $\theta=\ang{-15}$. La polare di 1$_W$ porta a 2$'$ ($\theta\approx\ang{-1}$) sul ramo debole, vicino al
+massimo, e 2$'$ sta sulla retta $p=p_B$ delle zone separate. Sull'asse la polare dello stato 1 contiene sia il
+gambetto (3, in cima, $\theta=0$) sia l'urto forte (4$'$, $\theta\approx\ang{-8}$), entrambi sul ramo forte e
+molto sopra $p_B$. Le pressioni stanno fra $0{,}23$ e $0{,}67\,p_0$: basta la scala lineare.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lcc}
+\toprule
+Posizione & $M$ & $p/p_0$ \\
+\midrule
+linea sonica & 1 & 0,528 \\
+parete, alla separazione & $\approx1{,}62$ & 0,228 \\
+asse, da P al gambetto & $\approx1{,}47$ & 0,284 \\
+dietro l'urto di separazione & $\approx1{,}05$ & $\approx0{,}47$ \\
+zone separate B, B$'$ & $\approx0$ & $\approx0{,}47$ \\
+dietro il gambetto (3) & $\approx0{,}71$ & 0,67 \\
+dietro gli urti forti (4, 4$'$) & $\approx0{,}76$ & 0,64 \\
+\bottomrule
+\end{tabular}
+\caption{Riepilogo dei risultati.}
+\end{table}
+
+\section*{In conclusione}
+Il modello ritrova tutto ciò che si vede: l'urto di separazione con l'angolo misurato, lo strato separato quasi
+parallelo all'asse, le onde che attraversano l'asse senza piegarsi, il fronte quasi normale che si piega di circa
+\ang{11} nei punti tripli. A valle di questo fronte la corrente è subsonica, a pressione più alta di $p_B$, e fuori
+dalla figura riaccelera verso l'uscita. I limiti stanno nelle ipotesi: il nucleo non uniforme (qui solo stimato con
+Sauer--Meyer), lo strato limite e la tridimensionalità della separazione, e la precisione delle misure d'angolo,
+che conta soprattutto per l'urto forte.
+
+\end{document}

@@ -1,0 +1,30 @@
+name: esami-orologio
+
+# A ogni push che cambia le simulazioni d'esame avvisa la repository dell'app
+# Garmin (garmin-latex), che ricostruisce il bundle e pubblica subito gli esami
+# sull'orologio. Serve il secret GARMIN_DISPATCH_TOKEN (token fine-grained su
+# garmin-latex con permesso "Contents: Read and write"); senza, non fa nulla e
+# garmin-latex li riprende comunque entro 6 ore.
+# Repository di destinazione: variabile GARMIN_REPO (default imprudent-coding/garmin-latex).
+on:
+  push:
+    paths:
+      - "simulazione_esame/**/orologio.pdf"
+  workflow_dispatch:
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Avvisa garmin-latex
+        env:
+          TOKEN: ${{ secrets.GARMIN_DISPATCH_TOKEN }}
+          REPO: ${{ vars.GARMIN_REPO || 'imprudent-coding/garmin-latex' }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::notice::GARMIN_DISPATCH_TOKEN non impostato: l'orologio riceverà gli esami al prossimo giro programmato"
+            exit 0
+          fi
+          curl -fsS -X POST -H "Authorization: Bearer $TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/dispatches" \
+            -d "{\"event_type\":\"esami\",\"client_payload\":{\"ref\":\"$GITHUB_SHA\"}}"

@@ -1,0 +1,77 @@
+% Preambolo comune delle simulazioni d'esame (vedi GUIDA.md).
+% Lo stesso sorgente si compila in due formati:
+%   - A4 (svolgimento.pdf), da leggere su carta, PC o telefono;
+%   - orologio (orologio.pdf): colonna stretta, letta dall'app dell'orologio
+%     (garmin-latex), che taglia le pagine in strisce larghe quanto lo schermo.
+% Il formato orologio si sceglie definendo \formatoorologio prima di \input
+% (lo fa compila.sh). In quel formato il margine destro è volutamente largo:
+% ciò che sporge oltre la colonna (equazioni lunghe, tabelle, figure) viene
+% riconosciuto dall'app e mostrato rimpicciolito, con lo zoom.
+
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\hypersetup{hidelinks}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\allowdisplaybreaks
+\sisetup{output-decimal-marker={,}, group-separator={\,}, per-mode=symbol,
+         exponent-product=\cdot, range-phrase={\text{--}}}
+
+% Notazione del formulario (come template/svolgimento.tex).
+\newcommand{\Cp}{C^{+}}
+\newcommand{\Cm}{C^{-}}
+\newcommand{\Mr}{M_{r}}
+\newcommand{\Ms}{M_{s}}
+
+% Separatore fra relazioni nella stessa formula: \begin{gather*} A \ee B \end{gather*}.
+% In A4 le relazioni stanno sulla stessa riga, nel formato orologio una sotto l'altra.
+\ifdefined\formatoorologio \newcommand{\ee}{,\\} \else \newcommand{\ee}{,\qquad} \fi
+
+% Titolo dell'esercizio: \esercizio{Prova del GG/MM/AAAA -- Esercizio n}{argomento}.
+% Va anche nei metadati del PDF: l'app dell'orologio lo usa come titolo nell'elenco.
+\newcommand{\esercizio}[2]{%
+  \title{#1\\[2pt]\large #2}\author{}\date{}%
+  \hypersetup{pdftitle={#1: #2}}}
+
+\ifdefined\formatoorologio
+  % Colonna di 4,6 cm: a 2,4 px/pt è larga 262 px sullo schermo da 390.
+  \usepackage[paperwidth=12cm,paperheight=150cm,left=0.2cm,top=0.2cm,
+              textwidth=4.6cm,textheight=149cm,nohead,nofoot]{geometry}
+  \usepackage[scaled=1.0]{helvet}
+  \usepackage{sfmath}
+  \renewcommand{\familydefault}{\sfdefault}
+  \pagestyle{empty}
+  \makeatletter\let\ps@plain\ps@empty\makeatother   % anche la pagina del titolo
+  % colonna dichiarata per l'app dell'orologio (deve coincidere con left e textwidth)
+  \hypersetup{pdfkeywords={colonna=0.2cm+4.6cm}}
+  \RaggedRight
+  \setlength{\parskip}{5pt}
+  \hfuzz=20cm          % ciò che sporge va nel margine destro, senza avvisi
+  \hbadness=10000
+  \titleformat*{\section}{\normalsize\bfseries\RaggedRight\hyphenpenalty=10000}
+  \titleformat*{\subsection}{\normalsize\bfseries\RaggedRight}
+  \setlist{leftmargin=*,itemsep=2pt}
+  \captionsetup{font=small,justification=raggedright,singlelinecheck=false}
+  % figure: larghe il doppio della colonna, così sporgono e l'app le mostra con lo zoom
+  \newcommand{\figura}[3][0.7]{%
+    \begin{figure}[H]\includegraphics[width=9cm]{#2}\caption{#3}\end{figure}}
+\else
+  \usepackage[a4paper,margin=2.5cm]{geometry}
+  \newcommand{\figura}[3][0.7]{%
+    \begin{figure}[H]\centering\includegraphics[width=#1\textwidth]{#2}\caption{#3}\end{figure}}
+\fi
