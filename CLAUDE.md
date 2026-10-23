@@ -81,6 +81,14 @@ in ordine di ragionamento come al banco d'esame) e compilala con `bash simulazio
 <cartella>`, che produce `svolgimento.pdf` (A4) e `orologio.pdf` (letto dall'app Garmin). Va nello stesso
 commit e si allega in chat anche il PDF A4 della simulazione.
 
+**Pubblicazione sull'orologio.** L'app dell'orologio legge le simulazioni da `main`. Se nel prompt chiedo
+il merge (o di pubblicare sull'orologio): dopo il push apri la PR verso `main` e uniscila subito (merge
+commit). Se puoi leggere `imprudent-coding/garmin-latex`, controlla che il workflow `notes` partito dal
+merge finisca e che l'ultima Release `notes-*` contenga l'esercizio; scrivi l'esito nella sintesi. Se non
+chiedo il merge, lascia il branch e ricordami nella sintesi che senza merge l'esercizio non arriva
+sull'orologio. Per togliere esercizi dall'orologio basta cancellare la loro cartella in
+`simulazione_esame/` (con merge su `main`): spariscono alla Release successiva.
+
 **2. Sintesi nella risposta**, che si legge in un paio di minuti:
 - modello scelto e ipotesi principali;
 - struttura del campo d'onda in una o due frasi;
