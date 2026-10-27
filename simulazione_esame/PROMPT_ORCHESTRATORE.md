@@ -45,8 +45,8 @@ titolo "Prova PROVA – E0n", con questo messaggio iniziale (sostituisci PROVA, 
   PREPARAZIONE (subito):
   - esegui le verifiche di inizio sessione di CLAUDE.md e, se servono, bash scripts/setup.sh;
     controlla python (numpy, scipy, matplotlib), latexmk e pdftoppm;
-  - prova bash simulazione_esame/compila.sh 2026-09-14_E02_ugello_schlieren, poi ripristina
-    i file (git checkout -- .);
+  - prova bash simulazione_esame/compila.sh su una delle cartelle già presenti in
+    simulazione_esame/, poi ripristina i file (git checkout -- .);
   - leggi CLAUDE.md, simulazione_esame/GUIDA.md e, in fonti/metodo_docente.md, la checklist
     (a) e le sezioni (c) ed (e);
   - controlla di poter leggere imprudent-coding/garmin-latex.
