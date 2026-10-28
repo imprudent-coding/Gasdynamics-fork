@@ -1,0 +1,323 @@
+% Simulazione d'esame: prova del 01/01/1975, esercizio 1 -- condotto tra serbatoio e ambiente, rimozione del setto.
+% Stessi numeri e figure dello svolgimento di riferimento:
+% svolgimenti/1975-01-01_E01_condotto_serbatoio_ambiente (calcoli.py e figure/).
+% Compilare con: bash ../compila.sh 1975-01-01_E01_condotto_serbatoio_ambiente  (A4 + orologio)
+
+\input{../preambolo}
+\graphicspath{{../../svolgimenti/1975-01-01_E01_condotto_serbatoio_ambiente/figure/}}
+
+\newcommand{\uma}{u-a}
+\newcommand{\upa}{u+a}
+
+\esercizio{Prova del 01/01/1975 -- Esercizio 1}{Condotto tra serbatoio e ambiente: rimozione del setto}
+
+\begin{document}
+\maketitle
+
+\emph{Traccia.} Un serbatoio di grande capacità è collegato all'ambiente da un condotto a sezione costante, chiuso
+da un setto a metà. Al tempo $t_0$ il setto viene rimosso istantaneamente: determinare l'evoluzione del campo di
+moto nel condotto fino al completamento del transitorio. Aria, $\gamma=1{,}4$, $R=287$. Serbatoio:
+$P_0=\SI{0.04}{atm}$, $T_0=\SI{98}{K}$. Ambiente: $p=\SI{1}{atm}$, $T=\SI{287.7}{K}$.
+
+\section*{Che cosa c'è nel condotto e che cosa mi chiedono}
+\figura[0.75]{schema.pdf}{Serbatoio in $x=0$, ambiente in $x=L$, setto in $x=L/2$ (non in scala).\label{fig:schema}}
+Il condotto è aperto verso il serbatoio e verso l'ambiente, e il setto lo divide in due metà. Prima di $t_0=0$ la
+metà sinistra contiene il gas del serbatoio nelle sue condizioni (stato 1), la metà destra l'aria ambiente (stato 4),
+entrambi in quiete: le condizioni date sono quindi anche quelle totali dei due serbatoi esterni. Il testo scrive
+$R=287$ ``KJ/kg K'': per l'aria è \SI{287}{J/(kg.K)} e lo leggo così; i due gas sono entrambi aria. Calcolo subito
+\begin{gather*}
+  a_1=\sqrt{\gamma RT_1}=\SI{198.4}{m/s} \ee \rho_1=\SI{0.144}{kg/m^3},\\
+  a_4=\SI{340.0}{m/s} \ee \rho_4=\SI{1.227}{kg/m^3} \ee \frac{p_4}{p_1}=25,
+\end{gather*}
+con $\delta=(\gamma-1)/2=0{,}2$. $L$ non è data: uso $x/L$ e il tempo acustico $\tau=L/a_4$.
+
+Il punto chiave è che il serbatoio è a pressione \emph{minore} dell'ambiente: l'aria ambiente entrerà nel condotto e si
+scaricherà nel serbatoio. ``Grande capacità'' vuol dire che durante il transitorio le condizioni del serbatoio (e
+dell'ambiente) non cambiano. Mi chiedono le onde, le loro riflessioni agli estremi e lo stato a cui il condotto
+tende. Tracce affini: B37-E01 (serbatoio, condotto con setto, condizioni asintotiche), B27-E02 (setto fra serbatoio e
+condotto) e l'esempio d'esame del 24/01/2019 (condotto tra serbatoio e ambiente, a parti invertite).
+
+\section*{Il modello}
+Uso \textbf{Eulero 1D instazionario}: sezione costante, diametro piccolo rispetto a $L$, onde piane, gas perfetto non
+viscoso e adiabatico (trascuro attrito e scambio termico). Il setto si toglie istantaneamente, quindi in $(L/2,0)$ ho
+un \textbf{problema di Riemann}. Serbatoio e ambiente hanno condizioni totali costanti; le sezioni di raccordo agli
+estremi le tratto come di lunghezza nulla.
+
+Ai contorni impongo tante condizioni quante sono le caratteristiche entranti: se il gas esce verso un serbatoio a
+velocità subsonica impongo la pressione del serbatoio, se esce supersonico nulla; se entra da un serbatoio impongo
+$p_0$ e $T_0$, non la pressione statica. Non assumo a priori il campo omoentropico, perché urto e contatto possono
+creare salti di entropia: lo controllo dopo il Riemann. Le zone d'interazione a due famiglie non le risolvo punto per
+punto: ne do struttura, stati limite e fronti, e per le stime di tempi tratto le caratteristiche come semirette. Il
+moto è instazionario, quindi nel condotto non uso $p_0$ e $h_0$ costanti.
+
+\section*{Che cosa mi aspetto}
+\textbf{Al setto} la pressione è 25 volte maggiore a destra: l'aria ambiente spinge verso sinistra come un pistone.
+Nascono un \textbf{urto $\uma$} verso il serbatoio nel gas 1, un \textbf{contatto} e un'\textbf{espansione centrata
+$\upa$} verso l'ambiente nel gas 4 (SCR). I versi tornano: l'urto spinge il gas nel verso in cui corre (sinistra),
+l'espansione lo richiama nel verso opposto al suo (ancora sinistra), quindi $u^*<0$. Con questo rapporto di pressione mi
+aspetto $M_s\approx2$ e un'espansione forte, forse transonica.
+
+\textbf{In $x=0$} l'urto esce nel serbatoio e dietro di lui il gas vi si scarica. Se l'efflusso è supersonico l'uscita non
+riceve informazione e non c'è riflessa; se fosse subsonico la pressione scenderebbe a $p_1$ e si rifletterebbe
+un'espansione (natura opposta, pressione imposta).
+
+\textbf{In $x=L$}, all'arrivo della testa dell'espansione, il gas comincia a entrare dall'ambiente. Con $p_0$ fissata la
+pressione statica scende solo quanto serve ad accelerare il gas, quindi resta vicina a $p_4$ finché il Mach è basso:
+l'ingresso è quasi a pressione costante e l'espansione si riflette come \textbf{compressione $\uma$}, che ricomprime il gas
+e lo spinge ancora verso il serbatoio.
+
+\textbf{A regime} il condotto a sezione costante porta una corrente stazionaria isentropica dall'ambiente al serbatoio,
+quindi uniforme. La pressione del serbatoio (\SI{0.04}{atm}) è molto sotto la critica dell'ambiente ($0{,}528$ atm):
+il condotto non può adattarsi e sarà \textbf{sonico ovunque}, con getto sottoespanso nel serbatoio. In instazionario si
+arriva a $M=1$ in un condotto a sezione costante, e la sezione d'imbocco fa da gola.
+
+\section*{Il problema di Riemann al setto}
+Conto: 7 incognite ($\rho_2,u_2,p_2,\rho_3,u_3,p_3$ e la velocità d'urto $w$) e 7 equazioni (3 di Rankine--Hugoniot, 2
+dell'espansione, $R_1$ e $s$ costanti, 2 del contatto, $p_2=p_3$ e $u_2=u_3$).
+
+Primo tentativo isentropico sulla velocità:
+\begin{gather*}
+  z=\frac{a_4}{a_1}\left(\frac{p_1}{p_4}\right)^{\frac{\gamma-1}{2\gamma}}=\num{1.082},\\
+  u^{(0)}=\frac{z(a_1+\delta u_1)-(a_4-\delta u_4)}{\delta(1+z)}=\SI{-301}{m/s}.
+\end{gather*}
+$u^{(0)}<u_1$, quindi a sinistra urto; $u^{(0)}<u_4$, quindi a destra espansione. Con questa $u$:
+\begin{gather*}
+  m=\frac{\gamma+1}{4}\frac{u_1-u}{a_1} \ee M_{\rm rel,1}=m+\sqrt{1+m^2},\\
+  p_2=p_1\left[1+\frac{2\gamma}{\gamma+1}\left(M_{\rm rel,1}^2-1\right)\right]=\SI{0.232}{atm},
+\end{gather*}
+\begin{gather*}
+  a_3=a_4+\delta(u-u_4) \ee p_3=p_4\left(\frac{a_3}{a_4}\right)^{\frac{2\gamma}{\gamma-1}}=\SI{0.256}{atm}.
+\end{gather*}
+Lo scarto è del 9\,\%: l'urto non è debole e il tentativo va corretto. Aggiorno $u$ con le pendenze delle due curve,
+$u^{k+1}=u^k-(p_2^k-p_3^k)/(\dot p_2^k-\dot p_3^k)$; al secondo passo $|p_2-p_3|/p^*<10^{-3}$, fisicamente nullo:
+\begin{gather*}
+  u^*=\SI{-311.0}{m/s} \ee p^*=\SI{0.243}{atm}.
+\end{gather*}
+
+\textbf{Stato 2}, dietro l'urto (gas del serbatoio), con Rankine--Hugoniot:
+\begin{gather*}
+  M_s=M_{\rm rel,1}=\num{2.31} \ee w=u_1-a_1M_s=\SI{-459}{m/s},\\
+  \frac{\rho_2}{\rho_1}=\frac{(\gamma+1)p^*+(\gamma-1)p_1}{(\gamma-1)p^*+(\gamma+1)p_1}=\num{3.10},
+\end{gather*}
+\begin{gather*}
+  \rho_2=\SI{0.447}{kg/m^3} \ee T_2=\frac{p^*}{\rho_2R}=\SI{192.0}{K} \ee a_2=\SI{277.7}{m/s} \ee
+  M_2=\frac{u^*}{a_2}=\num{-1.12}.
+\end{gather*}
+Controllo subito l'urto: $M_s=2{,}31>1$, Mach relativo a valle $0{,}53<1$, entropia in aumento (sotto). Va bene.
+
+\textbf{Stato 3}, dietro l'espansione (aria ambiente):
+\begin{gather*}
+  a_3=a_4+\delta u^*=\SI{277.8}{m/s} \ee \rho_3=\rho_4\left(\frac{p^*}{p_4}\right)^{1/\gamma}=\SI{0.447}{kg/m^3},\\
+  T_3=\SI{192.1}{K} \ee M_3=\num{-1.12}.
+\end{gather*}
+
+\textbf{Il contatto è nullo.} $\rho_2/\rho_3=\num{1.0004}$: a pari pressione coincidono densità, temperatura ed entropia.
+Lo vedo anche dal bilancio di entropia, con $\Delta s/R=\frac{\gamma}{\gamma-1}\ln\frac{T_b}{T_a}-\ln\frac{p_b}{p_a}$:
+\begin{gather*}
+  \frac{s_2-s_1}{R}=+\num{0.549}\ \text{(urto)} \ee \frac{s_4-s_1}{R}=+\num{0.550}\ \text{(dati)}.
+\end{gather*}
+L'urto restituisce al gas freddo del serbatoio proprio l'entropia che gli manca rispetto all'ambiente (a cavallo del
+contatto $\Delta s/R=0{,}001$). È la \textbf{scorciatoia} del problema: dopo il passaggio dell'urto il condotto è
+omoentropico con $s=s_4$, e $R_1=a-\delta u$, $R_2=a+\delta u$ valgono esattamente in tutto il campo successivo, zone
+d'interazione comprese. Da qui tratto 2 e 3 come un unico stato.
+
+\textbf{Il ventaglio E} ha testa $u_4+a_4=\SI{340}{m/s}$ e coda $u^*+a_3=\SI{-33.2}{m/s}<0$: è \textbf{transonico}, e
+$a_3=\SI{278}{m/s}>0$, quindi niente vuoto. Nel ventaglio $u+a=\xi=(x-L/2)/t$ e $a-\delta u=a_4$; sul raggio sonico
+$\xi=0$, $u=-a$:
+\begin{gather*}
+  a_S=\frac{a_4}{1+\delta}=\frac{2a_4}{\gamma+1}=\SI{283.3}{m/s},\\
+  p_S=p_4\left(\frac{2}{\gamma+1}\right)^{\frac{2\gamma}{\gamma-1}}=\SI{0.279}{atm},
+\end{gather*}
+costanti nella sezione $x=L/2$ finché non arriva la compressione riflessa.
+
+\section*{Il piano $x$--$t$}
+\figura[0.72]{xt.pdf}{Piano $x$--$t$: urto (rosso), contatto (verde), ventaglio E (blu), testa della compressione
+riflessa dall'ingresso (arancio, esatta) e compressioni successive (arancio tratteggiato, schematiche); raggio sonico
+$x=L/2$ punteggiato. Tempi in unità $L/a_4$.\label{fig:xt}}
+Le regioni (fig.~\ref{fig:xt}) sono: \textbf{1} e \textbf{4}, i gas iniziali in quiete; \textbf{2}, \textbf{3}, uniformi
+dietro urto ed espansione, separati dal contatto nullo; \textbf{E}, onda semplice $\upa$ centrata in $(L/2,0)$ con $R_1=a_4$
+uniforme e raggi rettilinei, a cavallo del raggio sonico; \textbf{I}, zona d'interazione a due famiglie fra E e le
+compressioni $\uma$ che tornano dall'ingresso, dove le caratteristiche si curvano; \textbf{C}, le compressioni che,
+uscite da I, attraversano lo stato 3 come onda semplice con $R_2=R_{2,3}$ uniforme, fino alla coda di E (piegata, che
+disegno come semiretta); \textbf{F}, lo stato finale, raggiunto per $t\to\infty$.
+
+Urto e contatto escono dal condotto prima che la testa di E arrivi all'ingresso, come calcolo ora.
+
+\section*{L'urto esce nel serbatoio}
+\begin{gather*}
+  t_S=\frac{L/2}{|w|}=\num{0.370}\,\tau \ee t_C=\frac{L/2}{|u^*|}=\num{0.547}\,\tau.
+\end{gather*}
+Dietro l'urto $u_2+a_2=\SI{-33}{m/s}<0$: in $x=0$ tutte e tre le caratteristiche escono, l'uscita è
+\textbf{supersonica} e non impongo nulla, coerentemente con il conteggio. Non nasce nessuna riflessa. Il gas esce a
+$p_2=\SI{0.243}{atm}$, \num{6.1} volte la pressione del serbatoio, e si espande fuori dal condotto in un getto
+sottoespanso; l'urto entra nel serbatoio e si indebolisce diffrangendosi (fenomeni 3D, fuori dal modello). Quindi il
+serbatoio non manda più informazioni nel condotto: la sua pressione è servita solo per il Riemann iniziale. Il
+contatto esce a $0{,}547\,\tau$ ma, essendo nullo, non cambia nulla.
+
+\section*{L'espansione arriva all'ingresso}
+La testa di E arriva in $x=L$ a $0{,}5\,\tau$. Da lì il gas entra dall'ambiente: con $-a<u<0$ entrano le caratteristiche
+$u$ e $\uma$ ed esce la $\upa$, quindi 3 incognite = 2 condizioni + 1 compatibilità. Le condizioni sono $s=s_4$ e
+l'entalpia totale dell'ambiente:
+\begin{gather*}
+  \frac{a^2}{\gamma-1}+\frac{u^2}{2}=\frac{a_4^2}{\gamma-1}\ \Rightarrow\ a_B^2+\delta u_B^2=a_4^2 .
+\end{gather*}
+Dall'interno arriva lungo la $\upa$ l'invariante $R_2$, quindi $a_B=R_2-\delta u_B$ e
+\begin{gather*}
+  \delta(1+\delta)u_B^2-2\delta R_2u_B+R_2^2-a_4^2=0
+\end{gather*}
+(radice con $u_B<0$). La $R_2$ in arrivo scende da $a_4$, testa di E, in giù:
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{cccc}
+    \toprule
+    $R_2$ [m/s] & $u_B$ [m/s] & $M_B$ & $p_B$ [atm] \\
+    \midrule
+    340 & 0 & 0 & 1 \\
+    300 & $-161$ & $-0{,}49$ & 0,85 \\
+    260 & $-280$ & $-0{,}89$ & 0,60 \\
+    248,3 & $-310$ & $-1$ & 0,528 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Stati all'ingresso al variare di $R_2$.}
+  \label{tab:ingresso}
+\end{table}
+Nelle stesse righe $R_{1,B}=a_B-\delta u_B$ vale 340, 364, 372 e 372,4 m/s: sempre più del valore $a_4$ portato dal
+ventaglio. La $\uma$ che parte dall'ingresso alza $R_1$, cioè $a$ e $p$ rispetto allo stato che trova: è una
+\textbf{compressione}, come previsto. Il motivo: a $p_0$ fissata $p_B$ scende con $u_B^2$, mentre nel ventaglio $p$ scende
+con $u$; per $u$ piccolo l'ingresso è ``quasi a pressione costante'' e riflette con natura opposta. Controllo anche il
+contorno: $-a\le u_B<0$, due caratteristiche entranti e due condizioni, al più sonico. Va bene.
+
+\textbf{Dove va la testa della riflessa.} Viaggia lungo una $\uma$ del ventaglio. Con $X=x-L/2$ e $\xi=X/t$, nel ventaglio
+$u=(\xi-a_4)/(1+\delta)$ e $a=a_4+\delta u$, quindi
+\begin{gather*}
+  \frac{dX}{dt}=u-a=\frac{(1-\delta)\,X/t-2a_4}{1+\delta},
+\end{gather*}
+lineare, che integro:
+\begin{gather*}
+  X=C\,t^{k}-\frac{a_4}{\delta}\,t \ee k=\frac{1-\delta}{1+\delta}=\frac23,
+\end{gather*}
+con $C$ fissata dal passaggio per $(L/2,\ L/(2a_4))$. La testa accelera verso sinistra (scendendo nel ventaglio $u$
+diventa più negativa), attraversa il raggio sonico a $0{,}864\,\tau$ ed esce sulla coda a $0{,}917\,\tau$, in
+$x=0{,}41\,L$. Poi attraversa lo stato 3 come retta, con $u_3-a_3=\SI{-589}{m/s}$, e arriva all'uscita a
+$t\approx1{,}15\,\tau$. Fino ad allora all'uscita c'è lo stato 2--3 ($p=\SI{0.243}{atm}$, $M=-1{,}12$).
+
+\textbf{Le compressioni in 3.} Con $\gamma=1{,}4$, da $a=(R_1+R_2)/2$ e $u=(R_2-R_1)/(2\delta)$:
+\begin{gather*}
+  u-a=2R_2-3R_1 \ee u+a=3R_2-2R_1 .
+\end{gather*}
+In 3 ($R_2=\SI{215.6}{m/s}$) le onde con $R_1$ maggiore, emesse dopo, sono più veloci e raggiungono quelle davanti: le
+compressioni tendono a coalescere. Al massimo $R_1$ va da $a_4$ a $R_1^*=\SI{372.4}{m/s}$ (lo stato finale, sotto), cioè
+$a$ da $277{,}8$ a \SI{294.0}{m/s} e $p/p_3\le1{,}49$: un eventuale urto ha $M_s\lesssim1{,}19$. È debole, quindi
+l'ipotesi omoentropica regge. Dietro le compressioni l'uscita resta supersonica, perché $u+a=3R_2-2R_1$ diventa ancora
+più negativo; la pressione d'uscita resta sempre maggiore di $p_1$ (da $0{,}243$ a \SI{0.528}{atm}).
+
+\section*{Lo stato finale e come ci si arriva}
+L'ingresso diventa sonico, $u_B=-a_B$. L'asterisco indica le grandezze critiche dell'ambiente; la pressione la chiamo
+$p_F$ per non confonderla con la $p^*$ di Riemann. Le incognite sono 3 e le condizioni 2 all'ingresso più quella sonica
+(il serbatoio è sotto la pressione critica e non fissa la pressione d'uscita):
+\begin{gather*}
+  a_B^2(1+\delta)=a_4^2\ \Rightarrow\ a^*=a_4\sqrt{\frac{2}{\gamma+1}}=\SI{310.4}{m/s},\\
+  T^*=\frac{2}{\gamma+1}T_4=\SI{239.8}{K},
+\end{gather*}
+\begin{gather*}
+  p_F=p_4\left(\frac{2}{\gamma+1}\right)^{\frac{\gamma}{\gamma-1}}=\SI{0.528}{atm} \ee
+  \rho^*=\SI{0.778}{kg/m^3} \ee u_F=-a^*=\SI{-310.4}{m/s}.
+\end{gather*}
+Il condotto è a sezione costante e la corrente è stazionaria e isentropica: lo stato è uniforme, $M=-1$ ovunque, con
+portata per unità di area $\rho^*a^*=\SI{241}{kg/(s.m^2)}$. All'uscita $p_F/p_1=\num{13.2}$: getto sottoespanso, e
+$p_F>p_1$ conferma l'uscita strozzata; $p_0=\SI{1}{atm}$ e $T_0=\SI{287.7}{K}$ sono proprio quelle dell'ambiente.
+Gli invarianti finali sono
+\begin{gather*}
+  R_1^*=(1+\delta)a^*=\SI{372.4}{m/s} \ee R_2^*=(1-\delta)a^*=\SI{248.3}{m/s},
+\end{gather*}
+quindi la riflessa porta in tutto $R_1$ da 340 a \SI{372.4}{m/s}.
+
+Come ci si arriva: in F $u+a=0$, le $\upa$ sono verticali. Le $\upa$ del ventaglio portano
+$R_2=a_4+2\delta(\xi-a_4)/(1+\delta)$. Quelle con $R_2>R_2^*$ (raggi $\xi>\SI{65}{m/s}$) raggiungono l'ingresso e lo
+portano dallo stato 4 verso F lungo la tab.~\ref{tab:ingresso}. Quelle con $R_2<R_2^*$ vengono piegate verso sinistra
+dalle compressioni ($u+a=3R_2-2R_1$ cala quando $R_1$ cresce) ed escono dall'uscita. A poco a poco il condotto si
+riempie di valori di $R_2$ sempre più vicini a $R_2^*$.
+
+\textbf{Quanto dura.} Vicino a F, con $R_1\approx R_1^*$, $u+a\approx3(R_2-R_2^*)$: una $\upa$ con scarto $\Delta R_2$
+attraversa il condotto in $L/(3\Delta R_2)$. Al tempo $t$ restano solo scarti $\Delta R_2\lesssim L/(3t)$: il transitorio
+si esaurisce \textbf{asintoticamente}, come $1/t$. All'uscita, dove lo scarto è massimo, a $t=10\,\tau$ ho
+$\Delta R_2\approx\SI{11}{m/s}$, cioè $p\approx\SI{0.46}{atm}$ e $M\approx-1{,}11$; a $t=30\,\tau$, $p\approx\SI{0.51}{atm}$
+e $M\approx-1{,}04$. L'uscita tende a F dal lato supersonico, l'ingresso dal lato subsonico.
+
+Torno al piano $x$--$t$ (fig.~\ref{fig:xt}) con questi numeri. Il ventaglio sta a cavallo della verticale $x=L/2$: a
+sinistra di essa le $\upa$ vanno verso il serbatoio. La testa della riflessa si incurva nel ventaglio e diventa retta
+nello stato 3. Oltre la testa il diagramma è schematico: le $\uma$ riflesse sono sempre più ripide, la coda di E è
+piegata verso sinistra (la semiretta tracciata stima per eccesso il suo arrivo in $x=0$, $\approx5\,\tau$) e il campo
+tende a F.
+
+\section*{Il piano $p$--$u$}
+\figura[1.0]{pu.pdf}{Piano $p$--$u$ in scala lineare e logaritmica: curva d'urto da 1, curva d'espansione da 4, curva
+degli stati d'ingresso (nero; punteggiata oltre $M=-1$, non ammessa) e luogo degli stati sonici con $s=s_4$.\label{fig:pu}}
+L'incrocio fra la curva d'urto uscente da 1 e quella d'espansione entrante in 4 è lo stato 2=3 (fig.~\ref{fig:pu}). Le
+impedenze sono molto diverse, $\rho_1a_1\approx29$ contro $\rho_4a_4\approx417$ kg/(m$^2$s), e infatti la curva d'urto è
+molto più piatta; eppure il contatto è nullo, cosa che il piano $p$--$u$ da solo non mostra. La curva degli stati
+d'ingresso parte da 4 con tangente orizzontale (pressione che scende con $u^2$), quella d'espansione con pendenza
+$\rho_4a_4$: è la ragione della riflessa di compressione. Il luogo sonico passa per S (sonico nel ventaglio) e per F
+(sonico stazionario): F ha pressione quasi doppia di S perché vi si arriva con l'entalpia totale dell'ambiente, che
+l'espansione instazionaria aveva in parte sottratto. Le pressioni vanno da 0,04 a 1 atm: la scala lineare mostra le
+distanze reali fra gli stati (2, 3, S, F sono vicini), quella logaritmica separa bene lo stato 1 e il ramo d'urto.
+
+\section*{Risposta: l'evoluzione del campo}
+\figura[0.72]{profili.pdf}{Pressione e Mach lungo il condotto a $t=0{,}25\,\tau$ e $t=0{,}5\,\tau$ (esatti) e nello
+stato finale.\label{fig:profili}}
+A $0{,}25\,\tau$ (fig.~\ref{fig:profili}) si vedono il salto d'urto da $0{,}04$ a \SI{0.243}{atm}, il plateau 2--3 senza
+traccia del contatto e il ventaglio fino a \SI{1}{atm}. A $0{,}5\,\tau$ l'urto è uscito e il ventaglio occupa tutta la
+metà destra, con $M=-1$ esattamente in $x=L/2$. La retta tratteggiata è lo stato finale: a sinistra il condotto deve
+ancora ricomprimersi (da $0{,}243$ a \SI{0.528}{atm}), a destra espandersi da 1 a \SI{0.528}{atm}.
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{lcccc}
+    \toprule
+    Stato & $p$ [atm] & $u$ [m/s] & $T$ [K] & $M$ \\
+    \midrule
+    1 serbatoio & 0,04 & 0 & 98 & 0 \\
+    4 ambiente & 1 & 0 & 287,7 & 0 \\
+    2 = 3 & 0,243 & $-311$ & 192 & $-1{,}12$ \\
+    S ($x=L/2$) & 0,279 & $-283$ & 200 & $-1$ \\
+    F ($t\to\infty$) & 0,528 & $-310$ & 239,8 & $-1$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Stati del campo.}
+\end{table}
+Onde e tempi: urto $\uma$ con $M_s=2{,}31$, $w=\SI{-459}{m/s}$, in $x=0$ a $0{,}370\,\tau$; contatto nullo, in $x=0$ a
+$0{,}547\,\tau$; espansione $\upa$ transonica, testa \SI{340}{m/s} (in $x=L$ a $0{,}5\,\tau$) e coda \SI{-33}{m/s};
+compressione $\uma$ riflessa dall'ingresso, esce da E a $0{,}917\,\tau$ in $x=0{,}41L$ e arriva in $x=0$ a
+$\approx1{,}15\,\tau$; poi tendenza asintotica a F, con scarti $\propto L/t$. Stati e tempi fino a $1{,}15\,\tau$ sono
+esatti nel modello; la durata è una stima.
+
+\section*{Discussione}
+\begin{itemize}
+\item \textbf{Contatto nullo.} I dati sono tali che l'urto porta il gas del serbatoio, freddo (\SI{98}{K}), esattamente
+  all'entropia dell'ambiente: dopo l'uscita dell'urto il condotto contiene un solo gas omoentropico e il transitorio è
+  governato dai soli invarianti. Con un serbatoio più caldo o più freddo il contatto sarebbe un'onda di entropia che si
+  scarica nel serbatoio a \SI{311}{m/s}, senza cambiare la struttura del resto.
+\item \textbf{Grandezze totali nell'instazionario.} Lo stato 3 viene dall'aria ambiente in quiete ($p_0=\SI{1}{atm}$,
+  $T_0=\SI{287.7}{K}$) ma ha $p_0=\SI{0.53}{atm}$ e $T_0=\SI{240}{K}$: l'espansione instazionaria toglie entalpia
+  totale. Solo a regime, in F, le grandezze totali tornano quelle dell'ambiente: per questo nel transitorio non si
+  possono usare $p_0$, $h_0$ costanti.
+\item \textbf{Condizione d'ingresso.} Imporre all'ingresso la pressione statica ambiente sarebbe sbagliato: la riflessa
+  riporterebbe $p$ a \SI{1}{atm} e il gas entrerebbe senza perdere pressione statica, cioè con entalpia totale maggiore
+  di quella dell'ambiente. Con $p_0$, $T_0$ la pressione d'ingresso scende fino a quella critica e il condotto si
+  strozza.
+\item \textbf{Ruolo del serbatoio.} Dopo $t_0$ il serbatoio non influenza il condotto, perché l'uscita è sempre
+  supersonica o sonica: lo stato finale è lo stesso per qualunque pressione del serbatoio sotto \SI{0.528}{atm}. Su
+  tempi lunghi il serbatoio si riempie con portata $\rho^*a^*A$; quando supera \SI{0.528}{atm} l'uscita diventa
+  subsonica, si impone $p=p_{\rm serb}$ e parte un nuovo transitorio verso una corrente subsonica.
+\item \textbf{Durata.} Il transitorio si chiude asintoticamente: le $\upa$ con $R_2$ vicino a $R_2^*$ sono quasi ferme e
+  lasciano il condotto lentamente. Con $L=\SI{1}{m}$ ($\tau\approx\SI{2.9}{ms}$) gli scarti da F sono di qualche per cento
+  dopo circa $30\,\tau\approx\SI{0.1}{s}$.
+\item \textbf{Limiti del modello.} All'imbocco reale a spigolo vivo il getto entrante si contrae e la sezione sonica è la
+  vena contratta: la portata sarebbe minore di $\rho^*a^*A$. Con l'attrito (corrente di Fanno) la corrente subsonica
+  accelera verso l'uscita e la sezione sonica si sposta all'uscita. Il getto nel serbatoio e la diffrazione dell'urto
+  sono 3D. Nessuno di questi effetti cambia la sequenza delle onde nel condotto.
+\end{itemize}
+
+\end{document}
