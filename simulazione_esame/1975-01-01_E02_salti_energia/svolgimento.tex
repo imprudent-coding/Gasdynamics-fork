@@ -1,0 +1,280 @@
+% Simulazione d'esame: prova del 01/01/1975, esercizio 2 -- relazioni di salto per energia interna e cinetica.
+% Stessi numeri e figure dello svolgimento di riferimento:
+% svolgimenti/1975-01-01_E02_salti_energia (calcoli.py e figure/).
+% Compilare con: bash ../compila.sh 1975-01-01_E02_salti_energia  (A4 + orologio)
+
+\input{../preambolo}
+\graphicspath{{../../svolgimenti/1975-01-01_E02_salti_energia/figure/}}
+
+\newcommand{\jp}[1]{\left[#1\right]}
+\newcommand{\av}[1]{\left\langle #1\right\rangle}
+\newcommand{\upa}{u+a}
+
+\esercizio{Prova del 01/01/1975 -- Esercizio 2}{Relazioni di salto per l'energia interna e per l'energia cinetica}
+
+\begin{document}
+\maketitle
+
+\emph{Traccia.} Considerare le relazioni di salto per un flusso monodimensionale non stazionario e ricavare da
+queste le relazioni di salto per l'energia interna e l'energia cinetica. Esprimere la relazione di salto per
+l'energia interna per la variabile dipendente pressione. Mostrare la relazione tra relazione di salto per
+l'energia cinetica e quella per la quantità di moto. (Affini nel catalogo: B64-E02 del 15/06/2021, che chiede di
+dimostrare che il salto dell'energia cinetica discende da quello della quantità di moto e che il salto dell'energia
+totale si riduce a quello dell'energia interna; B54-E01 del 23/01/2018, energia cinetica in forma quasi lineare e
+conservativa e suo salto; B32-E01 del 10/07/2013, energia cinetica e suo legame con massa e quantità di moto.)
+
+\section*{Che cosa devo ricavare}
+Le relazioni di partenza sono quelle di Rankine--Hugoniot per una discontinuità che si muove con velocità $w$:
+massa, quantità di moto, energia totale. Da queste devo ricavare quattro cose:
+\begin{enumerate}
+  \item la relazione di salto per l'energia cinetica $u^2/2$;
+  \item quella per l'energia interna $e_i$;
+  \item la stessa con la pressione come variabile dipendente. La leggo così: come l'equazione dell'energia
+        interna $\rho\,De_i/Dt+p\,u_x=0$ diventa, per il gas perfetto, l'equazione della pressione
+        $p_t+up_x+\gamma pu_x=0$, così il salto di $e_i$ va riscritto con $p$ al posto di $e_i$. Ne seguirà anche la
+        curva di Hugoniot $p_2/p_1$ in funzione di $\rho_2/\rho_1$;
+  \item il legame fra il salto dell'energia cinetica e quello della quantità di moto.
+\end{enumerate}
+Il problema è letterale. Come controllo e per i diagrammi uso un urto $\upa$ con $\Ms=2$ in aria
+($\gamma=1{,}4$) in quiete, con $p_1=a_1=1$, quindi $\rho_1=1{,}4$: è l'urto generato da un pistone impulsivo.
+
+Fisso la notazione. Lo stato 1 è a monte (la particella non è ancora stata attraversata), lo stato 2 a valle; per
+una grandezza $q$
+\begin{gather*}
+  \jp{q}=q_2-q_1 \ee \av{q}=\frac{q_1+q_2}{2}.
+\end{gather*}
+Inoltre $v=u-w$ è la velocità relativa alla discontinuità, $m=\rho v$ il flusso di massa che la attraversa,
+$\tau=1/\rho$ il volume specifico, $e=e_i+u^2/2$ l'energia totale specifica.
+
+\section*{Modello: perché parto dall'energia totale}
+Uso le equazioni di Eulero 1D in forma conservativa, $U_t+F_x=0$, con $U=(\rho,\rho u,\rho e)$ e
+$F=(\rho u,\rho u^2+p,u(\rho e+p))$: fluido non viscoso, adiabatico, senza forze di volume. La discontinuità ha
+spessore nullo (quello reale è di pochi liberi cammini medi), è rettilinea nel piano $x$--$t$ e ha stati uniformi
+ai due lati; se $w$ varia lentamente, le relazioni valgono istante per istante. Il gas perfetto,
+$e_i=p\tau/(\gamma-1)$, mi serve solo per la forma in pressione: le relazioni per l'energia cinetica e per
+l'energia interna valgono per qualunque gas.
+
+Prima di calcolare guardo che cosa succede nel continuo. Moltiplico per $u$ l'equazione della quantità di moto,
+$\rho(u_t+uu_x)+p_x=0$, uso la continuità e sottraggo il risultato dall'energia totale:
+\begin{gather*}
+  \Bigl(\rho\frac{u^2}{2}\Bigr)_t+\Bigl(\rho\frac{u^3}{2}+pu\Bigr)_x=p\,u_x \ee
+  (\rho e_i)_t+(\rho e_iu)_x=-p\,u_x .
+\end{gather*}
+Il termine $p\,u_x$, la potenza della pressione nella compressione o nell'espansione, passa energia dall'una
+all'altra forma: \textbf{né l'energia cinetica né l'energia interna si conservano}. Le loro equazioni non sono in
+forma di divergenza e non le posso integrare attraverso la discontinuità, perché lì $p$ salta proprio dove $u_x$ è
+concentrata. Attraverso una discontinuità vale solo la forma integrale delle leggi di conservazione, quindi parto
+dalle grandezze che si conservano davvero: massa, quantità di moto ed energia totale.
+
+Mi aspetto tre cose: che il salto dell'energia cinetica sia quello della quantità di moto moltiplicato per una
+velocità ``media'' (come nel continuo si moltiplica per $u$), quindi non una relazione nuova; che il salto
+dell'energia interna sia ciò che resta, cioè il lavoro di compressione di una pressione ``media''; e che questa
+media non coincida con ciò che succede lungo un'isentropica, perché la differenza è la produzione di entropia.
+
+\section*{La discontinuità nel piano $x$--$t$ e le relazioni di partenza}
+\figura[0.66]{xt.pdf}{Piano $x$--$t$: discontinuità $x=wt$ fra 1 (monte) e 2 (valle), traiettorie delle particelle
+e volume di controllo solidale (esempio: urto $\upa$ con $\Ms=2$ da pistone impulsivo).\label{fig:xt}}
+Nel piano $x$--$t$ (fig.~\ref{fig:xt}) la discontinuità è la retta $x=wt$. Nell'esempio lo stato 1, in quiete, è a
+destra; ogni particella, raggiunta dall'urto, passa in 2 e prende la velocità $u_2$ del pistone. Le traiettorie
+attraversano la discontinuità ($m\neq0$): è un \textbf{urto}. Se invece fossero parallele alla discontinuità
+($w=u$, $m=0$) sarebbe un \textbf{contatto}, per cui non esistono monte e valle ma solo un lato 1 e un lato 2.
+
+Il parallelogramma è il volume di controllo $[\xi_2,\xi_1]$ nella variabile $\xi=x-wt$, fermo rispetto alla
+discontinuità. In questa variabile $U_t+F_x=0$ diventa $U_t+(vU+P)_\xi=0$, con $P=(0,p,pu)$, perché $F=uU+P$.
+Integro sul volume di controllo: gli stati sono uniformi e il contenuto non cambia nel tempo, quindi il flusso che
+entra è uguale a quello che esce, $\jp{vU+P}=0$, cioè $w\jp{U}=\jp{F}$. Per componenti, portando fuori dal salto la
+costante $m$:
+\begin{gather*}
+  \text{(M)}\ \ \jp{\rho v}=0\ \Rightarrow\ m=\rho_1v_1=\rho_2v_2 \ee
+  \text{(Q)}\ \ m\jp{u}+\jp{p}=0 \ee
+  \text{(E)}\ \ m\jp{e}+\jp{pu}=0 .
+\end{gather*}
+
+Conto subito equazioni e incognite. Le incognite sono $(\rho,u,p)_{1,2}$ e $w$, sette; le relazioni indipendenti
+sono tre. Noto lo stato 1, basta un dato in più ($w$, $u_2$ o $p_2$). Quindi tutto ciò che ricavo sotto è una
+\textbf{combinazione} di (M), (Q), (E), non un'informazione nuova. Aggiungere ``la conservazione dell'energia
+cinetica'' come quarta equazione sovradeterminerebbe il problema e sarebbe sbagliato, perché l'energia cinetica
+non si conserva.
+
+\section*{Lo strumento: il salto di un prodotto}
+Il salto di un prodotto si scrive \textbf{esattamente} con le medie aritmetiche:
+\begin{gather*}
+  \jp{ab}=\frac{a_1+a_2}{2}(b_2-b_1)+\frac{b_1+b_2}{2}(a_2-a_1)=\av{a}\jp{b}+\av{b}\jp{a} \ee
+  \jp{\tfrac{a^2}{2}}=\av{a}\jp{a}.
+\end{gather*}
+È la regola di derivazione del prodotto in versione discreta, la stessa identità con cui si mostra che attraverso
+un contatto $\jp{u}=0$. Quindi ogni manipolazione delle equazioni differenziali ha un equivalente esatto per i
+salti, con le medie al posto dei coefficienti. Inoltre $w$ è lo stesso ai due lati, quindi $\jp{v}=\jp{u}$.
+
+\section*{Energia cinetica: la quantità di moto moltiplicata per $\av{u}$}
+Poiché $\jp{u^2/2}=\av{u}\jp{u}$, moltiplico (Q) per $\av{u}$:
+\[
+  \boxed{\ \text{(K)}\quad m\Bigl[\frac{u^2}{2}\Bigr]+\av{u}\jp{p}=0
+  \ \Longleftrightarrow\ m\Bigl[\frac{u^2}{2}\Bigr]=\av{u}\,m\jp{u}\ }
+\]
+Questa è la risposta all'ultima domanda: \textbf{il salto dell'energia cinetica è quello della quantità di moto
+moltiplicato per la velocità media} $\av{u}$, come nel continuo l'energia cinetica è la quantità di moto
+moltiplicata per $u$. Non è una relazione indipendente: è conseguenza esatta di (M) e (Q).
+
+Con $m=\rho(u-w)$ costante e $\jp{pu}=\av{u}\jp{p}+\av{p}\jp{u}$ la stessa relazione diventa un bilancio con
+sorgente:
+\[
+  -w\Bigl[\rho\frac{u^2}{2}\Bigr]+\Bigl[\rho\frac{u^3}{2}+pu\Bigr]=\av{p}\jp{u},
+\]
+immagine esatta di $(\rho u^2/2)_t+(\rho u^3/2+pu)_x=p\,u_x$, con $\partial_t\to-w\jp{\cdot}$,
+$\partial_x\to\jp{\cdot}$ e il termine non conservativo $p\,u_x\to\av{p}\jp{u}$. Il secondo membro non è nullo:
+attraverso un urto l'energia cinetica non si conserva.
+
+L'energia cinetica dipende dall'osservatore. Nel riferimento della discontinuità ottengo allo stesso modo
+$m\jp{v^2/2}+\av{v}\jp{p}=0$; con $\av{v}=\av{u}-w$ la differenza con (K) è $-w\,(m\jp{u}+\jp{p})$, cioè $-w$ volte
+la (Q). Anche il cambio di riferimento è assorbito dalla quantità di moto.
+
+Controllo sull'esempio. Dalle relazioni di Rankine--Hugoniot
+\begin{gather*}
+  w=\Ms a_1=2 \ee \frac{p_2}{p_1}=1+\frac{2\gamma}{\gamma+1}(\Ms^2-1)=4{,}5,\\
+  \frac{\rho_2}{\rho_1}=\frac{\gamma+1}{\gamma-1+2/\Ms^2}\approx2{,}67 \ee
+  u_2=w\Bigl(1-\frac{\rho_1}{\rho_2}\Bigr)=1{,}25,
+\end{gather*}
+quindi $m=-\rho_1w=-2{,}8$, $\av{u}=0{,}625$, $\av{p}=2{,}75$. Trovo $m\jp{u^2/2}=-2{,}19$ e $\av{u}\jp{p}=2{,}19$:
+(K) è verificata. Sommando poi $0{,}7$ a tutte le velocità (stesso urto, altro osservatore), $\jp{u^2/2}$ passa da
+$0{,}78$ a $1{,}66$ ma (K) resta verificata.
+
+\section*{Energia interna: il lavoro della pressione media}
+Sottraggo (K) da (E), con $\jp{e}=\jp{e_i}+\jp{u^2/2}$ e $\jp{pu}=\av{u}\jp{p}+\av{p}\jp{u}$; il termine
+$\av{u}\jp{p}$ si elide:
+\[
+  \boxed{\ \text{(I)}\quad m\jp{e_i}+\av{p}\jp{u}=0\ }
+  \ \Longleftrightarrow\
+  -w\jp{\rho e_i}+\jp{\rho e_iu}=-\av{p}\jp{u},
+\]
+immagine di $(\rho e_i)_t+(\rho e_iu)_x=-p\,u_x$. Quindi il salto dell'energia totale si riduce a quello
+dell'energia interna: noti (M) e (Q), (E) e (I) sono equivalenti. Sull'esempio $m\jp{e_i}=-3{,}44$ e
+$\av{p}\jp{u}=3{,}44$: verificata. Sommando $0{,}7$ alle velocità, $\jp{e_i}=1{,}23$ non cambia.
+
+Per un urto ($m\neq0$) uso $v=m\tau$, quindi $\jp{u}=\jp{v}=m\jp{\tau}$, e divido per $m$:
+\[
+  \boxed{\ \jp{e_i}+\av{p}\jp{\tau}=0
+  \ \Longleftrightarrow\ e_{i2}-e_{i1}=\frac{p_1+p_2}{2}(\tau_1-\tau_2)\ }
+\]
+È l'\textbf{equazione di Hugoniot}. Contiene solo grandezze termodinamiche, quindi vale in ogni riferimento e per
+qualunque gas. Ha la forma del primo principio per un'adiabatica reversibile, $de_i=-p\,d\tau$, ma con la
+\textbf{pressione media} al posto di $p$: l'energia interna cresce del lavoro di compressione compiuto dalla media
+delle pressioni ai due lati. Allo stesso modo da (Q) ricavo $\jp{p}=-m^2\jp{\tau}$: nel piano $p$--$\tau$ gli stati
+1 e 2 stanno su una retta di pendenza $-m^2$, la retta di Rayleigh.
+
+\section*{Con la pressione come variabile dipendente}
+Per il gas perfetto $m\,e_i=pv/(\gamma-1)$ e, poiché $m$ è costante, $m\jp{e_i}=\jp{pv}/(\gamma-1)$. In (I), con
+$\jp{pv}=\av{p}\jp{v}+\av{v}\jp{p}$ e $\jp{v}=\jp{u}$:
+\[
+  \frac{\av{v}\jp{p}+\av{p}\jp{u}}{\gamma-1}+\av{p}\jp{u}=0
+  \ \Longrightarrow\ \av{v}\jp{p}+\gamma\av{p}\jp{u}=0,
+\]
+e con $\av{v}=\av{u}-w$
+\[
+  \boxed{\ \text{(P)}\quad -w\jp{p}+\av{u}\jp{p}+\gamma\av{p}\jp{u}=0\ }
+\]
+È l'immagine esatta dell'equazione della pressione $p_t+up_x+\gamma pu_x=0$, con $u$ e $p$ sostituiti dalle loro
+medie; vale anche per il contatto. Sull'esempio $-w\jp{p}=-7$, $\av{u}\jp{p}=2{,}19$, $\gamma\av{p}\jp{u}=4{,}81$:
+la somma è nulla, verificata.
+
+Per un urto, con $\jp{u}=m\jp{\tau}$ e $\av{v}=m\av{\tau}$, divido per $m$:
+\[
+  \av{\tau}\jp{p}+\gamma\av{p}\jp{\tau}=0,
+\]
+che ha la forma dell'\textbf{isentropica} $\tau\,dp+\gamma p\,d\tau=0$, ancora con le medie. Risolvendo per la
+pressione, con $r=\rho_2/\rho_1=\tau_1/\tau_2$:
+\[
+  \frac{p_2}{p_1}=\frac{(\gamma+1)r-(\gamma-1)}{(\gamma+1)-(\gamma-1)r},
+\]
+la curva di Hugoniot. Con $r\approx2{,}67$ dà $p_2/p_1=4{,}5$, come deve. Per $p_2/p_1\to\infty$ il denominatore si
+annulla e $r\to(\gamma+1)/(\gamma-1)=6$: il rapporto delle densità attraverso un urto è limitato, quello delle
+pressioni no (per $\Ms=20$ ho già $r=5{,}93$, verificata).
+
+Ultimo controllo sulle relazioni: per salti piccoli le medie tendono ai valori locali e (K), (I), (P) tornano le
+equazioni quasi lineari dell'energia cinetica, dell'energia interna e della pressione. Verificata.
+
+\section*{Il contatto ($m=0$)}
+Da (Q) $\jp{p}=0$; da (I), con $m=0$ e $\av{p}>0$, $\jp{u}=0$; la (K) diventa un'identità. Il salto di $e_i$
+moltiplica $m=0$ e resta libero: densità, temperatura ed entropia possono saltare, pressione e velocità no, come
+nella teoria del contatto. Verificata.
+
+\section*{Hugoniot e isentropica nel piano $p$--$\tau$}
+\figura[1.0]{p_tau.pdf}{Piano $p$--$\tau$ ($\gamma=1{,}4$): Hugoniot e isentropica per 1, retta di Rayleigh, stato 2
+dell'esempio $\Ms=2$ e stato isentropico $2_s$ alla stessa densità. A sinistra scala lineare con l'area $\jp{e_i}$;
+a destra scala logaritmica fino all'asintoto.\label{fig:ptau}}
+Nella fig.~\ref{fig:ptau} a sinistra (scala lineare) l'area arancione è il trapezio sotto la retta di Rayleigh fra
+$\tau_2$ e $\tau_1$, cioè $\av{p}(\tau_1-\tau_2)=\jp{e_i}$: è l'equazione di Hugoniot vista come area. Una
+compressione isentropica fino alla stessa densità richiede solo l'area sotto la curva tratteggiata, più piccola, e
+arriva in $2_s$, a pressione minore. Nell'esempio ($p_1=1$, $\rho_1=1{,}4$) $\jp{e_i}=1{,}23$ contro $0{,}86$
+dell'isentropica. A destra, in scala logaritmica, si vede tutto il ramo di compressione: la Hugoniot sale
+verticalmente verso l'asintoto $\tau_2/\tau_1=1/6$, mentre l'isentropica prosegue fino a $\tau\to0$.
+
+Due controlli dalla figura. Vicino a 1 le due curve hanno la stessa tangente e la stessa curvatura: per $\Ms=1{,}1$
+danno $p_2/p_1=1{,}245$ e $1{,}244$, per $\Ms=2$ già $4{,}5$ e $3{,}95$; verificata. Sul ramo di compressione
+($\jp{\tau}<0$) $\jp{e_i}=-\av{p}\jp{\tau}>0$ e la Hugoniot sta sopra l'isentropica, quindi $\Delta s>0$; il ramo
+di espansione ($\tau>\tau_1$, puntinato) sta appena sotto l'isentropica, darebbe $\Delta s<0$ ed è escluso dal
+secondo principio. Verificata.
+
+\section*{Risposta}
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{lll}
+    \toprule
+    Relazione & Forma & Analogo continuo \\
+    \midrule
+    massa (M) & $\jp{\rho v}=0$, $m=\rho v$ & $\rho_t+(\rho u)_x=0$ \\
+    q.\ di moto (Q) & $m\jp{u}+\jp{p}=0$ & $\rho\,Du/Dt+p_x=0$ \\
+    energia totale (E) & $m\jp{e}+\jp{pu}=0$ & $(\rho e)_t+[u(\rho e+p)]_x=0$ \\
+    \midrule
+    en.\ cinetica (K) & $m\jp{u^2/2}+\av{u}\jp{p}=0$ & $\rho\,D(u^2/2)/Dt+u\,p_x=0$ \\
+    legame (K)--(Q) & (K) $=\av{u}\times$(Q) & $u\times$ q.\ di moto \\
+    en.\ interna (I) & $m\jp{e_i}+\av{p}\jp{u}=0$ & $\rho\,De_i/Dt+p\,u_x=0$ \\
+    Hugoniot ($m\neq0$) & $\jp{e_i}+\av{p}\jp{\tau}=0$ & $de_i+p\,d\tau=0$ \\
+    pressione (P) & $-w\jp{p}+\av{u}\jp{p}+\gamma\av{p}\jp{u}=0$ & $p_t+up_x+\gamma pu_x=0$ \\
+    Hugoniot in $p$ & $\av{\tau}\jp{p}+\gamma\av{p}\jp{\tau}=0$ & $\tau\,dp+\gamma p\,d\tau=0$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Relazioni di salto (tutte esatte) e loro analogo nel continuo.}
+\end{table}
+Esplicitamente $p_2/p_1=[(\gamma+1)r-(\gamma-1)]/[(\gamma+1)-(\gamma-1)r]$, con $r=\rho_2/\rho_1$.
+
+\section*{Discussione}
+\textbf{Perché la media aritmetica.} Le medie non sono un'approssimazione: escono dall'identità
+$\jp{ab}=\av{a}\jp{b}+\av{b}\jp{a}$, che è esatta. Moltiplicare (Q) per $\av{u}$ dà esattamente il salto
+dell'energia cinetica; moltiplicarla per $u_1$ o per $u_2$ no. Il termine di scambio $p\,u_x$, che non ha senso
+dove $p$ salta e $u_x$ è concentrata, attraverso la discontinuità ``vale'' $\av{p}\jp{u}$: lo fissano le tre leggi
+di conservazione, non la struttura interna dell'urto.
+
+\textbf{Dove nasce l'entropia.} Nel continuo $de_i=-p\,d\tau$ è l'isentropica, $\tau\,dp+\gamma p\,d\tau=0$. Le
+relazioni di salto sono le stesse con $p$ e $\tau$ sostituiti dalle medie ai due estremi: è la regola dei trapezi
+applicata all'isentropica. Il primo principio vale ancora, ma il lavoro di compressione è quello della media delle
+pressioni, maggiore di quello lungo l'isentropica, che nel piano $p$--$\tau$ è convessa. L'eccesso (il trapezio
+meno l'area sotto l'isentropica) è energia dissipata dentro lo spessore dell'urto da viscosità e conduzione: il
+modello non le vede, ma le relazioni di salto ne fissano l'effetto netto. L'errore della regola dei trapezi è del
+terzo ordine nell'ampiezza, quindi $\Delta s\propto\jp{p}^3$: per questo gli urti deboli si possono trattare come
+onde isentropiche.
+
+\figura[0.66]{ripartizione.pdf}{Gas 1 in quiete: ripartizione del lavoro del pistone $p_2u_2$ fra energia
+cinetica, compressione isentropica fino a $\rho_2$ e riscaldamento a densità costante, in funzione di
+$\Ms$.\label{fig:rip}}
+\textbf{Dove va il lavoro.} Il lavoro del pistone per unità di area e di tempo è $p_2u_2=\jp{pu}=5{,}63$
+nell'esempio, e si divide in $\av{u}\jp{p}=2{,}19$, che va in energia cinetica, e $\av{p}\jp{u}=3{,}44$, che va in
+energia interna. Per il gas in quiete $\av{u}=u_2/2$, quindi la frazione cinetica è $(p_2-p_1)/(2p_2)$, quella
+interna $(p_1+p_2)/(2p_2)$ e $\jp{e_i}/\jp{u^2/2}=(p_1+p_2)/(p_2-p_1)$. La fig.~\ref{fig:rip} separa anche
+l'energia interna in compressione isentropica e riscaldamento: per $\Ms=2$ (tratteggio) ho $39\%$ cinetica, $43\%$
+compressione isentropica, $18\%$ riscaldamento. Negli urti deboli quasi tutto va in energia interna, ma in modo quasi
+reversibile: è un'onda acustica, e l'energia cinetica è del secondo ordine. Negli urti forti c'è equipartizione,
+metà cinetica e metà interna (linea puntinata), e l'energia interna è quasi tutta dissipata.
+
+\textbf{Che cosa è invariante.} Energia interna, pressione e Hugoniot dipendono solo da $\jp{u}=\jp{v}$ e dalla
+termodinamica, quindi non dal riferimento; l'energia cinetica sì, e la differenza fra due riferimenti è un multiplo
+della quantità di moto. Nel riferimento dell'urto, (I) più la (K) relativa danno $\jp{h+v^2/2}=0$: l'urto, che lì
+è stazionario, conserva l'entalpia totale relativa.
+
+\textbf{Conseguenza pratica.} Attraverso un urto la forma conservativa da usare è quella dell'energia
+\emph{totale}. Un modello che conservasse l'energia cinetica, o che integrasse l'equazione della pressione
+$p_t+up_x+\gamma pu_x=0$ senza i coefficienti medi giusti, darebbe salti isentropici, e quindi urti con velocità e
+stati sbagliati.
+
+\end{document}
