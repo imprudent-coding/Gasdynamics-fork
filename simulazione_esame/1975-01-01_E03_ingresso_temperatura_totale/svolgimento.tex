@@ -1,0 +1,314 @@
+% Simulazione d'esame: prova del 01/01/1975, esercizio 3 -- condizione al contorno d'ingresso a T0 costante.
+% Stessi numeri e figure dello svolgimento di riferimento:
+% svolgimenti/1975-01-01_E03_ingresso_temperatura_totale (calcoli.py e figure/).
+% Compilare con: bash ../compila.sh 1975-01-01_E03_ingresso_temperatura_totale  (A4 + orologio)
+
+\input{../preambolo}
+\graphicspath{{../../svolgimenti/1975-01-01_E03_ingresso_temperatura_totale/figure/}}
+
+\newcommand{\uma}{u-a}
+\newcommand{\upa}{u+a}
+\newcommand{\Ru}{R_1}
+\newcommand{\Rd}{R_2}
+\newcommand{\Cr}{C}
+
+\esercizio{Prova del 01/01/1975 -- Esercizio 3}{Condizione d'ingresso a temperatura totale costante}
+
+\begin{document}
+\maketitle
+
+\emph{Traccia.} Determinare le derivate nel tempo della pressione e della velocità al contorno di ingresso di un
+flusso monodimensionale, non stazionario, subsonico e omoentropico con condizione assegnata di temperatura totale
+costante. (Affini nel catalogo: B68-E02, ingresso con portata ed entalpia totale costanti; B53-E02, ingresso con
+$\rho u$ e $T$ costanti; B53-E09, contorno con $T_0$, $s$ e $\rho u$ costanti; per l'uscita, B70-E02 con Mach
+imposto.)
+
+\section*{Che cosa chiede la traccia}
+Il gas \textbf{entra} nel condotto: metto l'ingresso all'estremo sinistro, $x=0$, con il condotto per $x>0$, quindi
+$u>0$. Il flusso è \textbf{subsonico}, $0<M<1$ nella sezione d'ingresso, e \textbf{omoentropico}: $s$ è uniforme
+nello spazio e costante nel tempo. La temperatura totale $T_0=T+u^2/(2c_p)$ è assegnata e non varia. Con
+$a^2=\gamma RT$ e $c_p=\gamma R/(\gamma-1)$ la condizione diventa
+\begin{gather*}
+  a^2+\delta u^2=a_0^2=\text{cost} \ee \delta=\frac{\gamma-1}{2}.
+\end{gather*}
+Devo trovare $p_t$ e $u_t$ nella sezione d'ingresso, cioè come evolvono pressione e velocità al contorno in
+funzione di ciò che arriva dall'interno. Non ci sono numeri: lavoro in forma letterale e uso un esempio per l'aria
+($\gamma=1{,}4$, $\delta=0{,}2$) solo per i diagrammi, con $M_1=0{,}3$ all'ingresso, grandezze totali $p_0=a_0=1$ e
+un'onda incidente con $p_2/p_1=1{,}1$ (compressione) e $0{,}9$ (espansione).
+
+\section*{Modello}
+Uso Eulero 1D instazionario: gas perfetto, non viscoso, adiabatico, condotto a sezione costante e onde piane,
+perché le lunghezze d'onda sono molto maggiori del diametro. Il flusso è omoentropico, come dice il testo:
+$s_x=0$ e $s_t=0$, quindi $\rho_x=p_x/a^2$ e $\rho_t=p_t/a^2$, e valgono gli invarianti
+\begin{gather*}
+  \Ru=a-\delta u\ \text{lungo le $\uma$} \ee \Rd=a+\delta u\ \text{lungo le $\upa$}.
+\end{gather*}
+Le onde restano continue, senza urti.
+
+Assumo che la condizione valga in ogni istante: ciò che la realizza a monte (un grande serbatoio o l'ambiente)
+risponde in modo quasi stazionario rispetto ai tempi delle onde nel condotto. Attenzione però: $T_0$ è costante
+\textbf{solo nella sezione d'ingresso}, dove è imposta. Nel condotto il flusso è instazionario e attraverso le onde
+$T_0$ e $p_0$ cambiano: nell'esempio, dietro la compressione incidente, $T_0$ cresce del 2\,\% e $p_0$ del 7\,\%.
+Infine, le derivate spaziali nella sezione d'ingresso sono quelle dal lato del condotto: dall'interno è nota solo
+la perturbazione che esce dal dominio.
+
+\section*{Quante condizioni servono}
+Nella sezione d'ingresso, con $0<u<a$, le caratteristiche $\upa$ e $u$ hanno pendenza positiva ed
+\textbf{entrano} nel condotto. La $\uma$, con $u-a<0$, arriva dall'interno ed \textbf{esce}. Servono quindi
+\textbf{due} condizioni, e la traccia ne dà due: l'omoentropia fissa l'entropia del gas che entra (onda di entropia,
+famiglia $u$), e $T_0$ costante fornisce la seconda. Il problema è ben posto: non sovraspecifico, e non prescrivo la
+variabile d'onda uscente, portata dalla $\uma$, che viene dall'interno.
+
+Lo stesso conto lo faccio con le incognite. Nella sezione d'ingresso ho le tre derivate $p_t$, $u_t$, $\rho_t$ e le
+due variabili d'onda entranti
+\begin{gather*}
+  X=p_x+\rho a\,u_x\ (\upa) \ee Z=\rho_x-\frac{p_x}{a^2}\ (u),
+\end{gather*}
+mentre la variabile uscente $Y=p_x-\rho a\,u_x$ ($\uma$) è nota dall'interno. Sono 5 incognite. Le equazioni di
+Eulero in forma caratteristica sono 3, quindi mi servono 2 equazioni al contorno in forma differenziale:
+l'omoentropia e $T_0$ costante. Il conto torna.
+
+Noto anche che le due condizioni equivalgono a un serbatoio. Con $s$ costante, $p/T^{\gamma/(\gamma-1)}$ è
+costante; poiché $p_0=p\,(T_0/T)^{\gamma/(\gamma-1)}$, anche $p_0$ è costante. Imporre $s$ e $T_0$ è quindi
+imporre $p_0$ e $T_0$: l'ingresso da un grande serbatoio, in cui la pressione statica non si impone.
+
+\section*{Che cosa mi aspetto}
+Nella sezione d'ingresso $h_0$ e $s$ sono costanti, quindi pressione e velocità sono legate come in Bernoulli: se la
+velocità cala, la pressione sale, ma di poco quando $M$ è piccolo. A basso Mach l'ingresso si comporta quasi come
+un estremo a pressione imposta. Mi aspetto quindi che un'onda $\uma$ che arriva dall'interno si rifletta come onda
+$\upa$ di \textbf{natura opposta}, con ampiezza minore di quella dell'incidente. Vicino a $M=1$ la caratteristica
+uscente diventa verticale e l'ingresso tende a strozzarsi.
+
+Il campo vicino all'ingresso è quello della fig.~\ref{fig:xt}, in cui tratto le caratteristiche degli stati uniformi
+come semirette. Nello stato iniziale \textbf{1}, uniforme e subsonico, vale $a_1^2+\delta u_1^2=a_0^2$. Dall'interno
+arriva l'\textbf{onda incidente $\uma$}, un'onda semplice a $\Rd$ uniforme. Dietro di essa c'è lo stato uniforme
+\textbf{2}, con $R_{2,2}=R_{2,1}$. Fra l'arrivo della testa e quello della coda dell'incidente, a ridosso
+dell'ingresso, c'è la zona d'interazione a due famiglie \textbf{Z}, chiusa dal punto P. Da lì scende nel condotto
+l'\textbf{onda riflessa $\upa$}, onda semplice a $\Ru$ uniforme, e all'ingresso resta lo stato \textbf{3}, con
+$R_{1,3}=R_{1,2}$, che soddisfa la condizione. La zona Z non serve risolverla: le derivate che ricavo valgono nella
+sezione d'ingresso istante per istante, anche mentre vi arriva l'onda.
+
+\figura[0.68]{xt.pdf}{Piano $x$--$t$ vicino all'ingresso (esempio $M_1=0{,}3$, compressione incidente), con
+caratteristiche rettilinee: stati 1, 2, 3 e zona d'interazione Z.\label{fig:xt}}
+
+Nella figura l'incidente $\uma$ (blu) arriva all'ingresso fra $t=1$ e $t=1{,}5$. È una compressione, e infatti le
+sue caratteristiche convergono. Ogni sua caratteristica genera nello stesso istante una $\upa$ della riflessa
+(rosso), che si apre a ventaglio: è un'espansione. Le $\upa$ sono più veloci delle $\uma$ ($a+u>a-u$), quindi più
+vicine all'orizzontale, e la riflessa occupa nello spazio un tratto più lungo dell'incidente; per questo il suo
+gradiente è minore. Le due onde si sovrappongono nel triangolo Z.
+
+\section*{Le equazioni nella sezione d'ingresso}
+Parto dalle equazioni quasi lineari per $p$ e $u$, con $\gamma p=\rho a^2$:
+\begin{gather*}
+  p_t+u\,p_x+\rho a^2u_x=0 \ee u_t+u\,u_x+\frac{p_x}{\rho}=0 .
+\end{gather*}
+Moltiplico la seconda per $\rho a$ e la sommo o la sottraggo alla prima. Ottengo le compatibilità lungo la $\upa$ e
+lungo la $\uma$:
+\begin{gather*}
+  (p_t+\rho a\,u_t)+(u+a)\,X=0 \ee (p_t-\rho a\,u_t)+(u-a)\,Y=0 .
+\end{gather*}
+Risolvendo rispetto a $p_t$ e $u_t$ ho la forma con le onde separate:
+\begin{gather*}
+  p_t=-\frac{u+a}{2}X-\frac{u-a}{2}Y \ee u_t=-\frac{u+a}{2\rho a}X+\frac{u-a}{2\rho a}Y .
+\end{gather*}
+L'entropia, $s_t+u\,s_x=0$, dà la terza equazione: $(\rho_t-p_t/a^2)+u\,Z=0$.
+
+\section*{Le due condizioni in forma differenziale}
+\textbf{Omoentropia.} $Z=0$ e $s_t=0$, quindi $\rho_t=p_t/a^2$. L'equazione dell'entropia è soddisfatta
+identicamente: dall'ingresso non entra alcuna onda di entropia.
+
+\textbf{Temperatura totale costante.} Derivo $h_0=h+u^2/2$ nel tempo e uso Gibbs, $T\,ds=dh-dp/\rho$, con $ds=0$:
+\begin{gather*}
+  h_{0,t}=\frac{p_t}{\rho}+u\,u_t=0 \\
+  \Longrightarrow\quad p_t=-\rho u\,u_t .
+\end{gather*}
+È Bernoulli scritto nel tempo nella sezione d'ingresso.
+
+\section*{Le derivate di velocità e pressione}
+Nella compatibilità lungo la $\uma$, $p_t-\rho a\,u_t=(a-u)\,Y$, sostituisco $p_t=-\rho u\,u_t$ e ho
+$-\rho(a+u)\,u_t=(a-u)\,Y$. Quindi, con $M=u/a$,
+\begin{gather*}
+  \boxed{u_t=-\frac{1}{\rho}\,\frac{1-M}{1+M}\,\bigl(p_x-\rho a\,u_x\bigr)} \\
+  \boxed{p_t=u\,\frac{1-M}{1+M}\,\bigl(p_x-\rho a\,u_x\bigr)}
+\end{gather*}
+con $p_x-\rho a\,u_x$ calcolata dal lato del condotto. Ne seguono le altre derivate, con $\dot m=\rho u$ portata per
+unità di area:
+\begin{gather*}
+  \rho_t=\frac{p_t}{a^2} \ee \frac{T_t}{T}=\frac{\gamma-1}{\gamma}\,\frac{p_t}{p} \ee
+  \frac{\dot m_t}{\dot m}=(1-M^2)\,\frac{u_t}{u}.
+\end{gather*}
+Le derivate dipendono solo dallo stato nella sezione e dalla perturbazione uscente $Y$: se dall'interno non arriva
+nulla ($Y=0$), lo stato all'ingresso non cambia.
+
+Controllo subito il risultato con gli invarianti. Da $a\,a_t+\delta u\,u_t=0$ e $(\Ru)_t=(a-u)(\Ru)_x$ ottengo
+$u_t=-(a-u)(\Ru)_x/[\delta(1+M)]$. Coincide con la formula trovata, perché in un flusso omoentropico
+$Y=(\rho a/\delta)(\Ru)_x$: verificato.
+
+Controllo anche i due limiti. Per $M\to0$, $p_t\to0$: è l'estremo a pressione imposta, verificato. Per $M\to1$,
+$u_t=p_t=0$: la $\uma$ diventa verticale e lo stato resta quello critico, cioè l'ingresso sonico, verificato.
+
+\section*{L'onda riflessa}
+Dalla compatibilità lungo la $\upa$, $X=-(p_t+\rho a\,u_t)/(u+a)$, e con le derivate trovate:
+\[
+  X=\left(\frac{1-M}{1+M}\right)^2 Y .
+\]
+In un'onda semplice $\uma$ è costante $\Rd$, quindi $dp=-\rho a\,du$ e $Y=2p_{x,i}$. In un'onda $\upa$, invece,
+$dp=\rho a\,du$ e $X=2p_{x,r}$. Allora
+\[
+  p_{x,r}=\left(\frac{1-M}{1+M}\right)^2 p_{x,i}.
+\]
+I gradienti hanno lo stesso segno. Un'incidente $\uma$ di compressione, che va verso l'ingresso, ha il gas compresso
+dietro di sé, a destra: $p_{x,i}>0$. Allora $p_{x,r}>0$, e la riflessa $\upa$, che va verso destra, ha la pressione
+più bassa dietro di sé: è un'\textbf{espansione}. Allo stesso modo un'espansione si riflette come compressione,
+come mi aspettavo.
+
+Nel tempo, nella sezione d'ingresso, $p_{t,i}=(a-u)\,p_{x,i}$ e $p_{t,r}=-(a+u)\,p_{x,r}$, quindi per onde acustiche
+\[
+  \boxed{\frac{\Delta p_r}{\Delta p_i}=\Cr=-\frac{1-M}{1+M}}
+\]
+Per gli invarianti lo stesso coefficiente è esatto. Da $a\,da+\delta u\,du=0$:
+\begin{gather*}
+  d\Ru=-\delta(1+M)\,du \ee d\Rd=\delta(1-M)\,du,
+\end{gather*}
+cioè $d\Rd=\Cr\,d\Ru$. Nella sezione d'ingresso le variazioni complessive sono
+\begin{gather*}
+  \Delta p=(1+\Cr)\,\Delta p_i=\frac{2M}{1+M}\,\Delta p_i \ee \Delta u=\frac{2}{1+M}\,\Delta u_i .
+\end{gather*}
+Con $M$ da $0$ a $1$, $\Cr$ va da $-1$ a $0$. Per l'aria:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cccc}
+    \toprule
+    $M$ & $\Cr$ & $\frac{\Delta p}{\Delta p_i}=\frac{2M}{1+M}$ & $\frac{p_{x,r}}{p_{x,i}}=\Cr^2$ \\
+    \midrule
+    0,1 & $-0{,}818$ & 0,182 & 0,669 \\
+    0,2 & $-0{,}667$ & 0,333 & 0,444 \\
+    0,3 & $-0{,}538$ & 0,462 & 0,290 \\
+    0,5 & $-0{,}333$ & 0,667 & 0,111 \\
+    0,7 & $-0{,}176$ & 0,824 & 0,031 \\
+    0,9 & $-0{,}053$ & 0,947 & 0,003 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Riflessione all'ingresso per l'aria; $\Delta u/\Delta u_i=2/(1+M)$ va da 1,82 a 1,05.}
+\end{table}
+
+\figura[0.72]{coeff_riflessione.pdf}{Coefficiente di riflessione all'ingresso e variazione di pressione nella sezione
+in funzione di $M$ (aria), confrontati con velocità imposta, contorno non riflettente e pressione imposta.\label{fig:C}}
+
+La fig.~\ref{fig:C} riassume la risposta: il coefficiente sta fra $-1$ (pressione imposta, $M\to0$) e $0$ (non
+riflettente, $M\to1$), sempre negativo. La curva arancione mostra quanto della perturbazione di pressione resta nella
+sezione d'ingresso: poca a basso Mach, quasi tutta vicino a $M=1$.
+
+\section*{Un esempio numerico}
+Prendo $p_0=a_0=1$ e $M_1=0{,}3$. Dalle isentropiche
+\begin{gather*}
+  a_1=\frac{a_0}{\sqrt{1+\delta M_1^2}}=0{,}991 \ee u_1=M_1a_1=0{,}297 \\
+  p_1=p_0\left(1+\delta M_1^2\right)^{-\gamma/(\gamma-1)}=0{,}940 .
+\end{gather*}
+
+\textbf{Compressione incidente}, $p_2/p_1=1{,}1$. Attraverso la $\uma$ resta costante $\Rd$, quindi
+\begin{gather*}
+  a_2=a_1\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/(2\gamma)}=1{,}005 \ee
+  u_2=u_1-\frac{a_2-a_1}{\delta}=0{,}229 \ee p_2=1{,}033 .
+\end{gather*}
+Per lo stato 3 ho due equazioni: $a_3-\delta u_3=R_{1,2}$, portato dalle $\uma$ attraverso la riflessa, e
+$a_3^2+\delta u_3^2=a_0^2$. Sostituendo $a_3=R_{1,2}+\delta u_3$ nella seconda ho un'equazione di secondo grado:
+\begin{gather*}
+  \delta(1+\delta)\,u_3^2+2\delta R_{1,2}\,u_3+R_{1,2}^2-a_0^2=0 \\
+  \Longrightarrow\quad u_3=\frac{-\delta R_{1,2}+\sqrt{\delta(1+\delta)a_0^2-\delta R_{1,2}^2}}{\delta(1+\delta)} ,
+\end{gather*}
+con la radice positiva perché il gas entra. Ottengo
+\begin{gather*}
+  u_3=0{,}188 \ee a_3=0{,}997 \ee M_3=0{,}189 \\
+  p_3=p_0\left(\frac{a_3}{a_0}\right)^{2\gamma/(\gamma-1)}=0{,}975 .
+\end{gather*}
+La riflessa porta la pressione da $1{,}033$ a $0{,}975$: è un'espansione, e la velocità scende ancora. La portata
+cala, $\dot m_3/\dot m_1=0{,}65$. Per confronto, a pari onda incidente, un ingresso a pressione imposta ($p=p_1$)
+darebbe $u=0{,}162$ e un contorno a velocità imposta ($u=u_1$) darebbe $p=1{,}135$.
+
+\textbf{Espansione incidente}, $p_2/p_1=0{,}9$. Con lo stesso procedimento
+\begin{gather*}
+  p_2=0{,}846 \ee u_2=0{,}371 \\
+  p_3=0{,}889 \ee u_3=0{,}407 \ee M_3=0{,}413 \ee \dot m_3/\dot m_1=1{,}31 .
+\end{gather*}
+La riflessa è una compressione.
+
+Controllo subito gli stati 3. In entrambi i casi $a_3^2+\delta u_3^2=a_0^2$ e $p_{0,3}=p_0$: la condizione è
+soddisfatta, verificato. L'ingresso resta subsonico e il gas continua a entrare, $0<M_3<1$ ($0{,}189$ e $0{,}413$):
+verificato. Con un'onda debole, $p_2/p_1=1{,}0001$, il rapporto $\Delta\Rd/\Delta\Ru$ coincide con
+$\Cr(0{,}3)=-0{,}538$: verificato.
+
+Con le ampiezze dell'esempio, invece, $\Delta\Rd/\Delta\Ru$ vale $-0{,}61$ per la compressione e $-0{,}47$ per
+l'espansione, contro $\Cr(M_1)=-0{,}54$. La compressione abbassa il Mach all'ingresso e la riflessione si fa più
+intensa; l'espansione lo alza e la riflessione si indebolisce.
+
+\figura[0.72]{pu.pdf}{Piano $p$--$u$ (esempio $M_1=0{,}3$): curva del contorno $a^2+\delta u^2=a_0^2$ a $s$
+costante e confronto con pressione e velocità imposte, per un'incidente di compressione ($p_2/p_1=1{,}1$) e di
+espansione ($0{,}9$).\label{fig:pu}}
+
+Nel piano $p$--$u$ della fig.~\ref{fig:pu} lo stato 2 sta sulla curva dell'onda $\uma$ uscente da 1. Lo stato 3 è
+l'intersezione della curva della riflessa $\upa$ uscente da 2 (tratto-punto) con la curva del contorno, cioè la
+legge isentropica $p=p_0(1-\delta u^2/a_0^2)^{\gamma/(\gamma-1)}$, poco inclinata perché la sua pendenza è
+$dp/du=-\rho u$. Lo stato 3 cade dalla parte opposta di 2 rispetto a 1 in pressione: la riflessa ha natura opposta
+all'incidente. Cade fra il punto a pressione imposta (rosso) e lo stato 2, più vicino al primo: a $M_1=0{,}3$
+l'ingresso si comporta in buona parte come un estremo aperto. Le pressioni coprono un intervallo stretto, quindi
+basta la scala lineare.
+
+Restano due controlli. La riflessa di una compressione è un'espansione; quella di un'espansione è una compressione
+più debole e meno ripida ($p_{x,r}=\Cr^2p_{x,i}$), quindi l'urto non si forma vicino all'ingresso e il flusso resta
+omoentropico: verificato. Infine $a_3^2=a_0^2-\delta u_3^2>0$ per ogni ingresso subsonico: niente vuoto,
+verificato.
+
+\section*{Risposta}
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{ll}
+    \toprule
+    Grandezza & Risultato \\
+    \midrule
+    condizioni & $s$, $T_0$ costanti ($\equiv p_0$, $T_0$) \\
+    legame & $p_t=-\rho u\,u_t$, $\rho_t=p_t/a^2$ \\
+    $u_t$ & $-\frac{1}{\rho}\frac{1-M}{1+M}(p_x-\rho a\,u_x)$ \\
+    $p_t$ & $u\,\frac{1-M}{1+M}(p_x-\rho a\,u_x)$ \\
+    onda entrante & $X=\left(\frac{1-M}{1+M}\right)^2Y$ \\
+    riflessa & $\upa$, natura opposta \\
+    ampiezza & $d\Rd=-\frac{1-M}{1+M}d\Ru$ \\
+    portata & $\dot m_t/\dot m=(1-M^2)u_t/u$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Risultati, tutti esatti; $\Delta p_r\approx\Cr\,\Delta p_i$ vale per onde acustiche.}
+\end{table}
+
+\section*{Discussione}
+\textbf{Che cosa rappresenta la condizione.} $T_0$ e $s$ costanti sono l'ingresso da un grande serbatoio o
+dall'ambiente: il gas accelera dal ristagno alla sezione d'ingresso senza perdite e in modo quasi stazionario,
+quindi lì valgono istante per istante $h_0$ e $p_0$ del serbatoio. Nel tempo il legame è Bernoulli,
+$dp=-\rho u\,du$: la pressione può cambiare solo se cambia la velocità, e a basso Mach cambia poco.
+
+\textbf{Perché la natura opposta.} Al contorno sinistro una relazione lineare $\Delta u=k\,\Delta a$ dà
+\[
+  \frac{\Delta\Rd}{\Delta\Ru}=\frac{1+\delta k}{1-\delta k}.
+\]
+Con velocità imposta ($k=0$) il coefficiente è $+1$; con pressione imposta ($k\to\infty$) è $-1$; il contorno non
+riflettente ($\Rd$ costante) richiede $k=-1/\delta$. Qui $\Delta a=-\delta M\,\Delta u$, cioè $k=-1/(\delta M)$, e
+$|k|>1/\delta$ per ogni $M<1$: la riflessione ha sempre natura opposta, fra l'estremo aperto e il contorno non
+riflettente. Per l'uscita a Mach imposto (B70-E02) succedeva il contrario, con riflessione della stessa natura.
+
+\textbf{La portata.} Da $\dot m_t/\dot m=(1-M^2)\,u_t/u$, una compressione che arriva dall'interno riduce la portata
+che entra e un'espansione la aumenta: il serbatoio ``sente'' il condotto. Con $M\to1$ la portata non può più
+cambiare, perché ha raggiunto il massimo fissato da $p_0$ e $T_0$.
+
+\textbf{Confronto con altri ingressi.} Con portata ed entalpia totale imposte (B68-E02) l'entropia del gas che entra
+non è fissata e dall'ingresso parte anche un'onda di entropia. Qui l'omoentropia la esclude ($Z=0$), e l'unica onda
+entrante è la $\upa$.
+
+\textbf{Limiti di validità.} Le formule valgono finché il gas entra ed è subsonico. Nell'esempio una compressione
+con $p_2/p_1\approx1{,}27$ annulla la velocità all'ingresso: oltre, il gas rifluisce nel serbatoio, l'ingresso
+diventa un'uscita con una sola caratteristica entrante, e la condizione diventa $p=p_0$; imporre ancora $T_0$ sarebbe
+una sovraspecificazione. Un'espansione con $p_2/p_1\approx0{,}47$ porta invece l'ingresso a $M=1$. A quel punto la
+$\uma$ è verticale: lo stato resta quello critico, $a=a_0\sqrt{2/(\gamma+1)}$, e il resto dell'espansione non
+raggiunge più l'ingresso, che rimane sonico.
+
+\end{document}
